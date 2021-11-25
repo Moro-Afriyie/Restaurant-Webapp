@@ -1,0 +1,85 @@
+<div class="container">
+  <form class="form" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+    <h1 class="form__title">Place order</h1>
+    <div class="form__container">
+      <!-- <div class="form__control">
+        <label for="Foodname">Food Name</label>
+        <input
+          type="text"
+          placeholder="Enter food"
+          name="foodName"
+          id="foodname"
+          formControlName="foodName"
+        />
+      </div> -->
+      <div class="form__control">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          placeholder="Enter your name"
+          name="name"
+          id="name"
+          formControlName="name"
+        />
+      </div>
+      <div class="form__control">
+        <label for="phoneNumber">Phone Number</label>
+        <input
+          type="text"
+          placeholder="Enter Your Phone number"
+          name="phoneNumber"
+          id="phoneNumber"
+          formControlName="phoneNumber"
+        />
+      </div>
+      <div class="form__control">
+        <label for="location">Location</label>
+        <input
+          type="text"
+          placeholder="Enter Your Location"
+          name="location"
+          id="location"
+          formControlName="location"
+        />
+      </div>
+
+      <!-- <div class="form__control">
+        <label for="comment">Extra comments</label>
+        <textarea
+          type="text"
+          placeholder="Add any additional comments"
+          name="comment"
+          id="comment"
+          formControlName="comments"
+        ></textarea>
+      </div> -->
+      <div class="form__control">
+        <label for="network">Mobile Network</label>
+
+        <select
+          name="network"
+          id="network"
+          placeholder="Payment through mobile money"
+          formControlName="network"
+        >
+          <option value="MTN">MTN</option>
+          <option value="AIRTELTIGO">AIRTELTIGO</option>
+          <option value="VODAFONE">VODAFONE</option>
+        </select>
+      </div>
+
+      <div class="form__control">
+        <label for="comment">Amount</label>
+        <input
+          type="text"
+          placeholder="amount"
+          name="amount"
+          id="amount"
+          formControlName="amount"
+        />
+      </div>
+
+      <button type="submit">Place Order</button>
+    </div>
+  </form>
+</div>

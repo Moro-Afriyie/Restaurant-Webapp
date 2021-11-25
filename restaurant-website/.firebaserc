@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "restaurant-2a643": {
+      "hosting": {
+        "restaurant-website": [
+          "restaurant-2a643"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "restaurant-2a643"
+  }
+}
