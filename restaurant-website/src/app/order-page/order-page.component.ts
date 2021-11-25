@@ -30,7 +30,7 @@ export class OrderPageComponent implements OnInit {
     phoneNumber: new FormControl('', Validators.required),
     location: new FormControl('', Validators.required),
     amount: new FormControl('', Validators.required),
-    network: new FormControl('MTN', Validators.required),
+    paymentoption: new FormControl('MTN', Validators.required),
   });
 
   constructor(private router: Router, private firestore: AngularFirestore) {}
