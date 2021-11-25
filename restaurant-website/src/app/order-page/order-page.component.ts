@@ -6,8 +6,11 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
 import { Firestore, collectionData, collection } from '@angular/fire/firestore';
+import { HttpClient } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
+import { HttpHeaders } from '@angular/common/http';
 
 interface Order {
   // foodName: string;
@@ -33,8 +36,13 @@ export class OrderPageComponent implements OnInit {
     paymentoption: new FormControl('MTN', Validators.required),
   });
 
-  constructor(private router: Router, private firestore: AngularFirestore) {}
+  constructor(
+    private router: Router,
+    private firestore: AngularFirestore,
+    private http: HttpClient
+  ) {}
   number: string = '233501658639';
+  url: string = 'http://localhost:8000/api/payment';
 
   ngOnInit(): void {}
 
@@ -54,6 +62,21 @@ export class OrderPageComponent implements OnInit {
     //   '_blank'
     // );
     // this.router.navigate(['']);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'my-auth-token',
+      }),
+    };
+    const body = {
+      amount: this.orderForm.value.amount,
+      paymentoption: this.orderForm.value.paymentoption,
+      walletnumber: this.orderForm.value.phoneNumber,
+    };
+
+    this.http
+      .post(this.url, body, httpOptions)
+      .subscribe((res) => console.log(res));
     console.log(this.orderForm.value);
   }
 

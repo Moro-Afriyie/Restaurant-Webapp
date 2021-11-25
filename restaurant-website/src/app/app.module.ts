@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -42,6 +43,7 @@ import { AngularFireModule } from '@angular/fire/compat';
     // provideStorage(() => getStorage()),
     AngularFireModule.initializeApp(environment.firebase),
     // AngularFirestore,
+    HttpClientModule,
   ],
   providers: [ScreenTrackingService, UserTrackingService, AngularFirestore],
   bootstrap: [AppComponent],
