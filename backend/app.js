@@ -4,7 +4,6 @@ const request = require("request");
 const cors = require("cors");
 const https = require("https");
 const Redde = require("redde-nodejs-sdk");
-const { nextTick } = require("process");
 
 const port = process.env.PORT || 6000;
 
@@ -18,10 +17,7 @@ app.get("/", (req, res) => {
   res.send("Welcome to my api");
 });
 
-app.post("https://api.reddeonline.com/v1/receive", (req, res) => {
-  res.send("Welcome");
-});
-
+// handles post request in the api endpoint
 async function post(url, data) {
   const dataString = JSON.stringify(data);
 
