@@ -1,7 +1,10 @@
 require("dotenv").config();
 const express = require("express");
+const request = require("request");
 const cors = require("cors");
 const https = require("https");
+const Redde = require("redde-nodejs-sdk");
+const { nextTick } = require("process");
 
 const port = process.env.PORT || 6000;
 
@@ -65,13 +68,60 @@ app.post("/api/payment", async (req, res, next) => {
     walletnumber: req.body.walletnumber,
   };
 
+  //Instantiate ReddeApi class
+  const redde = new Redde(process.env.API_KEY, process.env.API_ID.toString());
+  //Generating Random Client Reference
+  var ref = redde.clientRef(6);
+  //Generating Random Client ID
+  var clientid = redde.clientID(6);
+  //Calling Receive Function
+  var receive = redde.receiveMoney(
+    parseFloat(req.body.amount).toFixed(2),
+    req.body.paymentoption,
+    req.body.walletnumber,
+    ref,
+    clientid
+  );
+
   try {
-    const data = await post("https://api.reddeonline.com/v1/receive", body);
+    const data = await post(receive.url, receive.json);
     res.send(data);
   } catch (error) {
     console.log(error);
     next();
   }
+});
+
+// app.post("/api/payment", (req, res, next) => {
+//   //Instantiate ReddeApi class
+//   const redde = new Redde(process.env.API_KEY, process.env.API_ID.toString());
+//   //Generating Random Client Reference
+//   var ref = redde.clientRef(6);
+//   //Generating Random Client ID
+//   var clientid = redde.clientID(6);
+//   //Calling Receive Function
+//   var receive = redde.receiveMoney(
+//     0.01,
+//     "VODAFONE",
+//     233501658639,
+//     ref,
+//     clientid
+//   );
+//   console.log(receive);
+//   //Sending a request to redde endpoint
+//   request.post(receive, (err, response, body) => {
+//     if (err) {
+//       return console.log(err);
+//     }
+//     console.log(JSON.parse(JSON.stringify(body)));
+//     res.send(body);
+//   });
+// });
+
+//Callback Url Endpoint
+app.post("/api/reditpayment", function (req, res) {
+  var data = req.body;
+  res.send(data);
 });
 
 app.listen(port, () => {
