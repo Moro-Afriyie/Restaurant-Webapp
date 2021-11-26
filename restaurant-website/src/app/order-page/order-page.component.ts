@@ -71,13 +71,15 @@ export class OrderPageComponent implements OnInit {
     const body = {
       amount: this.orderForm.value.amount,
       paymentoption: this.orderForm.value.paymentoption,
-      walletnumber: this.orderForm.value.phoneNumber,
+      walletnumber: `233${this.orderForm.value.phoneNumber.substring(
+        1,
+        this.orderForm.value.phoneNumbernumber
+      )}`,
     };
 
     this.http
       .post(this.url, body, httpOptions)
       .subscribe((res) => console.log(res));
-    console.log(this.orderForm.value);
   }
 
   createOrder(data: Order) {
