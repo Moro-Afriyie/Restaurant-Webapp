@@ -57,7 +57,7 @@ async function post(url, data) {
 
 app.post("/api/payment", async (req, res, next) => {
   const body = {
-    amount: parseInt(req.body.amount),
+    amount: parseFloat(req.body.amount).toFixed(2),
     appid: process.env.API_ID.toString(),
     clienttransid: "1234567890",
     nickname: process.env.NICK_NAME,
