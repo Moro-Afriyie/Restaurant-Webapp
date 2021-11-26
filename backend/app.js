@@ -120,8 +120,11 @@ app.post("/api/payment", async (req, res, next) => {
 
 //Callback Url Endpoint
 app.post("/api/reditpayment", function (req, res) {
-  var data = req.body;
-  res.send(data);
+  const data = req.body;
+  if (data.status === "FAILED")
+    return res.status(200).json({ sucess: false, data });
+  if (data.status === "PAID")
+    return res.status(200).json({ sucess: true, data });
 });
 
 app.listen(port, () => {
