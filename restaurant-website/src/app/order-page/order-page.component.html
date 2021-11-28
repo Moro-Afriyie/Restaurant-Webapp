@@ -24,7 +24,7 @@
           name="name"
           id="name"
           formControlName="name"
-          class="form__control__error"
+          [ngClass]="{ 'is-invalid': submitted && f['name'].errors }"
         />
         <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
           <div *ngIf="f['name'].errors['required']">Name is required</div>
@@ -38,6 +38,7 @@
           name="phoneNumber"
           id="phoneNumber"
           formControlName="phoneNumber"
+          [ngClass]="{ 'is-invalid': submitted && f['phoneNumber'].errors }"
         />
         <div
           *ngIf="submitted && f['phoneNumber'].errors"
@@ -59,6 +60,7 @@
           name="location"
           id="location"
           formControlName="location"
+          [ngClass]="{ 'is-invalid': submitted && f['location'].errors }"
         />
         <div *ngIf="submitted && f['location'].errors" class="invalid-feedback">
           <div *ngIf="f['location'].errors['required']">
@@ -99,6 +101,7 @@
           name="amount"
           id="amount"
           formControlName="amount"
+          [ngClass]="{ 'is-invalid': submitted && f['amount'].errors }"
         />
         <div *ngIf="submitted && f['amount'].errors" class="invalid-feedback">
           <div *ngIf="f['amount'].errors['required']">amount is required</div>
