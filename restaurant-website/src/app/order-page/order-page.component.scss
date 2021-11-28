@@ -46,6 +46,10 @@
         font-weight: bold;
         font-size: 1.2rem;
       }
+      span {
+        color: red;
+        font-size: 0.8rem;
+      }
       input,
       textarea,
       select {
@@ -60,6 +64,9 @@
       }
       textarea {
         height: 10rem;
+      }
+      .form__control__error {
+        border: 1px solid red;
       }
     }
     button {

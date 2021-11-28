@@ -30,7 +30,10 @@ interface Order {
 export class OrderPageComponent implements OnInit {
   orderForm = new FormGroup({
     name: new FormControl('', Validators.required),
-    phoneNumber: new FormControl('', Validators.required),
+    phoneNumber: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(10),
+    ]),
     location: new FormControl('', Validators.required),
     amount: new FormControl('', Validators.required),
     paymentoption: new FormControl('MTN', Validators.required),
@@ -44,6 +47,7 @@ export class OrderPageComponent implements OnInit {
   number = '233501658639';
   url = 'http://localhost:8000/api/payment';
   paymentError = false;
+  submitted = false;
 
   ngOnInit(): void {}
 
@@ -56,6 +60,11 @@ export class OrderPageComponent implements OnInit {
   //   }
 
   // }
+
+  // convenience getter for easy access to form fields
+  get f() {
+    return this.orderForm.controls;
+  }
 
   onSubmit(): void {
     // window.open(
