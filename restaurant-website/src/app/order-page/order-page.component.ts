@@ -43,6 +43,7 @@ export class OrderPageComponent implements OnInit {
   ) {}
   number: string = '233501658639';
   url: string = 'http://localhost:8000/api/payment';
+  paymentError: boolean = false;
 
   ngOnInit(): void {}
 

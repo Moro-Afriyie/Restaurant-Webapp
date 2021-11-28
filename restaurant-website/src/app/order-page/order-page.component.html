@@ -1,6 +1,10 @@
 <div class="container">
   <form class="form" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
     <h1 class="form__title">Place order</h1>
+    <div class="payment__error" *ngIf="paymentError">
+      <!-- <p>An unexpected error occured. Please try again</p> -->
+      <p>Payment didn't go through. Please try again</p>
+    </div>
     <div class="form__container">
       <!-- <div class="form__control">
         <label for="Foodname">Food Name</label>
