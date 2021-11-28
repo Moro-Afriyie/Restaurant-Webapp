@@ -41,9 +41,9 @@ export class OrderPageComponent implements OnInit {
     private firestore: AngularFirestore,
     private http: HttpClient
   ) {}
-  number: string = '233501658639';
-  url: string = 'http://localhost:8000/api/payment';
-  paymentError: boolean = false;
+  number = '233501658639';
+  url = 'http://localhost:8000/api/payment';
+  paymentError = false;
 
   ngOnInit(): void {}
 
