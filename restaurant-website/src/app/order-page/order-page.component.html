@@ -18,7 +18,6 @@
       </div> -->
       <div class="form__control">
         <label for="name">Name</label>
-        <span>name is required</span>
         <input
           type="text"
           placeholder="Enter your name"
@@ -27,6 +26,9 @@
           formControlName="name"
           class="form__control__error"
         />
+        <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+          <div *ngIf="f['name'].errors['required']">Name is required</div>
+        </div>
       </div>
       <div class="form__control">
         <label for="phoneNumber">Phone Number</label>
@@ -37,6 +39,17 @@
           id="phoneNumber"
           formControlName="phoneNumber"
         />
+        <div
+          *ngIf="submitted && f['phoneNumber'].errors"
+          class="invalid-feedback"
+        >
+          <div *ngIf="f['phoneNumber'].errors['required']">
+            phone number is required
+          </div>
+          <div *ngIf="f['phoneNumber'].errors['maxLength']">
+            phone number should have 10 characters
+          </div>
+        </div>
       </div>
       <div class="form__control">
         <label for="location">Location</label>
@@ -47,6 +60,11 @@
           id="location"
           formControlName="location"
         />
+        <div *ngIf="submitted && f['location'].errors" class="invalid-feedback">
+          <div *ngIf="f['location'].errors['required']">
+            location is required
+          </div>
+        </div>
       </div>
 
       <!-- <div class="form__control">
@@ -82,6 +100,9 @@
           id="amount"
           formControlName="amount"
         />
+        <div *ngIf="submitted && f['amount'].errors" class="invalid-feedback">
+          <div *ngIf="f['amount'].errors['required']">amount is required</div>
+        </div>
       </div>
 
       <button type="submit">Place Order</button>

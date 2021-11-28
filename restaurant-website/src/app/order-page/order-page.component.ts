@@ -72,6 +72,7 @@ export class OrderPageComponent implements OnInit {
     //   '_blank'
     // );
     // this.router.navigate(['']);
+    this.submitted = true;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
