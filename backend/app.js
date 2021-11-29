@@ -12,6 +12,7 @@ const app = express();
 app.use(cors({ origin: true }));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+require("./startup/prod")(app);
 
 app.get("/", (req, res) => {
   res.send("Welcome to my api");
