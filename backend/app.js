@@ -55,15 +55,6 @@ async function post(url, data) {
 }
 
 app.post("/api/payment", async (req, res, next) => {
-  const body = {
-    amount: parseFloat(req.body.amount).toFixed(2),
-    appid: process.env.API_ID.toString(),
-    clienttransid: "1234567890",
-    nickname: process.env.NICK_NAME,
-    paymentoption: req.body.paymentoption,
-    walletnumber: req.body.walletnumber,
-  };
-
   //Instantiate ReddeApi class
   const redde = new Redde(process.env.API_KEY, process.env.API_ID.toString());
   //Generating Random Client Reference
