@@ -45,7 +45,7 @@ export class OrderPageComponent implements OnInit {
     private http: HttpClient
   ) {}
   number = '233501658639';
-  url = 'http://localhost:8000/api/payment';
+  url = 'https://restaurant-payment-backend.herokuapp.com/api/payment';
   paymentError = false;
   submitted = false;
 
