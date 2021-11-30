@@ -1,11 +1,10 @@
 <div class="container">
+  <div class="payment__error" *ngIf="paymentError">
+    <span class="material-icons"> info </span>
+    <p>{{ error }}</p>
+  </div>
   <form class="form" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
     <h1 class="form__title">Place order</h1>
-    <div class="payment__error" *ngIf="paymentError">
-      <!-- <p>An unexpected error occured. Please try again</p> -->
-      <span class="material-icons"> info </span>
-      <p>{{ error }}</p>
-    </div>
     <div class="form__container">
       <!-- <div class="form__control">
         <label for="Foodname">Food Name</label>
