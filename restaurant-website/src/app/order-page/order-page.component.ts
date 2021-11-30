@@ -22,6 +22,16 @@ interface Order {
   extraComments?: string;
 }
 
+interface PaymentResponse {
+  status: string;
+  reason: string;
+  transactionid: number;
+  clienttransid: string;
+  clientreference: string | null;
+  statusdate: string;
+  brandtransid: string | null;
+}
+
 @Component({
   selector: 'app-order-page',
   templateUrl: './order-page.component.html',
@@ -48,6 +58,7 @@ export class OrderPageComponent implements OnInit {
   url = 'https://restaurant-payment-backend.herokuapp.com/api/payment';
   paymentError = false;
   submitted = false;
+  error = 'An unexpected error occured. Please try again';
 
   ngOnInit(): void {}
 
@@ -94,8 +105,14 @@ export class OrderPageComponent implements OnInit {
     };
 
     this.http
-      .post(this.url, body, httpOptions)
-      .subscribe((res) => console.log(res));
+      .post<PaymentResponse>(this.url, body, httpOptions)
+      .subscribe((res: PaymentResponse) => {
+        console.log(res);
+        if (res.status === 'FAILED') {
+          this.paymentError = true;
+          this.error = res.reason;
+        }
+      });
   }
 
   createOrder(data: Order) {
