@@ -1,7 +1,10 @@
 <div class="container">
   <div class="payment__error" *ngIf="paymentError">
-    <span class="material-icons"> info </span>
-    <p>{{ error }}</p>
+    <div class="info">
+      <span class="material-icons"> info </span>
+      <p>{{ error }}</p>
+    </div>
+    <span class="material-icons close" (click)="onClose()"> close </span>
   </div>
   <form class="form" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
     <h1 class="form__title">Place order</h1>

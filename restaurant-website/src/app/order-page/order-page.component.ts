@@ -56,7 +56,7 @@ export class OrderPageComponent implements OnInit {
   ) {}
   number = '233501658639';
   url = 'https://restaurant-payment-backend.herokuapp.com/api/payment';
-  paymentError = true;
+  paymentError = false;
   submitted = false;
   error = 'An unexpected error occured. Please try again';
 
@@ -129,5 +129,9 @@ export class OrderPageComponent implements OnInit {
           (err) => reject(err)
         );
     });
+  }
+
+  onClose(): void {
+    this.paymentError = false;
   }
 }
