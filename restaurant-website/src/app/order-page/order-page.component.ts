@@ -57,8 +57,10 @@ export class OrderPageComponent implements OnInit {
   number = '233501658639';
   url = 'https://restaurant-payment-backend.herokuapp.com/api/payment';
   paymentError = false;
+  paymentSuccess = false;
   submitted = false;
   error = 'An unexpected error occured. Please try again';
+  success = 'Successfully processed transaction.';
 
   ngOnInit(): void {}
 
@@ -109,6 +111,7 @@ export class OrderPageComponent implements OnInit {
         console.log(res);
         if (res.status === 'FAILED') {
           this.paymentError = true;
+          this.paymentSuccess = false;
           this.error = res.reason;
           setTimeout(() => {
             this.paymentError = false;
@@ -133,5 +136,6 @@ export class OrderPageComponent implements OnInit {
 
   onClose(): void {
     this.paymentError = false;
+    this.paymentSuccess = false;
   }
 }
