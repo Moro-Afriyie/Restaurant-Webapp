@@ -86,7 +86,6 @@ export class OrderPageComponent implements OnInit {
     // );
     // this.router.navigate(['']);
     this.submitted = true;
-
     if (this.orderForm.invalid) {
       return;
     }
