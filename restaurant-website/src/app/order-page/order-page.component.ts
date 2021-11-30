@@ -13,7 +13,6 @@ import { catchError, retry } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 
 interface Order {
-  // foodName: string;
   name: string;
   phoneNumber: string;
   location: string;
@@ -115,6 +114,9 @@ export class OrderPageComponent implements OnInit {
           setTimeout(() => {
             this.paymentError = false;
           }, 5000);
+        } else {
+          this.paymentError = false;
+          this.paymentSuccess = true;
         }
       });
   }
