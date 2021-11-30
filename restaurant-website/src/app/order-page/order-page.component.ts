@@ -111,6 +111,9 @@ export class OrderPageComponent implements OnInit {
         if (res.status === 'FAILED') {
           this.paymentError = true;
           this.error = res.reason;
+          setTimeout(() => {
+            this.paymentError = false;
+          }, 5000);
         }
       });
   }
