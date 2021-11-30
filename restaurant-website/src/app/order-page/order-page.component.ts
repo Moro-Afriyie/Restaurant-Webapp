@@ -56,7 +56,7 @@ export class OrderPageComponent implements OnInit {
   ) {}
   number = '233501658639';
   url = 'https://restaurant-payment-backend.herokuapp.com/api/payment';
-  paymentError = false;
+  paymentError = true;
   submitted = false;
   error = 'An unexpected error occured. Please try again';
 
@@ -92,7 +92,6 @@ export class OrderPageComponent implements OnInit {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: 'my-auth-token',
       }),
     };
     const body = {
