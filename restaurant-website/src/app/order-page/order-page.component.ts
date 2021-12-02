@@ -73,10 +73,6 @@ export class OrderPageComponent implements OnInit {
   success = 'Successfully processed transaction.';
 
   ngOnInit(): void {
-    // this.socketService.PaymentResponse();
-    // this.socketService
-    //   .OnGetPaymentResponse()
-    //   .subscribe((data: any) => console.log('data', data));
     this.socket.on('notification', (res: any) => {
       this.data = res.data;
       console.log(this.data);
@@ -99,11 +95,6 @@ export class OrderPageComponent implements OnInit {
   }
 
   onSubmit(): void {
-    // window.open(
-    //   `https://wa.me/${this.number}?text=name%3A%20${this.orderForm.value.name}%20%0APhone%20Number%3A%20${this.orderForm.value.phoneNumber}%20%0Alocation%3A%20${this.orderForm.value.location}`,
-    //   '_blank'
-    // );
-    // this.router.navigate(['']);
     this.submitted = true;
     if (this.orderForm.invalid) {
       return;
@@ -140,10 +131,10 @@ export class OrderPageComponent implements OnInit {
           if (this.data.status === 'FAILED') {
             this.paymentError = true;
             this.paymentSuccess = false;
+            this.error = this.data.reason;
           } else if (this.data.status === 'PAID') {
             this.paymentError = false;
             this.paymentSuccess = true;
-            this.error = this.data.reason;
           }
 
           // setTimeout(() => {
@@ -153,11 +144,6 @@ export class OrderPageComponent implements OnInit {
           //   );
           //   // this.router.navigate(['']);
           // }, 2000);
-
-          // this.socketService.PaymentResponse();
-          // this.socketService
-          //   .OnGetPaymentResponse()
-          //   .subscribe((data: any) => console.log('data2: ', data));
         }
       });
   }
