@@ -51,12 +51,17 @@ export class OrderPageComponent implements OnInit {
     paymentoption: new FormControl('MTN', Validators.required),
   });
 
+  private socket: any;
+  public data: any;
+
   constructor(
     private router: Router,
     private firestore: AngularFirestore,
     private http: HttpClient,
     private socketService: SocketService
-  ) {}
+  ) {
+    this.socket = io('http://127.0.0.1:8000');
+  }
   number = '233501658639';
   // url = 'https://restaurant-payment-backend.herokuapp.com/api/payment';
   url = 'http://localhost:8000/api/payment';
@@ -67,10 +72,14 @@ export class OrderPageComponent implements OnInit {
   success = 'Successfully processed transaction.';
 
   ngOnInit(): void {
-    this.socketService.PaymentResponse();
-    this.socketService
-      .OnGetPaymentResponse()
-      .subscribe((data: any) => console.log('data', data));
+    // this.socketService.PaymentResponse();
+    // this.socketService
+    //   .OnGetPaymentResponse()
+    //   .subscribe((data: any) => console.log('data', data));
+    this.socket.on('notification', (res: any) => {
+      this.data = res.data;
+      console.log(this.data);
+    });
   }
 
   // async onSubmit(): Promise<void> {
@@ -134,9 +143,11 @@ export class OrderPageComponent implements OnInit {
           //   );
           //   // this.router.navigate(['']);
           // }, 2000);
-          this.socketService
-            .OnGetPaymentResponse()
-            .subscribe((data: any) => console.log('data2: ', data));
+
+          // this.socketService.PaymentResponse();
+          // this.socketService
+          //   .OnGetPaymentResponse()
+          //   .subscribe((data: any) => console.log('data2: ', data));
         }
       });
   }
