@@ -17,12 +17,4 @@ export class SocketService {
   OnGetPaymentResponse(): any {
     return this.socket.fromEvent('paymentResponse');
   }
-
-  setPaymentSuccess(data: boolean) {
-    this.success = data;
-  }
-
-  onGetPaymentSuccess(): boolean {
-    return this.success;
-  }
 }

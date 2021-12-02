@@ -68,6 +68,7 @@ export class OrderPageComponent implements OnInit {
   error = 'Payment was not successful. Please try again';
   success = 'Successfully processed transaction.';
   paymentLoading = false;
+  number = '233501658639';
 
   ngOnInit(): void {
     this.socket.on('notification', (res: any) => {
@@ -77,7 +78,7 @@ export class OrderPageComponent implements OnInit {
         this.paymentError = true;
         this.paymentSuccess = false;
         this.paymentLoading = false;
-        this.socketService.setPaymentSuccess(true);
+        console.log(this.orderForm.value);
         setTimeout(() => {
           this.paymentError = false;
         }, 4000);
@@ -87,13 +88,11 @@ export class OrderPageComponent implements OnInit {
         this.paymentLoading = false;
         setTimeout(() => {
           this.paymentSuccess = false;
-          this.socketService.setPaymentSuccess(true);
-          //   window.open(
-          //     `https://wa.me/${this.number}?text=name%3A%20${this.orderForm.value.name}%20%0APhone%20Number%3A%20${this.orderForm.value.phoneNumber}%20%0Alocation%3A%20${this.orderForm.value.location}`,
-          //     '_blank'
-          //   );
-          //   // this.router.navigate(['']);
-        }, 2000);
+          window.open(
+            `https://wa.me/${this.number}?text=name%3A%20${this.orderForm.value.name}%20%0APhone%20Number%3A%20${this.orderForm.value.phoneNumber}%20%0Alocation%3A%20${this.orderForm.value.location}`,
+            '_blank'
+          );
+        }, 3000);
       }
     });
   }
@@ -148,10 +147,6 @@ export class OrderPageComponent implements OnInit {
           }, 4000);
         }
       });
-    // if(this.paymentSuccess){
-
-    // }
-    console.log('payment success: ', this.socketService.onGetPaymentSuccess());
   }
 
   createOrder(data: Order) {
