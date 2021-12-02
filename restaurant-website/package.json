@@ -19,10 +19,12 @@
     "@angular/platform-browser": "~13.0.0",
     "@angular/platform-browser-dynamic": "~13.0.0",
     "@angular/router": "~13.0.0",
-    "rxjs": "~7.4.0",
-    "tslib": "^2.3.0",
     "firebase": "^9.4.0",
-    "rxfire": "^6.0.0"
+    "ngx-socket-io": "^4.1.0",
+    "rxfire": "^6.0.0",
+    "rxjs": "~7.4.0",
+    "socket.io-client": "^4.4.0",
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~13.0.1",

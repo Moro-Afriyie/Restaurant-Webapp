@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -11,6 +12,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
+import { SocketService } from '../services/socket-service.service';
+import { io } from 'socket.io-client';
 
 interface Order {
   name: string;
@@ -51,17 +54,24 @@ export class OrderPageComponent implements OnInit {
   constructor(
     private router: Router,
     private firestore: AngularFirestore,
-    private http: HttpClient
+    private http: HttpClient,
+    private socketService: SocketService
   ) {}
   number = '233501658639';
-  url = 'https://restaurant-payment-backend.herokuapp.com/api/payment';
+  // url = 'https://restaurant-payment-backend.herokuapp.com/api/payment';
+  url = 'http://localhost:8000/api/payment';
   paymentError = false;
   paymentSuccess = false;
   submitted = false;
   error = 'An unexpected error occured. Please try again';
   success = 'Successfully processed transaction.';
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.socketService.PaymentResponse();
+    this.socketService
+      .OnGetPaymentResponse()
+      .subscribe((data: any) => console.log('data', data));
+  }
 
   // async onSubmit(): Promise<void> {
   //   try {
@@ -117,6 +127,16 @@ export class OrderPageComponent implements OnInit {
         } else {
           this.paymentError = false;
           this.paymentSuccess = true;
+          // setTimeout(() => {
+          //   window.open(
+          //     `https://wa.me/${this.number}?text=name%3A%20${this.orderForm.value.name}%20%0APhone%20Number%3A%20${this.orderForm.value.phoneNumber}%20%0Alocation%3A%20${this.orderForm.value.location}`,
+          //     '_blank'
+          //   );
+          //   // this.router.navigate(['']);
+          // }, 2000);
+          this.socketService
+            .OnGetPaymentResponse()
+            .subscribe((data: any) => console.log('data2: ', data));
         }
       });
   }
