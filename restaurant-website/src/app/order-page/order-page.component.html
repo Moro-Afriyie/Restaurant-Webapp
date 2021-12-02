@@ -13,6 +13,10 @@
     </div>
     <span class="material-icons close" (click)="onClose()"> close </span>
   </div>
+  <div class="payment__loading" *ngIf="paymentLoading">
+    <div class="loader"></div>
+    <p>Processing payment...</p>
+  </div>
   <form class="form" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
     <h1 class="form__title">Place order</h1>
     <div class="form__container">

@@ -66,6 +66,7 @@ export class OrderPageComponent implements OnInit {
   submitted = false;
   error = 'An unexpected error occured. Please try again';
   success = 'Successfully processed transaction.';
+  paymentLoading = true;
 
   ngOnInit(): void {
     this.socket.on('notification', (res: any) => {
