@@ -60,11 +60,12 @@ export class OrderPageComponent implements OnInit {
     private http: HttpClient,
     private socketService: SocketService
   ) {
-    this.socket = io('http://127.0.0.1:8000');
+    // this.socket = io('http://127.0.0.1:8000');
+    this.socket = io('https://restaurant-payment-backend.herokuapp.com');
   }
   number = '233501658639';
-  // url = 'https://restaurant-payment-backend.herokuapp.com/api/payment';
-  url = 'http://localhost:8000/api/payment';
+  url = 'https://restaurant-payment-backend.herokuapp.com/api/payment';
+  // url = 'http://localhost:8000/api/payment';
   paymentError = false;
   paymentSuccess = false;
   submitted = false;
@@ -136,6 +137,15 @@ export class OrderPageComponent implements OnInit {
         } else {
           this.paymentError = false;
           this.paymentSuccess = true;
+          if (this.data.status === 'FAILED') {
+            this.paymentError = true;
+            this.paymentSuccess = false;
+          } else if (this.data.status === 'PAID') {
+            this.paymentError = false;
+            this.paymentSuccess = true;
+            this.error = this.data.reason;
+          }
+
           // setTimeout(() => {
           //   window.open(
           //     `https://wa.me/${this.number}?text=name%3A%20${this.orderForm.value.name}%20%0APhone%20Number%3A%20${this.orderForm.value.phoneNumber}%20%0Alocation%3A%20${this.orderForm.value.location}`,
