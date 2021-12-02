@@ -73,12 +73,10 @@ export class OrderPageComponent implements OnInit {
   ngOnInit(): void {
     this.socket.on('notification', (res: any) => {
       this.data = res.data;
-      console.log('data: ', this.data);
       if (this.data.status === 'FAILED') {
         this.paymentError = true;
         this.paymentSuccess = false;
         this.paymentLoading = false;
-        console.log(this.orderForm.value);
         setTimeout(() => {
           this.paymentError = false;
         }, 4000);
@@ -135,7 +133,6 @@ export class OrderPageComponent implements OnInit {
     this.http
       .post<PaymentResponse>(this.url, body, httpOptions)
       .subscribe((res: PaymentResponse) => {
-        console.log(res);
         this.paymentLoading = true;
         if (res.status === 'FAILED') {
           this.paymentError = true;
