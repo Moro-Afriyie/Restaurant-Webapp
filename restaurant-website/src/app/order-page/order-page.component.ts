@@ -1,4 +1,4 @@
-import { environment } from './../../environments/environment';
+import { SocketService } from './../services/socket-service.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -56,7 +56,8 @@ export class OrderPageComponent implements OnInit {
   constructor(
     private router: Router,
     private firestore: AngularFirestore,
-    private http: HttpClient
+    private http: HttpClient,
+    private socketService: SocketService
   ) {
     this.socket = io('https://restaurant-payment-backend.herokuapp.com');
   }
@@ -64,9 +65,9 @@ export class OrderPageComponent implements OnInit {
   paymentError = false;
   paymentSuccess = false;
   submitted = false;
-  error = 'An unexpected error occured. Please try again';
+  error = 'Payment was not successful. Please try again';
   success = 'Successfully processed transaction.';
-  paymentLoading = true;
+  paymentLoading = false;
 
   ngOnInit(): void {
     this.socket.on('notification', (res: any) => {
@@ -75,10 +76,24 @@ export class OrderPageComponent implements OnInit {
       if (this.data.status === 'FAILED') {
         this.paymentError = true;
         this.paymentSuccess = false;
-        this.error = this.data.reason;
+        this.paymentLoading = false;
+        this.socketService.setPaymentSuccess(true);
+        setTimeout(() => {
+          this.paymentError = false;
+        }, 4000);
       } else if (this.data.status === 'PAID') {
         this.paymentError = false;
         this.paymentSuccess = true;
+        this.paymentLoading = false;
+        setTimeout(() => {
+          this.paymentSuccess = false;
+          this.socketService.setPaymentSuccess(true);
+          //   window.open(
+          //     `https://wa.me/${this.number}?text=name%3A%20${this.orderForm.value.name}%20%0APhone%20Number%3A%20${this.orderForm.value.phoneNumber}%20%0Alocation%3A%20${this.orderForm.value.location}`,
+          //     '_blank'
+          //   );
+          //   // this.router.navigate(['']);
+        }, 2000);
       }
     });
   }
@@ -122,25 +137,21 @@ export class OrderPageComponent implements OnInit {
       .post<PaymentResponse>(this.url, body, httpOptions)
       .subscribe((res: PaymentResponse) => {
         console.log(res);
+        this.paymentLoading = true;
         if (res.status === 'FAILED') {
           this.paymentError = true;
           this.paymentSuccess = false;
+          this.paymentLoading = false;
           this.error = res.reason;
           setTimeout(() => {
             this.paymentError = false;
-          }, 5000);
-        } else {
-          // this.paymentError = false;
-          // this.paymentSuccess = true;
-          // setTimeout(() => {
-          //   window.open(
-          //     `https://wa.me/${this.number}?text=name%3A%20${this.orderForm.value.name}%20%0APhone%20Number%3A%20${this.orderForm.value.phoneNumber}%20%0Alocation%3A%20${this.orderForm.value.location}`,
-          //     '_blank'
-          //   );
-          //   // this.router.navigate(['']);
-          // }, 2000);
+          }, 4000);
         }
       });
+    // if(this.paymentSuccess){
+
+    // }
+    console.log('payment success: ', this.socketService.onGetPaymentSuccess());
   }
 
   createOrder(data: Order) {
