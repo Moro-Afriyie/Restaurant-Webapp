@@ -12,7 +12,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
-import { SocketService } from '../services/socket-service.service';
 import { io } from 'socket.io-client';
 
 interface Order {
@@ -57,15 +56,11 @@ export class OrderPageComponent implements OnInit {
   constructor(
     private router: Router,
     private firestore: AngularFirestore,
-    private http: HttpClient,
-    private socketService: SocketService
+    private http: HttpClient
   ) {
-    // this.socket = io('http://127.0.0.1:8000');
     this.socket = io('https://restaurant-payment-backend.herokuapp.com');
   }
-  number = '233501658639';
   url = 'https://restaurant-payment-backend.herokuapp.com/api/payment';
-  // url = 'http://localhost:8000/api/payment';
   paymentError = false;
   paymentSuccess = false;
   submitted = false;
@@ -75,7 +70,15 @@ export class OrderPageComponent implements OnInit {
   ngOnInit(): void {
     this.socket.on('notification', (res: any) => {
       this.data = res.data;
-      console.log(this.data);
+      console.log('data: ', this.data);
+      if (this.data.status === 'FAILED') {
+        this.paymentError = true;
+        this.paymentSuccess = false;
+        this.error = this.data.reason;
+      } else if (this.data.status === 'PAID') {
+        this.paymentError = false;
+        this.paymentSuccess = true;
+      }
     });
   }
 
@@ -126,17 +129,8 @@ export class OrderPageComponent implements OnInit {
             this.paymentError = false;
           }, 5000);
         } else {
-          this.paymentError = false;
-          this.paymentSuccess = true;
-          if (this.data.status === 'FAILED') {
-            this.paymentError = true;
-            this.paymentSuccess = false;
-            this.error = this.data.reason;
-          } else if (this.data.status === 'PAID') {
-            this.paymentError = false;
-            this.paymentSuccess = true;
-          }
-
+          // this.paymentError = false;
+          // this.paymentSuccess = true;
           // setTimeout(() => {
           //   window.open(
           //     `https://wa.me/${this.number}?text=name%3A%20${this.orderForm.value.name}%20%0APhone%20Number%3A%20${this.orderForm.value.phoneNumber}%20%0Alocation%3A%20${this.orderForm.value.location}`,
