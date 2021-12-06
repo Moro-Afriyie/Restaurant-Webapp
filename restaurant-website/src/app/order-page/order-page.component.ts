@@ -46,7 +46,7 @@ export class OrderPageComponent implements OnInit {
       Validators.maxLength(10),
     ]),
     location: new FormControl('', Validators.required),
-    amount: new FormControl('', Validators.required),
+    amount: new FormControl('80', Validators.required),
     paymentoption: new FormControl('MTN', Validators.required),
   });
 
@@ -90,6 +90,7 @@ export class OrderPageComponent implements OnInit {
             `https://wa.me/${this.number}?text=name%3A%20${this.orderForm.value.name}%20%0APhone%20Number%3A%20${this.orderForm.value.phoneNumber}%20%0Alocation%3A%20${this.orderForm.value.location}`,
             '_blank'
           );
+          this.router.navigate(['']);
         }, 3000);
       }
     });

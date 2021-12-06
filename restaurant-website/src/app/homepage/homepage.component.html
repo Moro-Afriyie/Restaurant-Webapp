@@ -56,72 +56,17 @@
       <h1>Our Menu</h1>
       <!--WILL EDIT THIS SECTION-->
       <div class="menu__container">
-        <div class="menu__meal__card">
+        <!----CARD-->
+        <div class="menu__meal__card" *ngFor="let item of foodArray">
           <div class="card__image">
-            <img src="../../assets/pizza2.jpg" alt="pizza" />
+            <img src="{{ item.image }}" alt="{{ item.alt }}" />
           </div>
           <div class="card__body">Lorem ipsum dolor sit amet consectetur</div>
           <div class="card__price">
-            <h4>GHS 80.00</h4>
+            <h4>{{ "GHS " + item.price }}</h4>
             <button (click)="onProceedToOrderPage()">order now</button>
           </div>
         </div>
-        <!----CARD-->
-        <div class="menu__meal__card">
-          <div class="card__image">
-            <img src="../../assets/pizza2.jpg" alt="pizza" />
-          </div>
-          <div class="card__body">Lorem ipsum dolor sit amet consectetur</div>
-          <div class="card__price">
-            <h4>GHS 80.00</h4>
-            <button (click)="onProceedToOrderPage()">order now</button>
-          </div>
-        </div>
-        <!----CARD-->
-        <div class="menu__meal__card">
-          <div class="card__image">
-            <img src="../../assets/pizza2.jpg" alt="pizza" />
-          </div>
-          <div class="card__body">Lorem ipsum dolor sit amet consectetur</div>
-          <div class="card__price">
-            <h4>GHS 80.00</h4>
-            <button (click)="onProceedToOrderPage()">order now</button>
-          </div>
-        </div>
-        <!----CARD-->
-        <div class="menu__meal__card">
-          <div class="card__image">
-            <img src="../../assets/pizza2.jpg" alt="pizza" />
-          </div>
-          <div class="card__body">Lorem ipsum dolor sit amet consectetur</div>
-          <div class="card__price">
-            <h4>GHS 80.00</h4>
-            <button (click)="onProceedToOrderPage()">order now</button>
-          </div>
-        </div>
-        <!----CARD-->
-        <div class="menu__meal__card">
-          <div class="card__image">
-            <img src="../../assets/pizza2.jpg" alt="pizza" />
-          </div>
-          <div class="card__body">Lorem ipsum dolor sit amet consectetur</div>
-          <div class="card__price">
-            <h4>GHS 80.00</h4>
-            <button (click)="onProceedToOrderPage()">order now</button>
-          </div>
-        </div>
-        <!----CARD-->
-        <div class="menu__meal__card">
-          <div class="card__image">
-            <img src="../../assets/pizza2.jpg" alt="pizza" />
-          </div>
-          <div class="card__body">Lorem ipsum dolor sit amet consectetur</div>
-          <div class="card__price">
-            <h4>GHS 80.00</h4>
-            <button (click)="onProceedToOrderPage()">order now</button>
-          </div>
-        </div>
-        <!----CARD-->
       </div>
     </div>
   </div>

@@ -116,6 +116,7 @@
           id="amount"
           formControlName="amount"
           [ngClass]="{ 'is-invalid': submitted && f['amount'].errors }"
+          readonly
         />
         <div *ngIf="submitted && f['amount'].errors" class="invalid-feedback">
           <div *ngIf="f['amount'].errors['required']">amount is required</div>
