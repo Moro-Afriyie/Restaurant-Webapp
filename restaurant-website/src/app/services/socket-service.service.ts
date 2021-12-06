@@ -7,6 +7,50 @@ import { Socket } from 'ngx-socket-io';
 export class SocketService {
   constructor(private socket: Socket) {}
   success: boolean = false;
+  foodArray = [
+    {
+      id: 1,
+      body: 'Lorem ipsum dolor sit amet consectetur',
+      image: '../../assets/pizza2.jpg',
+      alt: 'pizza',
+      price: '80.00',
+    },
+    {
+      id: 2,
+      body: 'Lorem ipsum dolor sit amet consectetur',
+      image: '../../assets/pizza2.jpg',
+      alt: 'pizza',
+      price: '40.00',
+    },
+    {
+      id: 3,
+      body: 'Lorem ipsum dolor sit amet consectetur',
+      image: '../../assets/pizza2.jpg',
+      alt: 'pizza',
+      price: '30.00',
+    },
+    {
+      id: 4,
+      body: 'Lorem ipsum dolor sit amet consectetur',
+      image: '../../assets/pizza2.jpg',
+      alt: 'pizza',
+      price: '50.00',
+    },
+    {
+      id: 5,
+      body: 'Lorem ipsum dolor sit amet consectetur',
+      image: '../../assets/pizza2.jpg',
+      alt: 'pizza',
+      price: '70.00',
+    },
+    {
+      id: 6,
+      body: 'Lorem ipsum dolor sit amet consectetur',
+      image: '../../assets/pizza2.jpg',
+      alt: 'pizza',
+      price: '30.00',
+    },
+  ];
 
   // emit event
   PaymentResponse() {
@@ -16,5 +60,13 @@ export class SocketService {
   // listen event
   OnGetPaymentResponse(): any {
     return this.socket.fromEvent('paymentResponse');
+  }
+
+  getFoodByID(id: number): any {
+    return this.foodArray.filter((item) => item.id === id)[0];
+  }
+
+  getAllFoods(): any {
+    return this.foodArray;
   }
 }
