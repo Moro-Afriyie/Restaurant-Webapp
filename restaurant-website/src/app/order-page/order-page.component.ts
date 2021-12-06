@@ -1,5 +1,5 @@
 import { SocketService } from './../services/socket-service.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
@@ -46,7 +46,7 @@ export class OrderPageComponent implements OnInit {
       Validators.maxLength(10),
     ]),
     location: new FormControl('', Validators.required),
-    amount: new FormControl('80', Validators.required),
+    amount: new FormControl('', Validators.required),
     paymentoption: new FormControl('MTN', Validators.required),
   });
 
@@ -57,7 +57,8 @@ export class OrderPageComponent implements OnInit {
     private router: Router,
     private firestore: AngularFirestore,
     private http: HttpClient,
-    private socketService: SocketService
+    private socketService: SocketService,
+    private route: ActivatedRoute
   ) {
     this.socket = io('https://restaurant-payment-backend.herokuapp.com');
   }
@@ -71,6 +72,14 @@ export class OrderPageComponent implements OnInit {
   number = '233501658639';
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe((params) => {
+      const id: any = params.get('id');
+      const data: any = this.socketService.getFoodByID(parseInt(id));
+      this.orderForm.patchValue({
+        amount: data.price,
+      });
+    });
+
     this.socket.on('notification', (res: any) => {
       this.data = res.data;
       if (this.data.status === 'FAILED') {
@@ -113,6 +122,7 @@ export class OrderPageComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
+    console.log(this.orderForm.value);
     if (this.orderForm.invalid) {
       return;
     }

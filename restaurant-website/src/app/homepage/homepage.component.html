@@ -64,7 +64,7 @@
           <div class="card__body">Lorem ipsum dolor sit amet consectetur</div>
           <div class="card__price">
             <h4>{{ "GHS " + item.price }}</h4>
-            <button (click)="onProceedToOrderPage()">order now</button>
+            <button (click)="onProceedToOrderPage(item.id)">order now</button>
           </div>
         </div>
       </div>

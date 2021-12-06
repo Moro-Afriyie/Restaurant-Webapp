@@ -17,7 +17,7 @@ export class HomepageComponent implements OnInit {
     this.foodArray = this.socketService.getAllFoods();
   }
 
-  onProceedToOrderPage(): void {
-    this.router.navigate(['/orders']);
+  onProceedToOrderPage(id: number): void {
+    this.router.navigate(['/orders', id]);
   }
 }
