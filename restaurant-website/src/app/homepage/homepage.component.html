@@ -33,13 +33,13 @@
         </div>
       </div>
       <div class="body__intro__right">
-        <img src="../../assets/pizza.png" alt="pizza" />
+        <img src="../../assets/beans and egg.jpg" alt="beans and egg" />
       </div>
     </div>
     <div class="body__middle">
       <div class="body__intro">
         <div class="body__intro__right">
-          <img src="../../assets/pizza.png" alt="pizza" />
+          <img src="../../assets/beans and egg.jpg" alt="beans and egg" />
         </div>
         <div class="body__intro__left">
           <h1>Nothing brings people together like good food</h1>
@@ -59,7 +59,7 @@
           <div class="card__image">
             <img src="{{ item.image }}" alt="{{ item.alt }}" />
           </div>
-          <div class="card__body">Lorem ipsum dolor sit amet consectetur</div>
+          <div class="card__body">{{ item.body }}</div>
           <div class="card__price">
             <h4>{{ "GHS " + item.price }}</h4>
             <button (click)="onProceedToOrderPage(item.id)">order now</button>
