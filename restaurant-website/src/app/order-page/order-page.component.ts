@@ -74,7 +74,8 @@ export class OrderPageComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const id: any = params.get('id');
-      const data: any = this.socketService.getFoodByID(parseInt(id));
+      const data: any = this.socketService.getFoodByID(id);
+      console.log(data);
       this.orderForm.patchValue({
         amount: data.price,
       });
