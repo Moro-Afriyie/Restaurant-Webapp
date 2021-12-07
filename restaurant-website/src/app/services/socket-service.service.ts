@@ -5,7 +5,7 @@ import { Socket } from 'ngx-socket-io';
   providedIn: 'root',
 })
 export class SocketService {
-  constructor(private socket: Socket) {}
+  constructor() {}
   success: boolean = false;
   foodArray = [
     {
@@ -51,16 +51,6 @@ export class SocketService {
       price: '30.00',
     },
   ];
-
-  // emit event
-  PaymentResponse() {
-    this.socket.emit('paymentResponse');
-  }
-
-  // listen event
-  OnGetPaymentResponse(): any {
-    return this.socket.fromEvent('paymentResponse');
-  }
 
   getFoodByID(id: number): any {
     return this.foodArray.filter((item) => item.id === id)[0];

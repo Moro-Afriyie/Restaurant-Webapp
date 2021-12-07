@@ -28,14 +28,7 @@ import {
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
-import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
-const config: SocketIoConfig = {
-  url: environment.socketUrl, // socket server url;
-  options: {
-    transports: ['websocket'],
-  },
-};
 
 @NgModule({
   declarations: [AppComponent, HomepageComponent, OrderPageComponent],
@@ -52,7 +45,6 @@ const config: SocketIoConfig = {
     AngularFireModule.initializeApp(environment.firebase),
     // AngularFirestore,
     HttpClientModule,
-    SocketIoModule.forRoot(config),
   ],
   providers: [ScreenTrackingService, UserTrackingService, AngularFirestore],
   bootstrap: [AppComponent],
