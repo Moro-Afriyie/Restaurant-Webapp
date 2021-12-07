@@ -52,11 +52,11 @@ export class SocketService {
     },
   ];
 
-  getFoodByID(id: string): any {
+  getFoodByID(id: string): Food {
     return this.foodArray.filter((item) => item.id === id)[0];
   }
 
-  getAllFoods(): any {
+  getAllFoods(): Food[] {
     return this.foodArray;
   }
 }
