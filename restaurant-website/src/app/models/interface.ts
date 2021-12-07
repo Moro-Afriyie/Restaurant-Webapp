@@ -5,6 +5,7 @@ export interface Order {
   paymentoption: string;
   amount: string;
   extraComments?: string;
+  numberOfPacks: string;
 }
 
 export interface PaymentResponse {

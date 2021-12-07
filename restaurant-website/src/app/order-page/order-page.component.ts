@@ -30,6 +30,7 @@ export class OrderPageComponent implements OnInit {
     location: new FormControl('', Validators.required),
     amount: new FormControl('', Validators.required),
     paymentoption: new FormControl('MTN', Validators.required),
+    numberOfPacks: new FormControl('1', Validators.required),
   });
 
   private socket: any;
@@ -57,7 +58,6 @@ export class OrderPageComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       const id: any = params.get('id');
       const data: Food = this.socketService.getFoodByID(id);
-      console.log(data);
       this.orderForm.patchValue({
         amount: data.price,
       });
@@ -106,7 +106,14 @@ export class OrderPageComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
-    console.log(this.orderForm.value);
+
+    this.orderForm.patchValue({
+      amount: (
+        parseFloat(this.orderForm.value.amount) *
+        parseInt(this.orderForm.value.numberOfPacks)
+      ).toFixed(2),
+    });
+
     if (this.orderForm.invalid) {
       return;
     }
