@@ -13,25 +13,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 import { io } from 'socket.io-client';
-
-interface Order {
-  name: string;
-  phoneNumber: string;
-  location: string;
-  paymentoption: string;
-  amount: string;
-  extraComments?: string;
-}
-
-interface PaymentResponse {
-  status: string;
-  reason: string;
-  transactionid: number;
-  clienttransid: string;
-  clientreference: string | null;
-  statusdate: string;
-  brandtransid: string | null;
-}
+import { PaymentResponse, Order } from '../models/interface';
 
 @Component({
   selector: 'app-order-page',
