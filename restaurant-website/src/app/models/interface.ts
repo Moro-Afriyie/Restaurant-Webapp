@@ -16,3 +16,11 @@ export interface PaymentResponse {
   statusdate: string;
   brandtransid: string | null;
 }
+
+export interface Food {
+  id: string;
+  body: string;
+  image: string;
+  alt: string;
+  price: string;
+}

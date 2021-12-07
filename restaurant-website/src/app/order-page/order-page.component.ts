@@ -13,7 +13,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 import { io } from 'socket.io-client';
-import { PaymentResponse, Order } from '../models/interface';
+import { PaymentResponse, Order, Food } from '../models/interface';
 
 @Component({
   selector: 'app-order-page',
@@ -56,7 +56,7 @@ export class OrderPageComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const id: any = params.get('id');
-      const data: any = this.socketService.getFoodByID(id);
+      const data: Food = this.socketService.getFoodByID(id);
       console.log(data);
       this.orderForm.patchValue({
         amount: data.price,

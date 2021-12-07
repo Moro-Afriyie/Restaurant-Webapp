@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Food } from '../models/interface';
 
 @Injectable({
   providedIn: 'root',
@@ -6,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class SocketService {
   constructor() {}
   success: boolean = false;
-  foodArray = [
+  foodArray: Food[] = [
     {
       id: '33cc84ae-bc4b-49b9-bdc1-81782680c493',
       body: 'Lorem ipsum dolor sit amet consectetur',
