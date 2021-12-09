@@ -223,7 +223,8 @@
               height: 13rem;
               object-fit: contain;
               background-color: #ffffff;
-              border-radius: 0.5rem;
+              border-top-left-radius: 0.5rem;
+              border-top-right-radius: 0.5rem;
             }
           }
           .card__body {

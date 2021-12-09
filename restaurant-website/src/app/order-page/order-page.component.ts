@@ -65,7 +65,6 @@ export class OrderPageComponent implements OnInit {
 
     this.socket.on('notification', (res: any) => {
       this.data = res.data;
-      // console.log(this.data);
       if (this.data.status === 'FAILED') {
         this.paymentError = true;
         this.paymentSuccess = false;
