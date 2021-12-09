@@ -1,7 +1,10 @@
 <main class="display__container">
   <h1 class="title">Orders</h1>
   <div class="display__container__items">
-    <div class="display__container__items__card">
+    <div
+      class="display__container__items__card"
+      *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+    >
       <div class="card__title">
         <ul>
           <li class="order__num">Order #122</li>
@@ -10,13 +13,25 @@
       </div>
       <div class="card__body">
         <ul>
-          <li>Food Ordered</li>
           <li>Name of person</li>
+          <li>Food Ordered</li>
           <li>Phone Number</li>
           <li>Location</li>
           <li>Price</li>
           <li>Extra comments if any</li>
         </ul>
+      </div>
+      <div class="card-btn">
+        <div class="cancel">
+          <button>
+            <span class="material-icons"> close </span>
+          </button>
+        </div>
+        <div class="completed">
+          <button>
+            <span class="material-icons"> done </span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
