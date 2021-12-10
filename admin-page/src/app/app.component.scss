@@ -12,6 +12,9 @@
   position: relative;
   width: 100%;
   .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
     grid-area: sidebar;
     z-index: 3;
     min-width: 13rem;
