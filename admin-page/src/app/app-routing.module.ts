@@ -2,11 +2,19 @@ import { CompletedOrdersComponent } from './completed-orders/completed-orders.co
 import { DisplayPageComponent } from './display-page/display-page.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  { path: '', component: DisplayPageComponent },
-  { path: 'orders', component: DisplayPageComponent },
-  { path: 'delivered', component: CompletedOrdersComponent },
+  {
+    path: '',
+    component: HomeComponent,
+    children: [
+      { path: 'orders', component: DisplayPageComponent },
+      { path: 'delivered', component: CompletedOrdersComponent },
+    ],
+  },
+  { path: 'login', component: LoginComponent },
 ];
 
 @NgModule({

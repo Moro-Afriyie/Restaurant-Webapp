@@ -14,9 +14,18 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { CompletedOrdersComponent } from './completed-orders/completed-orders.component';
 import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent, DisplayPageComponent, SidebarComponent, CompletedOrdersComponent, LoginComponent],
+  declarations: [
+    AppComponent,
+    DisplayPageComponent,
+    SidebarComponent,
+    CompletedOrdersComponent,
+    LoginComponent,
+    HomeComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -25,6 +34,7 @@ import { LoginComponent } from './login/login.component';
     // provideStorage(() => getStorage()),
     AngularFireModule.initializeApp(environment.firebase),
     // AngularFirestore,
+    ReactiveFormsModule,
   ],
   providers: [AngularFirestore],
   bootstrap: [AppComponent],

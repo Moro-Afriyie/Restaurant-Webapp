@@ -1,1 +1,43 @@
-<p>login works!</p>
+<div class="form-container">
+  <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <h1 class="form__title">LOGIN</h1>
+    <div class="form__container">
+      <div class="form__control">
+        <label for="username">User name</label>
+        <input
+          type="text"
+          placeholder="Enter your username"
+          name="userNme"
+          id="userName"
+          formControlName="userName"
+          [ngClass]="{ 'is-invalid': submitted && f['userName'].errors }"
+        />
+        <div *ngIf="submitted && f['userName'].errors" class="invalid-feedback">
+          <div *ngIf="f['userName'].errors['required']">
+            userName is required
+          </div>
+        </div>
+      </div>
+      <div class="form__control">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          placeholder="Enter Your password"
+          name="password"
+          id="password"
+          formControlName="password"
+          [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
+        />
+        <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+          <div *ngIf="f['password'].errors['required']">
+            password is required
+          </div>
+          <!-- <div *ngIf="f['password'].errors['maxlength']">
+            phone number should have 10 characters
+          </div> -->
+        </div>
+      </div>
+      <button type="submit">Place Order</button>
+    </div>
+  </form>
+</div>
