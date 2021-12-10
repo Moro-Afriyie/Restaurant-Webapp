@@ -13,9 +13,10 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { CompletedOrdersComponent } from './completed-orders/completed-orders.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
-  declarations: [AppComponent, DisplayPageComponent, SidebarComponent, CompletedOrdersComponent],
+  declarations: [AppComponent, DisplayPageComponent, SidebarComponent, CompletedOrdersComponent, LoginComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
