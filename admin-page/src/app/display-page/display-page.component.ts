@@ -24,11 +24,25 @@ export class DisplayPageComponent implements OnInit {
       console.log(res);
     });
   }
+
+  /**
+   * [ngStyle]="
+        success
+          ? { 'background-color': '#cbcbcb' }
+          : { 'background-color': '#ffffff' }
+      "
+   */
+
+  success: boolean = false;
   ngOnInit(): void {
     console.log(this.exampleGetCollection());
   }
 
   exampleGetCollection(): Observable<any> {
     return this.firestore.collection('orders').valueChanges();
+  }
+
+  onSuccessDelivery(): void {
+    this.success = true;
   }
 }
