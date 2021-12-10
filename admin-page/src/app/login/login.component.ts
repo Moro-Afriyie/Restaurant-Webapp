@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
-  loginError = true;
+  loginError = false;
   constructor(private route: ActivatedRoute, private router: Router) {
     this.loginForm = new FormGroup({
       userName: new FormControl('', Validators.required),
