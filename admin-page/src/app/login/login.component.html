@@ -1,6 +1,13 @@
 <div class="form-container">
   <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <h1 class="form__title">LOGIN</h1>
+    <div class="payment__error" *ngIf="loginError">
+      <div class="info">
+        <span class="material-icons"> info </span>
+        <p>invalid username/password</p>
+      </div>
+      <span class="material-icons close" (click)="onClose()"> close </span>
+    </div>
     <div class="form__container">
       <div class="form__control">
         <label for="username">User name</label>
@@ -14,7 +21,7 @@
         />
         <div *ngIf="submitted && f['userName'].errors" class="invalid-feedback">
           <div *ngIf="f['userName'].errors['required']">
-            userName is required
+            user name is required
           </div>
         </div>
       </div>
