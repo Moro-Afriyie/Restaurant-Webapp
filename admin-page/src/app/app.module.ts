@@ -11,9 +11,10 @@ import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
-  declarations: [AppComponent, DisplayPageComponent],
+  declarations: [AppComponent, DisplayPageComponent, SidebarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
