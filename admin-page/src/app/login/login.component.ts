@@ -42,13 +42,14 @@ export class LoginComponent implements OnInit {
       this.loading = true;
       this.authService
         .logIn(this.loginForm.value.email, this.loginForm.value.password)
-        .then(() => {
+        .then((res) => {
+          console.log(res);
           console.log('success');
           this.loading = false;
           this.router.navigate(['/']);
         })
         .catch((err) => {
-          console.log(err);
+          console.log('error');
           this.loginError = true;
           this.loading = false;
           setTimeout(() => {
@@ -56,7 +57,7 @@ export class LoginComponent implements OnInit {
           }, 5000);
         });
     } catch (error) {
-      console.log(error);
+      console.log('error');
       this.loading = false;
     }
   }

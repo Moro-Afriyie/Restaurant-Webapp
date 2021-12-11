@@ -9,7 +9,7 @@ export class AuthenticationService {
   constructor(public afAuth: AngularFireAuth) {}
 
   /* Sign in */
-  logIn(email: string, password: string) {
+  logIn(email: string, password: string): Promise<any> {
     return this.afAuth.signInWithEmailAndPassword(email, password);
   }
 
