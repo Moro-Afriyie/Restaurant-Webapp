@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,9 +12,13 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
   loginError = false;
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private authService: AuthenticationService
+  ) {
     this.loginForm = new FormGroup({
-      userName: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required),
     });
   }
@@ -24,15 +29,31 @@ export class LoginComponent implements OnInit {
     return this.loginForm.controls;
   }
 
-  onSubmit(): void {
-    // this.submitted = true;
+  async onSubmit(): Promise<any> {
+    this.submitted = true;
     console.log(this.loginForm.value);
 
-    // if (this.loginForm.invalid) {
-    //   return;
-    // }
+    if (this.loginForm.invalid) {
+      return;
+    }
 
-    this.router.navigate(['/']);
+    try {
+      this.authService
+        .logIn(this.loginForm.value.email, this.loginForm.value.password)
+        .then(() => {
+          console.log('success');
+          this.router.navigate(['/']);
+        })
+        .catch((err) => {
+          console.log(err);
+          this.loginError = true;
+          setTimeout(() => {
+            this.loginError = false;
+          }, 5000);
+        });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   onClose(): void {
