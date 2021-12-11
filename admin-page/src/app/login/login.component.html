@@ -40,7 +40,10 @@
           </div>
         </div>
       </div>
-      <button type="submit">Login</button>
+      <button type="submit">
+        <div class="loader" *ngIf="loading"></div>
+        <p *ngIf="!loading">Login</p>
+      </button>
     </div>
   </form>
 </div>

@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
   loginError = false;
+  loading = false;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -38,21 +39,25 @@ export class LoginComponent implements OnInit {
     }
 
     try {
+      this.loading = true;
       this.authService
         .logIn(this.loginForm.value.email, this.loginForm.value.password)
         .then(() => {
           console.log('success');
+          this.loading = false;
           this.router.navigate(['/']);
         })
         .catch((err) => {
           console.log(err);
           this.loginError = true;
+          this.loading = false;
           setTimeout(() => {
             this.loginError = false;
           }, 5000);
         });
     } catch (error) {
       console.log(error);
+      this.loading = false;
     }
   }
 
