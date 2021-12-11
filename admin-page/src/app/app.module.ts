@@ -32,6 +32,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     provideFirestore(() => getFirestore()),
     // provideFunctions(() => getFunctions()),
     // provideStorage(() => getStorage()),
+    provideAuth(() => getAuth()),
     AngularFireModule.initializeApp(environment.firebase),
     // AngularFirestore,
     ReactiveFormsModule,
