@@ -25,12 +25,12 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.submitted = true;
+    // this.submitted = true;
     console.log(this.loginForm.value);
 
-    if (this.loginForm.invalid) {
-      return;
-    }
+    // if (this.loginForm.invalid) {
+    //   return;
+    // }
 
     this.router.navigate(['/']);
   }
