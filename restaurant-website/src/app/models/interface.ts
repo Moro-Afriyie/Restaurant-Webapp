@@ -25,3 +25,14 @@ export interface Food {
   alt: string;
   price: string;
 }
+
+export interface OrderDetails {
+  date: string;
+  orderNumber: string;
+  name: string;
+  foodOrdered: string;
+  phoneNumber: string;
+  location: string;
+  Price: string;
+  completed: boolean;
+}
