@@ -21,7 +21,7 @@ export class DisplayPageComponent implements OnInit {
   constructor(private firestore: AngularFirestore) {
     this.item$ = this.exampleGetCollection();
     this.exampleGetCollection().subscribe((res) => {
-      // console.log(res);
+      console.log(res);
     });
   }
 
@@ -39,7 +39,7 @@ export class DisplayPageComponent implements OnInit {
   }
 
   exampleGetCollection(): Observable<any> {
-    return this.firestore.collection('orders').valueChanges();
+    return this.firestore.collection('orders').valueChanges({ idField: 'Id' });
   }
 
   onSuccessDelivery(): void {

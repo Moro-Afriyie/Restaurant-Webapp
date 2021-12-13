@@ -5,6 +5,6 @@ export interface OrderDetails {
   foodOrdered: string;
   phoneNumber: string;
   location: string;
-  Price: string;
+  amount: string;
   completed: boolean;
 }
