@@ -6,6 +6,7 @@ export interface Order {
   amount: string;
   extraComments?: string;
   numberOfPacks: string;
+  foodOrdered: string;
 }
 
 export interface PaymentResponse {
@@ -27,12 +28,12 @@ export interface Food {
 }
 
 export interface OrderDetails {
-  date: string;
-  orderNumber: string;
+  date: Date;
+  orderNumber: number;
   name: string;
   foodOrdered: string;
   phoneNumber: string;
   location: string;
-  Price: string;
+  amount: string;
   completed: boolean;
 }

@@ -1,6 +1,7 @@
+import { OrderDetails } from './../models/interface';
 import { SocketService } from './../services/socket-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import {
@@ -21,6 +22,16 @@ import { PaymentResponse, Order, Food } from '../models/interface';
   styleUrls: ['./order-page.component.scss'],
 })
 export class OrderPageComponent implements OnInit {
+  constructor(
+    private router: Router,
+    private firestore: AngularFirestore,
+    private http: HttpClient,
+    private socketService: SocketService,
+    private route: ActivatedRoute
+  ) {
+    this.socket = io('https://restaurant-payment-backend.herokuapp.com');
+  }
+
   orderForm = new FormGroup({
     name: new FormControl('', Validators.required),
     phoneNumber: new FormControl('', [
@@ -31,21 +42,23 @@ export class OrderPageComponent implements OnInit {
     amount: new FormControl(0, Validators.required),
     paymentoption: new FormControl('MTN', Validators.required),
     numberOfPacks: new FormControl('1', Validators.required),
+    foodOrdered: new FormControl('', Validators.required),
   });
+
+  orderDetails: OrderDetails = {
+    date: new Date(),
+    orderNumber: 0,
+    name: '',
+    foodOrdered: '',
+    phoneNumber: '',
+    location: '',
+    amount: '',
+    completed: false,
+  };
 
   private socket: any;
   public data: any;
 
-  constructor(
-    private router: Router,
-    private firestore: AngularFirestore,
-    private http: HttpClient,
-    private socketService: SocketService,
-    private route: ActivatedRoute,
-    private changeDetectorRef: ChangeDetectorRef
-  ) {
-    this.socket = io('https://restaurant-payment-backend.herokuapp.com');
-  }
   url = 'https://restaurant-payment-backend.herokuapp.com/api/payment';
   paymentError = false;
   paymentSuccess = false;
@@ -63,7 +76,8 @@ export class OrderPageComponent implements OnInit {
       const data: Food = this.socketService.getFoodByID(id);
       this.price = data.price;
       this.orderForm.patchValue({
-        amount: data.price,
+        // amount: data.price,
+        amount: '0.01',
       });
     });
 
@@ -116,11 +130,23 @@ export class OrderPageComponent implements OnInit {
       return;
     }
 
+    // set the orderDetails
+    this.orderDetails = {
+      date: new Date(),
+      orderNumber: 2,
+      name: this.orderForm.value.name,
+      foodOrdered: '',
+      phoneNumber: this.orderForm.value.phoneNumber,
+      amount: this.orderForm.value.amount,
+      completed: false,
+      location: this.orderForm.value.location,
+    };
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
     };
+
     const body = {
       amount: this.orderForm.value.amount,
       paymentoption: this.orderForm.value.paymentoption,
@@ -148,7 +174,7 @@ export class OrderPageComponent implements OnInit {
       });
   }
 
-  createOrder(data: Order) {
+  createOrder(data: OrderDetails) {
     return new Promise<any>((resolve, reject) => {
       this.firestore
         .collection('orders')
