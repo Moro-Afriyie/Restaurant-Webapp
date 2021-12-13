@@ -1,3 +1,4 @@
+import { OrderDetails } from './../models/interfaces';
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Firestore, collectionData, collection } from '@angular/fire/firestore';
@@ -17,10 +18,10 @@ interface Order {
   styleUrls: ['./display-page.component.scss'],
 })
 export class DisplayPageComponent implements OnInit {
-  item$: Observable<Order[]>;
+  item$: Observable<OrderDetails[]>;
   constructor(private firestore: AngularFirestore) {
     this.item$ = this.exampleGetCollection();
-    this.exampleGetCollection().subscribe((res) => {
+    this.exampleGetCollection().subscribe((res: OrderDetails[]) => {
       console.log(res);
     });
   }
