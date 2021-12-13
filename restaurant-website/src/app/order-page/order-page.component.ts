@@ -110,6 +110,7 @@ export class OrderPageComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
+    // console.log(this.orderForm.value);
 
     if (this.orderForm.invalid) {
       return;
@@ -168,7 +169,6 @@ export class OrderPageComponent implements OnInit {
 
   calculateAmount(event: any) {
     let quantity = event.target.value;
-    console.log(this.orderForm.value.amount);
     this.orderForm.patchValue({
       amount: (parseFloat(this.price) * parseInt(quantity)).toFixed(2),
     });
