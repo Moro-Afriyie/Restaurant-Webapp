@@ -34,6 +34,7 @@ export class DisplayPageComponent implements OnInit {
    */
 
   success: boolean = false;
+
   ngOnInit(): void {
     console.log(this.exampleGetCollection());
   }
