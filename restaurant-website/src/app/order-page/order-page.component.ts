@@ -1,6 +1,6 @@
 import { SocketService } from './../services/socket-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import {
@@ -28,7 +28,7 @@ export class OrderPageComponent implements OnInit {
       Validators.maxLength(10),
     ]),
     location: new FormControl('', Validators.required),
-    amount: new FormControl('', Validators.required),
+    amount: new FormControl(0, Validators.required),
     paymentoption: new FormControl('MTN', Validators.required),
     numberOfPacks: new FormControl('1', Validators.required),
   });
@@ -41,7 +41,8 @@ export class OrderPageComponent implements OnInit {
     private firestore: AngularFirestore,
     private http: HttpClient,
     private socketService: SocketService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
     this.socket = io('https://restaurant-payment-backend.herokuapp.com');
   }
@@ -53,11 +54,14 @@ export class OrderPageComponent implements OnInit {
   success = 'Successfully processed transaction.';
   paymentLoading = false;
   number = '233501658639';
+  paymentReason = 'Processing payment...';
+  price = '';
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const id: any = params.get('id');
       const data: Food = this.socketService.getFoodByID(id);
+      this.price = data.price;
       this.orderForm.patchValue({
         amount: data.price,
       });
@@ -65,6 +69,7 @@ export class OrderPageComponent implements OnInit {
 
     this.socket.on('notification', (res: any) => {
       this.data = res.data;
+      this.paymentReason = 'Processing payment...';
       if (this.data.status === 'FAILED') {
         this.paymentError = true;
         this.paymentSuccess = false;
@@ -106,13 +111,6 @@ export class OrderPageComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
 
-    this.orderForm.patchValue({
-      amount: (
-        parseFloat(this.orderForm.value.amount) *
-        parseInt(this.orderForm.value.numberOfPacks)
-      ).toFixed(2),
-    });
-
     if (this.orderForm.invalid) {
       return;
     }
@@ -135,6 +133,8 @@ export class OrderPageComponent implements OnInit {
       .post<PaymentResponse>(this.url, body, httpOptions)
       .subscribe((res: PaymentResponse) => {
         this.paymentLoading = true;
+        this.paymentReason = res.reason;
+        // console.log(res);
         if (res.status === 'FAILED') {
           this.paymentError = true;
           this.paymentSuccess = false;
@@ -164,5 +164,13 @@ export class OrderPageComponent implements OnInit {
   onClose(): void {
     this.paymentError = false;
     this.paymentSuccess = false;
+  }
+
+  calculateAmount(event: any) {
+    let quantity = event.target.value;
+    console.log(this.orderForm.value.amount);
+    this.orderForm.patchValue({
+      amount: (parseFloat(this.price) * parseInt(quantity)).toFixed(2),
+    });
   }
 }

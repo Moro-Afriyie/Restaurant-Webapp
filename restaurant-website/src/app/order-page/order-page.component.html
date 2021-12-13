@@ -26,7 +26,7 @@
     </div>
     <div class="payment__loading" *ngIf="paymentLoading">
       <div class="loader"></div>
-      <p>Processing payment...</p>
+      <p>{{ paymentReason }}</p>
     </div>
     <form class="form" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
       <h1 class="form__title">Place order</h1>
@@ -115,6 +115,7 @@
             name="numberOfPacks"
             id="numberOfPacks"
             formControlName="numberOfPacks"
+            (change)="calculateAmount($event)"
           />
         </div>
         <div class="form__control">
