@@ -28,7 +28,7 @@ export interface Food {
 }
 
 export interface OrderDetails {
-  date: Date;
+  date: string;
   orderNumber: number;
   name: string;
   foodOrdered: string;

@@ -46,7 +46,7 @@ export class OrderPageComponent implements OnInit {
   });
 
   orderDetails: OrderDetails = {
-    date: new Date(),
+    date: '',
     orderNumber: 0,
     name: '',
     foodOrdered: '',
@@ -84,8 +84,9 @@ export class OrderPageComponent implements OnInit {
 
     this.socket.on('notification', (res: any) => {
       this.data = res.data;
-      console.log(this.orderDetails);
+
       this.paymentReason = 'Processing payment...';
+
       if (this.data.status === 'FAILED') {
         this.paymentError = true;
         this.paymentSuccess = false;
@@ -97,12 +98,13 @@ export class OrderPageComponent implements OnInit {
         this.paymentError = false;
         this.paymentSuccess = true;
         this.paymentLoading = false;
+        this.postDetailsToFireBase(this.orderDetails);
         setTimeout(() => {
           this.paymentSuccess = false;
-          window.open(
-            `https://wa.me/${this.number}?text=name%3A%20${this.orderForm.value.name}%20%0APhone%20Number%3A%20${this.orderForm.value.phoneNumber}%20%0Alocation%3A%20${this.orderForm.value.location}`,
-            '_blank'
-          );
+          // window.open(
+          //   `https://wa.me/${this.number}?text=name%3A%20${this.orderForm.value.name}%20%0APhone%20Number%3A%20${this.orderForm.value.phoneNumber}%20%0Alocation%3A%20${this.orderForm.value.location}`,
+          //   '_blank'
+          // );
           this.router.navigate(['']);
         }, 3000);
       }
@@ -132,8 +134,8 @@ export class OrderPageComponent implements OnInit {
 
     // set the orderDetails
     this.orderDetails = {
-      date: new Date(),
-      orderNumber: 2,
+      date: Date.now().toString(),
+      orderNumber: 3,
       name: this.orderForm.value.name,
       foodOrdered: this.orderForm.value.foodOrdered,
       phoneNumber: this.orderForm.value.phoneNumber,
@@ -141,8 +143,6 @@ export class OrderPageComponent implements OnInit {
       completed: false,
       location: this.orderForm.value.location,
     };
-
-    console.log(this.orderDetails);
 
     const httpOptions = {
       headers: new HttpHeaders({
