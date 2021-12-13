@@ -35,6 +35,8 @@
 
 .sidebar__menu {
   padding: 1rem;
+  flex: 1;
+  height: 100%;
   .sidebar__menu__list {
     list-style: none;
     display: flex;
@@ -77,19 +79,23 @@
   }
 }
 .sidebar__logout {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  border: 1px solid#FF0000;
-  margin: 1rem;
-  color: #ff0000;
-  cursor: pointer;
-  transition: all 0.2s ease-in;
-  justify-content: center;
-  height: 2.5rem;
-  &:hover {
-    border: none;
-    background-color: #ff0000;
-    color: #ffffff;
+  padding: 1rem;
+  margin-top: auto;
+  .logout {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid#FF0000;
+
+    color: #ff0000;
+    cursor: pointer;
+    transition: all 0.2s ease-in;
+    justify-content: center;
+    height: 2.5rem;
+    &:hover {
+      border: none;
+      background-color: #ff0000;
+      color: #ffffff;
+    }
   }
 }
