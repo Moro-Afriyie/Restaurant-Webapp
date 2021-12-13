@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
 
   async onSubmit(): Promise<any> {
     this.submitted = true;
-    console.log(this.loginForm.value);
 
     if (this.loginForm.invalid) {
       return;
@@ -44,12 +43,10 @@ export class LoginComponent implements OnInit {
         .logIn(this.loginForm.value.email, this.loginForm.value.password)
         .then((res) => {
           console.log(res);
-          console.log('success');
           this.loading = false;
           this.router.navigate(['/']);
         })
         .catch((err) => {
-          console.log('error');
           this.loginError = true;
           this.loading = false;
           setTimeout(() => {

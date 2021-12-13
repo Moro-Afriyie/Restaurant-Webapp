@@ -76,3 +76,20 @@
     color: #ffffff !important;
   }
 }
+.sidebar__logout {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid#FF0000;
+  margin: 1rem;
+  color: #ff0000;
+  cursor: pointer;
+  transition: all 0.2s ease-in;
+  justify-content: center;
+  height: 2.5rem;
+  &:hover {
+    border: none;
+    background-color: #ff0000;
+    color: #ffffff;
+  }
+}
