@@ -78,11 +78,13 @@ export class OrderPageComponent implements OnInit {
       this.orderForm.patchValue({
         // amount: data.price,
         amount: '0.01',
+        foodOrdered: data.body,
       });
     });
 
     this.socket.on('notification', (res: any) => {
       this.data = res.data;
+      console.log(this.orderDetails);
       this.paymentReason = 'Processing payment...';
       if (this.data.status === 'FAILED') {
         this.paymentError = true;
@@ -107,15 +109,13 @@ export class OrderPageComponent implements OnInit {
     });
   }
 
-  // async onSubmit(): Promise<void> {
-  //   try {
-  //     await this.createOrder(this.orderForm.value);
-  //     this.router.navigate(['']);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-
-  // }
+  async postDetailsToFireBase(data: OrderDetails): Promise<void> {
+    try {
+      await this.createOrder(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   // convenience getter for easy access to form fields
   get f() {
@@ -135,12 +135,15 @@ export class OrderPageComponent implements OnInit {
       date: new Date(),
       orderNumber: 2,
       name: this.orderForm.value.name,
-      foodOrdered: '',
+      foodOrdered: this.orderForm.value.foodOrdered,
       phoneNumber: this.orderForm.value.phoneNumber,
       amount: this.orderForm.value.amount,
       completed: false,
       location: this.orderForm.value.location,
     };
+
+    console.log(this.orderDetails);
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

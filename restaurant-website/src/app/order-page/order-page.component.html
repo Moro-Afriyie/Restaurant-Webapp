@@ -31,16 +31,17 @@
     <form class="form" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
       <h1 class="form__title">Place order</h1>
       <div class="form__container">
-        <!-- <div class="form__control">
-        <label for="Foodname">Food Name</label>
-        <input
-          type="text"
-          placeholder="Enter food"
-          name="foodName"
-          id="foodname"
-          formControlName="foodName"
-        />
-      </div> -->
+        <div class="form__control">
+          <label for="foodOrdered">Food Name</label>
+          <input
+            type="text"
+            placeholder="Enter food"
+            name="foodOrdered"
+            id="foodOrdered"
+            formControlName="foodOrdered"
+            readonly
+          />
+        </div>
         <div class="form__control">
           <label for="name">Name</label>
           <input
@@ -108,7 +109,7 @@
         ></textarea>
       </div> -->
         <div class="form__control">
-          <label for="Foodname">Number of packs</label>
+          <label for="numberOfPacks">Number of packs</label>
           <input
             type="number"
             min="1"
