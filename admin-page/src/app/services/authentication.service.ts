@@ -1,3 +1,4 @@
+import { getAuth } from '@angular/fire/auth';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable } from 'rxjs';
@@ -11,6 +12,10 @@ export class AuthenticationService {
   /* Sign in */
   logIn(email: string, password: string): Promise<any> {
     return this.afAuth.signInWithEmailAndPassword(email, password);
+  }
+
+  getAuthStatus(): boolean {
+    return true;
   }
 
   /* Sign out */
