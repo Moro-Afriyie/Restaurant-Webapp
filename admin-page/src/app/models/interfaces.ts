@@ -7,4 +7,5 @@ export interface OrderDetails {
   location: string;
   amount: string;
   completed: boolean;
+  Id: string;
 }

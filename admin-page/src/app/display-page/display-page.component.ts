@@ -44,7 +44,19 @@ export class DisplayPageComponent implements OnInit {
     return this.firestore.collection('orders').valueChanges({ idField: 'Id' });
   }
 
-  onSuccessDelivery(): void {
+  onSuccessDelivery(id: string): void {
+    console.log(id);
+    this.update(id, { completed: true })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
     this.success = true;
+  }
+
+  update(id: string, data: { completed: boolean }): Promise<void> {
+    return this.firestore.collection('orders').doc(id).update(data);
+  }
+
+  delete(id: string): Promise<void> {
+    return this.firestore.collection('orders').doc(id).delete();
   }
 }
