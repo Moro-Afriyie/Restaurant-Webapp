@@ -7,9 +7,9 @@
   }
   .display__container__items {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     @media screen and (max-width: 800px) {
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     }
     gap: 2rem;
     .display__container__items__card {
