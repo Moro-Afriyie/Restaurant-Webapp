@@ -44,17 +44,17 @@ export class DisplayPageComponent implements OnInit {
     return this.firestore.collection('orders').valueChanges({ idField: 'Id' });
   }
 
-  onSuccessDelivery(id: string): void {
+  onOrderDelivered(id: string): void {
     console.log(id);
     this.updateOrder(id, { completed: true })
-      .then((res) => console.log(res))
+      // .then((res) => console.log(res))
       .catch((err) => console.log(err));
     this.success = true;
   }
 
   onCancelOrder(id: string) {
     this.deleteOrder(id)
-      .then((res) => console.log(res))
+      // .then((res) => console.log(res))
       .catch((err) => console.log(err));
   }
 
