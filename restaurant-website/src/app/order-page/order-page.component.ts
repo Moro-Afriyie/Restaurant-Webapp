@@ -45,16 +45,7 @@ export class OrderPageComponent implements OnInit {
     foodOrdered: new FormControl('', Validators.required),
   });
 
-  orderDetails: OrderDetails = {
-    date: '',
-    orderNumber: 0,
-    name: '',
-    foodOrdered: '',
-    phoneNumber: '',
-    location: '',
-    amount: '',
-    completed: false,
-  };
+  orderDetails: any;
 
   private socket: any;
   public data: any;
