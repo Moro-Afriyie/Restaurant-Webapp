@@ -21,9 +21,6 @@ export class DisplayPageComponent implements OnInit {
   item$: Observable<OrderDetails[]>;
   constructor(private firestore: AngularFirestore) {
     this.item$ = this.exampleGetCollection();
-    this.exampleGetCollection().subscribe((res: OrderDetails[]) => {
-      console.log(res);
-    });
   }
 
   /**
@@ -37,15 +34,16 @@ export class DisplayPageComponent implements OnInit {
   success: boolean = false;
 
   ngOnInit(): void {
-    console.log(this.exampleGetCollection());
+    // console.log(this.exampleGetCollection());
   }
 
   exampleGetCollection(): Observable<any> {
-    return this.firestore.collection('orders').valueChanges({ idField: 'Id' });
+    return this.firestore
+      .collection('orders', (orders) => orders.where('completed', '==', false))
+      .valueChanges({ idField: 'Id' });
   }
 
   onOrderDelivered(id: string): void {
-    console.log(id);
     this.updateOrder(id, { completed: true })
       // .then((res) => console.log(res))
       .catch((err) => console.log(err));

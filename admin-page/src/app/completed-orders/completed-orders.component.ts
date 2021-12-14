@@ -25,6 +25,6 @@ export class CompletedOrdersComponent implements OnInit {
   GetCompletedOrdersCollection(): Observable<any> {
     return this.firestore
       .collection('orders', (orders) => orders.where('completed', '==', true))
-      .valueChanges();
+      .valueChanges({ idField: 'Id' });
   }
 }
