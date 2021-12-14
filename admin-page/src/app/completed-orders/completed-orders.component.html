@@ -1,7 +1,7 @@
 <main class="display__container">
   <h1 class="title">Delivered Orders</h1>
   <div class="display__container__items">
-    <div
+    <!-- <div
       class="display__container__items__card"
       *ngFor="
         let item of [
@@ -30,10 +30,50 @@
         </ul>
       </div>
     </div>
-  </div>
-  <!-- <ul>
+  </div> -->
+    <!-- <ul>
     <li *ngFor="let item of item$ | async">
       {{ item }}
     </li>
   </ul> -->
+    <div
+      class="display__container__items__card"
+      *ngFor="let item of item$ | async"
+    >
+      <div class="card__title">
+        <ul>
+          <div class="card__header">
+            <li class="order__num">Order #{{ item.orderNumber }}</li>
+            <p>delivered</p>
+          </div>
+
+          <li class="date">22 Feb 2021 08:00 AM</li>
+        </ul>
+      </div>
+      <div class="card__body">
+        <ul>
+          <li>
+            <p>Name:</p>
+            {{ item.name }}
+          </li>
+          <li>
+            <p>Food:</p>
+            {{ item.foodOrdered }}
+          </li>
+          <li>
+            <p>Phone number:</p>
+            {{ item.phoneNumber }}
+          </li>
+          <li>
+            <p>Location:</p>
+            {{ item.location }}
+          </li>
+          <li>
+            <p>Price:</p>
+            GHS {{ item.amount }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </main>
