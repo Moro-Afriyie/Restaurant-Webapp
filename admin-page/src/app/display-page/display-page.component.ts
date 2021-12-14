@@ -46,17 +46,23 @@ export class DisplayPageComponent implements OnInit {
 
   onSuccessDelivery(id: string): void {
     console.log(id);
-    this.update(id, { completed: true })
+    this.updateOrder(id, { completed: true })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
     this.success = true;
   }
 
-  update(id: string, data: { completed: boolean }): Promise<void> {
+  onCancelOrder(id: string) {
+    this.deleteOrder(id)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  }
+
+  updateOrder(id: string, data: { completed: boolean }): Promise<void> {
     return this.firestore.collection('orders').doc(id).update(data);
   }
 
-  delete(id: string): Promise<void> {
+  deleteOrder(id: string): Promise<void> {
     return this.firestore.collection('orders').doc(id).delete();
   }
 }
