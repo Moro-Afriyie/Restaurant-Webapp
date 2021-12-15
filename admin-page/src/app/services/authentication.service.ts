@@ -29,8 +29,8 @@ export class AuthenticationService {
       let authUser = await this.afAuth.currentUser;
       if (authUser) {
         // localStorage.setItem('authUser', JSON.stringify(authUser));
-        const status = {loggedIn: true}
-        localStorage.setItem("authUser", JSON.stringify(status))
+        const status = { loggedIn: true };
+        localStorage.setItem('authUser', JSON.stringify(status));
         return status;
       } else {
         return null;
