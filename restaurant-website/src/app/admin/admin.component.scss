@@ -1,0 +1,29 @@
+.container {
+  width: 100%;
+  overflow: hidden;
+  display: grid;
+  grid-template-areas:
+    "sidebar main main"
+    "sidebar  main main";
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr auto;
+  height: 100%;
+  min-height: 100%;
+  position: relative;
+  width: 100%;
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    grid-area: sidebar;
+    z-index: 3;
+    min-width: 13rem;
+    background-color: #ffffff;
+    height: 100vh;
+  }
+  .display-page {
+    grid-area: main;
+    height: 100vh;
+    overflow: auto;
+  }
+}
