@@ -28,10 +28,11 @@ import {
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
+import { AdminComponent } from './admin/admin.component';
 
 
 @NgModule({
-  declarations: [AppComponent, HomepageComponent, OrderPageComponent],
+  declarations: [AppComponent, HomepageComponent, OrderPageComponent, AdminComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
