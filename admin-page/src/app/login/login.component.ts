@@ -42,7 +42,6 @@ export class LoginComponent implements OnInit {
       this.authService
         .logIn(this.loginForm.value.email, this.loginForm.value.password)
         .then((res) => {
-          console.log(res);
           this.loading = false;
           this.router.navigate(['/']);
         })
@@ -54,7 +53,6 @@ export class LoginComponent implements OnInit {
           }, 5000);
         });
     } catch (error) {
-      console.log('error');
       this.loading = false;
     }
   }

@@ -16,10 +16,10 @@ export class CompletedOrdersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.firestore
-      .collection('orders', (orders) => orders.where('completed', '==', true))
-      .valueChanges()
-      .subscribe((res) => console.log(res));
+    // this.firestore
+    //   .collection('orders', (orders) => orders.where('completed', '==', true))
+    //   .valueChanges()
+    //   .subscribe((res) => console.log(res));
   }
 
   GetCompletedOrdersCollection(): Observable<any> {

@@ -7,14 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthenticationService {
-  authState: any = null;
-  constructor(public afAuth: AngularFireAuth) {
-    console.log(this.afAuth.authState);
-    this.afAuth.authState.subscribe((auth: any) => {
-      this.authState = auth;
-      console.log(auth.auth);
-    });
-  }
+  constructor(public afAuth: AngularFireAuth) {}
 
   /* Sign in */
   logIn(email: string, password: string): Promise<any> {

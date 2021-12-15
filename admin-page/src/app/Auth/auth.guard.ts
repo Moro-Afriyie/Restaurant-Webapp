@@ -28,7 +28,6 @@ export class AuthGuard implements CanActivate {
     return new Promise((resolve, reject) => {
       const isAuthenticated = this.authService.getAuthStatus();
       isAuthenticated.then((response) => {
-        console.log('AuthrEsponse', response);
         if (!response) {
           console.log('invalid user');
           this.router.navigate(['/login']);
