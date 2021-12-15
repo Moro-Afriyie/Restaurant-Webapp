@@ -29,10 +29,13 @@ import { provideStorage, getStorage } from '@angular/fire/storage';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AdminComponent } from './admin/admin.component';
+import { LoginComponent } from './login/login.component';
+import { DisplayPageComponent } from './display-page/display-page.component';
+import { CompletedOrdersComponent } from './completed-orders/completed-orders.component';
 
 
 @NgModule({
-  declarations: [AppComponent, HomepageComponent, OrderPageComponent, AdminComponent],
+  declarations: [AppComponent, HomepageComponent, OrderPageComponent, AdminComponent, LoginComponent, DisplayPageComponent, CompletedOrdersComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
