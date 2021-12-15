@@ -6,6 +6,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { DisplayPageComponent } from './display-page/display-page.component';
 import { CompletedOrdersComponent } from './completed-orders/completed-orders.component';
 import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './Auth/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: 'orders', component: DisplayPageComponent },
       { path: 'delivered', component: CompletedOrdersComponent },
@@ -24,5 +26,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
+  providers: [AuthGuard],
 })
 export class AppRoutingModule {}
