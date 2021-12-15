@@ -32,10 +32,11 @@ import { AdminComponent } from './admin/admin.component';
 import { LoginComponent } from './login/login.component';
 import { DisplayPageComponent } from './display-page/display-page.component';
 import { CompletedOrdersComponent } from './completed-orders/completed-orders.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 
 @NgModule({
-  declarations: [AppComponent, HomepageComponent, OrderPageComponent, AdminComponent, LoginComponent, DisplayPageComponent, CompletedOrdersComponent],
+  declarations: [AppComponent, HomepageComponent, OrderPageComponent, AdminComponent, LoginComponent, DisplayPageComponent, CompletedOrdersComponent, SidebarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
