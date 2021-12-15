@@ -14,8 +14,8 @@ export class AuthenticationService {
     return this.afAuth.signInWithEmailAndPassword(email, password);
   }
 
-  getAuthStatus(): any {
-    return this.afAuth.currentUser;
+  async getAuthStatus() {
+    return await this.afAuth.currentUser;
   }
 
   /* Sign out */
