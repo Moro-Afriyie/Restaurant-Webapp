@@ -7,7 +7,14 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthenticationService {
-  constructor(public afAuth: AngularFireAuth) {}
+  authState: any = null;
+  constructor(public afAuth: AngularFireAuth) {
+    console.log(this.afAuth.authState);
+    this.afAuth.authState.subscribe((auth: any) => {
+      this.authState = auth;
+      console.log(auth.auth);
+    });
+  }
 
   /* Sign in */
   logIn(email: string, password: string): Promise<any> {
@@ -15,11 +22,25 @@ export class AuthenticationService {
   }
 
   async getAuthStatus() {
-    return await this.afAuth.currentUser;
+    let authUserstring = localStorage.getItem('authUser');
+    if (authUserstring) {
+      return JSON.parse(authUserstring);
+    } else {
+      let authUser = await this.afAuth.currentUser;
+      if (authUser) {
+        // localStorage.setItem('authUser', JSON.stringify(authUser));
+        const status = {loggedIn: true}
+        localStorage.setItem("authUser", JSON.stringify(status))
+        return status;
+      } else {
+        return null;
+      }
+    }
   }
 
   /* Sign out */
   logOut() {
+    localStorage.removeItem('authUser');
     return this.afAuth.signOut();
   }
 }
