@@ -1,1 +1,49 @@
-<p>login works!</p>
+<div class="form-container">
+  <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <h1 class="form__title">LOGIN</h1>
+    <div class="payment__error" *ngIf="loginError">
+      <div class="info">
+        <span class="material-icons"> info </span>
+        <p>invalid email/password</p>
+      </div>
+      <span class="material-icons close" (click)="onClose()"> close </span>
+    </div>
+    <div class="form__container">
+      <div class="form__control">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          placeholder="Enter your email"
+          name="userNme"
+          id="email"
+          formControlName="email"
+          [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+        />
+        <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+          <div *ngIf="f['email'].errors['required']">email is required</div>
+          <div *ngIf="f['email'].errors['email']">enter a valid email</div>
+        </div>
+      </div>
+      <div class="form__control">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          placeholder="Enter Your password"
+          name="password"
+          id="password"
+          formControlName="password"
+          [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
+        />
+        <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+          <div *ngIf="f['password'].errors['required']">
+            password is required
+          </div>
+        </div>
+      </div>
+      <button type="submit">
+        <div class="loader" *ngIf="loading"></div>
+        <p *ngIf="!loading">Login</p>
+      </button>
+    </div>
+  </form>
+</div>
