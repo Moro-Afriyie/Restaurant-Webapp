@@ -127,7 +127,7 @@ export class OrderPageComponent implements OnInit {
     // set the orderDetails
     this.orderDetails = {
       date: Date.now().toString(),
-      orderNumber: uuid,
+      orderId: uuid,
       name: this.orderForm.value.name,
       foodOrdered: this.orderForm.value.foodOrdered,
       phoneNumber: this.orderForm.value.phoneNumber,

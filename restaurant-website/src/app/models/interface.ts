@@ -29,7 +29,7 @@ export interface Food {
 
 export interface OrderDetails {
   date: string;
-  orderNumber: number;
+  orderId: number;
   name: string;
   foodOrdered: string;
   phoneNumber: string;
@@ -40,7 +40,7 @@ export interface OrderDetails {
 
 export interface OrderDetailsAdmin {
   date: string;
-  orderNumber: number;
+  orderId: number;
   name: string;
   foodOrdered: string;
   phoneNumber: string;
