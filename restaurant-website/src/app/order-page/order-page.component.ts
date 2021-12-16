@@ -15,6 +15,7 @@ import { catchError, retry } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 import { io } from 'socket.io-client';
 import { PaymentResponse, Order, Food } from '../models/interface';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-order-page',
