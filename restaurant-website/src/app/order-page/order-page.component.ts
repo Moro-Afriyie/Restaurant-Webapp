@@ -118,6 +118,7 @@ export class OrderPageComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
     // console.log(this.orderForm.value);
+    const uuid = uuidv4().split('-').slice(0, 2).join('');
 
     if (this.orderForm.invalid) {
       return;
@@ -126,7 +127,7 @@ export class OrderPageComponent implements OnInit {
     // set the orderDetails
     this.orderDetails = {
       date: Date.now().toString(),
-      orderNumber: 3,
+      orderNumber: uuid,
       name: this.orderForm.value.name,
       foodOrdered: this.orderForm.value.foodOrdered,
       phoneNumber: this.orderForm.value.phoneNumber,
