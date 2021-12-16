@@ -11,7 +11,14 @@ export class AuthenticationService {
 
   /* Sign in */
   logIn(email: string, password: string): Promise<any> {
-    return this.afAuth.signInWithEmailAndPassword(email, password);
+    return new Promise((resolve, reject) => {
+      this.afAuth
+        .signInWithEmailAndPassword(email, password)
+        .then((res) => resolve(res))
+        .catch((error) => {
+          reject(error);
+        });
+    });
   }
 
   async getAuthStatus() {
