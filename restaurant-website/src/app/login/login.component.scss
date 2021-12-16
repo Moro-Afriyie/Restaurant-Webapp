@@ -42,11 +42,12 @@
 }
 
 .form-container {
-  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #dfe6e9;
+  height: 100%;
+  min-height: 100vh;
 }
 .container {
   margin-top: 4rem;
