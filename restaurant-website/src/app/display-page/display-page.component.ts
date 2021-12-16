@@ -23,19 +23,9 @@ export class DisplayPageComponent implements OnInit {
     this.item$ = this.exampleGetCollection();
   }
 
-  /**
-   * [ngStyle]="
-        success
-          ? { 'background-color': '#cbcbcb' }
-          : { 'background-color': '#ffffff' }
-      "
-   */
-
   success: boolean = false;
 
-  ngOnInit(): void {
-    // console.log(this.exampleGetCollection());
-  }
+  ngOnInit(): void {}
 
   exampleGetCollection(): Observable<any> {
     return this.firestore
