@@ -57,8 +57,7 @@ export class OrderPageComponent implements OnInit {
   submitted = false;
   error = 'Payment was not successful. Please try again';
   success = 'Successfully processed transaction.';
-  paymentLoading = false;
-  number = '233501658639';
+  paymentLoading = true;
   paymentReason = 'Processing payment...';
   price = '';
 
