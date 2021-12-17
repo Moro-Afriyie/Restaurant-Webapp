@@ -41,7 +41,7 @@ export class OrderPageComponent implements OnInit {
     ]),
     location: new FormControl('', Validators.required),
     amount: new FormControl(0, Validators.required),
-    paymentoption: new FormControl('MTN', Validators.required),
+    // paymentoption: new FormControl('MTN', Validators.required),
     numberOfPacks: new FormControl('1', Validators.required),
     foodOrdered: new FormControl('', Validators.required),
   });
