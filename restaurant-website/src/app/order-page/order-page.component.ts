@@ -144,7 +144,7 @@ export class OrderPageComponent implements OnInit {
 
     const body = {
       amount: this.orderForm.value.amount,
-      paymentoption: this.orderForm.value.paymentoption,
+      paymentoption: this.getPhoneNetWork(this.orderForm.value.phoneNumber),
       walletnumber: `233${this.orderForm.value.phoneNumber.substring(
         1,
         this.orderForm.value.phoneNumbernumber
@@ -181,6 +181,21 @@ export class OrderPageComponent implements OnInit {
           (err) => reject(err)
         );
     });
+  }
+
+  getPhoneNetWork(phoneNumber: string): string | null {
+    let networkDeterminants = phoneNumber.substring(2, 3);
+    if (
+      networkDeterminants == '4' ||
+      networkDeterminants == '5' ||
+      networkDeterminants == '9'
+    )
+      return 'MTN';
+    else if (networkDeterminants == '0') return 'VODAFONE';
+    else if (networkDeterminants == '6' || networkDeterminants == '7')
+      return 'AIRTELTIGO';
+
+    return null;
   }
 
   onClose(): void {
