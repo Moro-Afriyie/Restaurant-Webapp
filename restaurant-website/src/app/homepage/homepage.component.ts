@@ -13,7 +13,7 @@ export class HomepageComponent implements OnInit {
 
   foodArray: any;
   closingTime: string = '';
-  closingTimeError = true;
+  closingTimeError = false;
 
   ngOnInit(): void {
     this.foodArray = this.socketService.getAllFoods();
@@ -27,7 +27,7 @@ export class HomepageComponent implements OnInit {
     if (currentTime <= this.closingTime) {
       this.router.navigate(['/orders', id]);
     } else {
-      console.log('ony3');
+      this.closingTimeError = true;
       return;
     }
   }
