@@ -12,12 +12,22 @@ export class HomepageComponent implements OnInit {
   constructor(private router: Router, private socketService: SocketService) {}
 
   foodArray: any;
+  closingTime: string = '';
 
   ngOnInit(): void {
     this.foodArray = this.socketService.getAllFoods();
+    this.closingTime = this.socketService.getClosingTime();
+    console.log(this.closingTime);
   }
 
   onProceedToOrderPage(id: number): void {
-    this.router.navigate(['/orders', id]);
+    const currentDate = new Date();
+    const currentTime = currentDate.toString().split(' ')[4].toString();
+    if (currentTime <= this.closingTime) {
+      this.router.navigate(['/orders', id]);
+    } else {
+      console.log('ony3');
+      return;
+    }
   }
 }
