@@ -13,14 +13,22 @@ export class HomepageComponent implements OnInit {
 
   foodArray: any;
   closingTime: string = '';
+  breakTime: { closingTime: string; openingTime: string } = {
+    closingTime: '',
+    openingTime: '',
+  };
   closingTimeError = false;
 
   ngOnInit(): void {
     this.foodArray = this.socketService.getAllFoods();
-    this.closingTime = this.socketService.getClosingTime();
+    this.breakTime = this.socketService.getClosingTime();
     const currentDate = new Date();
     const currentTime = currentDate.toString().split(' ')[4].toString();
-    if (currentTime >= this.closingTime) {
+    console.log(this.breakTime);
+    if (
+      currentTime < this.breakTime.openingTime ||
+      currentTime > this.breakTime.closingTime
+    ) {
       this.closingTimeError = true;
     }
   }
