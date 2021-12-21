@@ -36,11 +36,14 @@ export class HomepageComponent implements OnInit {
   onProceedToOrderPage(id: number): void {
     const currentDate = new Date();
     const currentTime = currentDate.toString().split(' ')[4].toString();
-    if (currentTime <= this.closingTime) {
-      this.router.navigate(['/orders', id]);
-    } else {
+    if (
+      currentTime < this.breakTime.openingTime ||
+      currentTime > this.breakTime.closingTime
+    ) {
       this.closingTimeError = true;
       return;
+    } else {
+      this.router.navigate(['/orders', id]);
     }
   }
 
