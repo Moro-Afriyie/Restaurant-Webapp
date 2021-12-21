@@ -16,6 +16,13 @@
       </a>
     </div>
   </nav>
+  <div class="closingTime__error" *ngIf="closingTimeError">
+    <div class="info">
+      <span class="material-icons"> info </span>
+      <p>cannot place orders at this time</p>
+    </div>
+    <span class="material-icons close" (click)="onClose()"> close </span>
+  </div>
   <div class="body">
     <div class="body__intro" id="home">
       <div class="body__intro__left">

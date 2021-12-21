@@ -13,6 +13,7 @@ export class HomepageComponent implements OnInit {
 
   foodArray: any;
   closingTime: string = '';
+  closingTimeError = true;
 
   ngOnInit(): void {
     this.foodArray = this.socketService.getAllFoods();
@@ -30,4 +31,6 @@ export class HomepageComponent implements OnInit {
       return;
     }
   }
+
+  onClose() {}
 }
