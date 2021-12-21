@@ -18,7 +18,11 @@ export class HomepageComponent implements OnInit {
   ngOnInit(): void {
     this.foodArray = this.socketService.getAllFoods();
     this.closingTime = this.socketService.getClosingTime();
-    console.log(this.closingTime);
+    const currentDate = new Date();
+    const currentTime = currentDate.toString().split(' ')[4].toString();
+    if (currentTime >= this.closingTime) {
+      this.closingTimeError = true;
+    }
   }
 
   onProceedToOrderPage(id: number): void {

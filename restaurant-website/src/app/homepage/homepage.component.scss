@@ -4,6 +4,7 @@
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
   text-align: center;
   color: white;
   height: 5rem;
@@ -19,14 +20,6 @@
   line-height: 1.43;
   letter-spacing: 0.01071em;
   background-color: #d74545;
-  // @media screen and (max-width: 700px) {
-  //   width: 90%;
-  //   padding: 0 0.5rem;
-  // }
-  // @media screen and (max-width: 450px) {
-  //   width: 80%;
-  //   padding: 0 0.5rem;
-  // }
   .info {
     display: flex;
     align-items: center;
@@ -37,17 +30,19 @@
     flex: 1;
     justify-content: center;
 
-    // @media screen and (max-width: 400px) {
-    //   font-size: 0.875rem;
-    //   gap: 0.2rem;
-    //   text-align: left;
-    // }
+    @media screen and (max-width: 400px) {
+      font-size: 0.875rem;
+      gap: 0.2rem;
+      text-align: left;
+      margin-left: 0.5rem;
+      margin-right: 1rem;
+    }
   }
-  .close {
-    margin-left: auto;
-    margin-right: 2rem;
-    cursor: pointer;
-  }
+  // .close {
+  //   margin-left: auto;
+  //   margin-right: 2rem;
+  //   cursor: pointer;
+  // }
 }
 
 .closingTime__error {
