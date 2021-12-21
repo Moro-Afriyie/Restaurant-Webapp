@@ -7,6 +7,7 @@ import { Food } from '../models/interface';
 export class SocketService {
   constructor() {}
   success: boolean = false;
+  closingTime: string = '20:00:00';
   foodArray: Food[] = [
     {
       id: '33cc84aebc4b49b9bdc181782680c493',
@@ -79,5 +80,9 @@ export class SocketService {
 
   getAllFoods(): Food[] {
     return this.foodArray;
+  }
+
+  getClosingTime(): string {
+    return this.closingTime;
   }
 }
