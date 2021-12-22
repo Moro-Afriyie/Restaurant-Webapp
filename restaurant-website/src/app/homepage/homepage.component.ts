@@ -24,7 +24,7 @@ export class HomepageComponent implements OnInit {
   closingTimeError = false;
 
   ngOnInit(): void {
-    this.socket.on('notification', (res: any) => {
+    this.socket.on('time', (res: Date) => {
       console.log(res);
     });
 
