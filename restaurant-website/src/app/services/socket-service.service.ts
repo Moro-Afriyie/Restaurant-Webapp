@@ -9,7 +9,8 @@ export class SocketService {
   success: boolean = false;
   // closingTime: string = '16:00:00';
   closingTime = '14:39:16';
-  openingTime = '07:00:00';
+  // openingTime = '07:00:00';
+  openingTime = '09:00:00';
   foodArray: Food[] = [
     {
       id: '33cc84aebc4b49b9bdc181782680c493',

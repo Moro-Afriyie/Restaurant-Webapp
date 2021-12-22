@@ -3,6 +3,7 @@ import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { io } from 'socket.io-client';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-homepage',
@@ -11,12 +12,17 @@ import { io } from 'socket.io-client';
 })
 export class HomepageComponent implements OnInit {
   private socket: any;
-  constructor(private router: Router, private socketService: SocketService) {
-    this.socket = io('http//:localhost:8000');
+  constructor(
+    private router: Router,
+    private socketService: SocketService,
+    private http: HttpClient
+  ) {
+    this.socket = io('http://localhost:8000/');
   }
 
   foodArray: any;
   closingTime: string = '';
+  currentTime: string = '';
   breakTime: { closingTime: string; openingTime: string } = {
     closingTime: '',
     openingTime: '',
@@ -24,33 +30,33 @@ export class HomepageComponent implements OnInit {
   closingTimeError = false;
 
   ngOnInit(): void {
-    this.socket.on('time', (res: Date) => {
-      console.log(res);
+    this.socket.on('time', (res: { data: string }) => {
+      this.breakTime = this.socketService.getClosingTime();
+      this.currentTime = res.data;
+      if (
+        this.currentTime < this.breakTime.openingTime ||
+        this.currentTime > this.breakTime.closingTime
+      ) {
+        this.closingTimeError = true;
+      } else {
+        this.closingTimeError = false;
+      }
     });
 
     this.foodArray = this.socketService.getAllFoods();
-    this.breakTime = this.socketService.getClosingTime();
-    const currentDate = new Date();
-    const currentTime = currentDate.toString().split(' ')[4].toString();
-    console.log(this.breakTime);
-    if (
-      currentTime < this.breakTime.openingTime ||
-      currentTime > this.breakTime.closingTime
-    ) {
-      this.closingTimeError = true;
-    }
   }
 
   onProceedToOrderPage(id: number): void {
     const currentDate = new Date();
     const currentTime = currentDate.toString().split(' ')[4].toString();
     if (
-      currentTime < this.breakTime.openingTime ||
-      currentTime > this.breakTime.closingTime
+      this.currentTime < this.breakTime.openingTime ||
+      this.currentTime > this.breakTime.closingTime
     ) {
       this.closingTimeError = true;
       return;
     } else {
+      this.closingTimeError = false;
       this.router.navigate(['/orders', id]);
     }
   }
