@@ -91,10 +91,6 @@ export class OrderPageComponent implements OnInit {
         this.postDetailsToFireBase(this.orderDetails);
         setTimeout(() => {
           this.paymentSuccess = false;
-          // window.open(
-          //   `https://wa.me/${this.number}?text=name%3A%20${this.orderForm.value.name}%20%0APhone%20Number%3A%20${this.orderForm.value.phoneNumber}%20%0Alocation%3A%20${this.orderForm.value.location}`,
-          //   '_blank'
-          // );
           this.router.navigate(['']);
         }, 3000);
       }
@@ -116,7 +112,6 @@ export class OrderPageComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
-    // console.log(this.orderForm.value);
     const uuid = uuidv4().split('-').slice(0, 2).join('');
 
     if (this.orderForm.invalid) {
@@ -155,7 +150,6 @@ export class OrderPageComponent implements OnInit {
       .subscribe((res: PaymentResponse) => {
         this.paymentLoading = true;
         this.paymentReason = res.reason;
-        // console.log(res);
         if (res.status === 'FAILED') {
           this.paymentError = true;
           this.paymentSuccess = false;

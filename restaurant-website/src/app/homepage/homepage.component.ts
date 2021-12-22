@@ -54,6 +54,4 @@ export class HomepageComponent implements OnInit {
       this.router.navigate(['/orders', id]);
     }
   }
-
-  onClose() {}
 }
