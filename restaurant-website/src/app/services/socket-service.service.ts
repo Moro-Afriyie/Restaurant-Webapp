@@ -1,16 +1,27 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Food } from '../models/interface';
+import { io } from 'socket.io-client';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SocketService {
-  constructor() {}
+  private socket: any;
+  orderStatusEvent: EventEmitter<boolean> = new EventEmitter();
+  constructor() {
+    this.socket = io('http://localhost:8000/');
+    this.socket.on('orderStatus', (res: { orderStatus: boolean }) => {
+      this.orderStatus = res.orderStatus;
+    });
+    // console.log('orderStatus: ', this.orderStatus);
+    // this.getOrderStatus();
+  }
   success: boolean = false;
   // closingTime: string = '16:00:00';
   closingTime = '14:39:16';
   // openingTime = '07:00:00';
-  openingTime = '09:00:00';
+  openingTime = '10:00:00';
+  orderStatus: boolean = false;
   foodArray: Food[] = [
     {
       id: '33cc84aebc4b49b9bdc181782680c493',
@@ -87,5 +98,17 @@ export class SocketService {
 
   getClosingTime(): { closingTime: string; openingTime: string } {
     return { closingTime: this.closingTime, openingTime: this.openingTime };
+  }
+
+  getOrderStatus(): boolean {
+    // console.log('orderStatus: ', this.orderStatus);
+    return this.orderStatus;
+  }
+
+  emitOrderStatusEvent(status: boolean) {
+    this.orderStatusEvent.emit(status);
+  }
+  getOrderStatusEmitter() {
+    return this.orderStatusEvent.subscribe((res) => console.log(res));
   }
 }

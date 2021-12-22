@@ -17,6 +17,7 @@ export class HomepageComponent implements OnInit {
   foodArray: any;
   closingTime: string = '';
   currentTime: string = '';
+  public orderStatus: boolean = false;
   breakTime: { closingTime: string; openingTime: string } = {
     closingTime: '',
     openingTime: '',
@@ -24,6 +25,7 @@ export class HomepageComponent implements OnInit {
   closingTimeError = false;
 
   ngOnInit(): void {
+    // console.log('intial orderStatus: ', this.orderStatus);
     this.socket.on('time', (res: { data: string }) => {
       this.breakTime = this.socketService.getClosingTime();
       this.currentTime = res.data;
@@ -36,7 +38,16 @@ export class HomepageComponent implements OnInit {
         this.closingTimeError = false;
       }
     });
+    // this.socket.on('orderStatus', (res: { orderStatus: boolean }) => {
+    //   // this.orderStatus = res.orderStatus;
+    //   this.changeOrderStatus(res.orderStatus);
+    //   // console.log(this.orderStatus);
+    //   // if (res.orderStatus) {
+    //   //   this.closingTimeError = true;
+    //   // }
+    // });
 
+    console.log(this.orderStatus);
     this.foodArray = this.socketService.getAllFoods();
   }
 
@@ -52,6 +63,14 @@ export class HomepageComponent implements OnInit {
     } else {
       this.closingTimeError = false;
       this.router.navigate(['/orders', id]);
+    }
+  }
+
+  changeOrderStatus(status: boolean): void {
+    this.orderStatus = status;
+    console.log(this.orderStatus);
+    if (this.orderStatus) {
+      this.closingTimeError = true;
     }
   }
 }
