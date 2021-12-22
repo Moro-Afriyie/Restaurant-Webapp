@@ -1,9 +1,7 @@
 import { SocketService } from './../services/socket-service.service';
-import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router } from '@angular/router';
 import { io } from 'socket.io-client';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-homepage',
@@ -12,11 +10,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomepageComponent implements OnInit {
   private socket: any;
-  constructor(
-    private router: Router,
-    private socketService: SocketService,
-    private http: HttpClient
-  ) {
+  constructor(private router: Router, private socketService: SocketService) {
     this.socket = io('http://localhost:8000/');
   }
 
