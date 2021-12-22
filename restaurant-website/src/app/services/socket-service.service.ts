@@ -1,13 +1,14 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Food } from '../models/interface';
 import { io } from 'socket.io-client';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SocketService {
   private socket: any;
-  orderStatusEvent: EventEmitter<boolean> = new EventEmitter();
+  orderStatusEvent: Subject<boolean> = new Subject<boolean>();
   constructor() {
     this.socket = io('http://localhost:8000/');
     this.socket.on('orderStatus', (res: { orderStatus: boolean }) => {
@@ -102,13 +103,22 @@ export class SocketService {
 
   getOrderStatus(): boolean {
     // console.log('orderStatus: ', this.orderStatus);
+    this.emitOrderStatusEvent(true);
     return this.orderStatus;
   }
 
   emitOrderStatusEvent(status: boolean) {
-    this.orderStatusEvent.emit(status);
+    this.orderStatusEvent.next(status);
   }
-  getOrderStatusEmitter() {
-    return this.orderStatusEvent.subscribe((res) => console.log(res));
+  getOrderStatusEmitter(): any {
+    return this.orderStatusEvent.asObservable();
+  }
+
+  getOrder(): any {
+    return Observable.create((observer: any) => {
+      this.socket.on('orderStatus', (message: any) => {
+        observer.next(message);
+      });
+    });
   }
 }

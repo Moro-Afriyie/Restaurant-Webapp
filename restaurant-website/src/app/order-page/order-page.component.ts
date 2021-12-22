@@ -72,6 +72,8 @@ export class OrderPageComponent implements OnInit {
       });
     });
 
+    this.socketService.emitOrderStatusEvent(true);
+
     this.socket.on('notification', (res: any) => {
       this.data = res.data;
 

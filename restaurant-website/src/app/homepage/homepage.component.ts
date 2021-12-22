@@ -2,6 +2,8 @@ import { SocketService } from './../services/socket-service.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { io } from 'socket.io-client';
+import { Subscription } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-homepage',
@@ -10,7 +12,11 @@ import { io } from 'socket.io-client';
 })
 export class HomepageComponent implements OnInit {
   private socket: any;
-  constructor(private router: Router, private socketService: SocketService) {
+  constructor(
+    private router: Router,
+    private socketService: SocketService,
+    private http: HttpClient
+  ) {
     this.socket = io('http://localhost:8000/');
   }
 
@@ -23,6 +29,7 @@ export class HomepageComponent implements OnInit {
     openingTime: '',
   };
   closingTimeError = false;
+  subscription: Subscription = new Subscription();
 
   ngOnInit(): void {
     // console.log('intial orderStatus: ', this.orderStatus);
@@ -38,14 +45,34 @@ export class HomepageComponent implements OnInit {
         this.closingTimeError = false;
       }
     });
+
     // this.socket.on('orderStatus', (res: { orderStatus: boolean }) => {
-    //   // this.orderStatus = res.orderStatus;
+    //   this.orderStatus = res.orderStatus;
     //   this.changeOrderStatus(res.orderStatus);
-    //   // console.log(this.orderStatus);
-    //   // if (res.orderStatus) {
-    //   //   this.closingTimeError = true;
-    //   // }
+    //   console.log(this.orderStatus);
+    //   if (res.orderStatus) {
+    //     this.closingTimeError = true;
+    //   }
     // });
+
+    // this.socketService.emitOrderStatusEvent(true);
+
+    this.subscription = this.socketService
+      .getOrderStatusEmitter()
+      .subscribe((res: any) => {
+        if (res) {
+          console.log('ony3');
+        } else {
+          console.log('res', res);
+        }
+      });
+
+    this.http.get('http://localhost:8000/').subscribe((res: any) => {
+      this.orderStatus = res.orderStatus;
+      if (this.orderStatus) {
+        this.closingTimeError = true;
+      }
+    });
 
     console.log(this.orderStatus);
     this.foodArray = this.socketService.getAllFoods();
