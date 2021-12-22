@@ -84,7 +84,7 @@ export class SocketService {
     return this.foodArray;
   }
 
-  getClosingTime(): string {
-    return this.closingTime;
+  getClosingTime(): { closingTime: string; openingTime: string } {
+    return { closingTime: this.closingTime, openingTime: this.openingTime };
   }
 }
