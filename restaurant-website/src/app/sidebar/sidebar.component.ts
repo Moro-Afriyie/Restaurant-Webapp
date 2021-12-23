@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthenticationService } from './../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
@@ -10,7 +11,8 @@ import { Component, OnInit } from '@angular/core';
 export class SidebarComponent implements OnInit {
   constructor(
     private authService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {}
@@ -22,5 +24,27 @@ export class SidebarComponent implements OnInit {
         this.router.navigate(['/login']);
       })
       .catch((err) => console.log(err));
+  }
+
+  onOpenOrders() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    this.http
+      .post('http://localhost:8000/api/openOrders', {}, httpOptions)
+      .subscribe();
+  }
+
+  onCloseOrders() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    this.http
+      .post('http://localhost:8000/api/closeOrders', {}, httpOptions)
+      .subscribe();
   }
 }
