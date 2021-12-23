@@ -1,28 +1,17 @@
-import { EventEmitter, Injectable, Output } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Food } from '../models/interface';
-import { io } from 'socket.io-client';
 import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SocketService {
-  private socket: any;
   orderStatusEvent: Subject<boolean> = new Subject<boolean>();
-  constructor() {
-    this.socket = io('http://localhost:8000/');
-    this.socket.on('orderStatus', (res: { orderStatus: boolean }) => {
-      this.orderStatus = res.orderStatus;
-    });
-    // console.log('orderStatus: ', this.orderStatus);
-    // this.getOrderStatus();
-  }
-  success: boolean = false;
+  constructor() {}
   // closingTime: string = '16:00:00';
   closingTime = '14:39:16';
   // openingTime = '07:00:00';
-  openingTime = '10:00:00';
-  orderStatus: boolean = false;
+  openingTime = '07:00:00';
   foodArray: Food[] = [
     {
       id: '33cc84aebc4b49b9bdc181782680c493',
@@ -99,26 +88,5 @@ export class SocketService {
 
   getClosingTime(): { closingTime: string; openingTime: string } {
     return { closingTime: this.closingTime, openingTime: this.openingTime };
-  }
-
-  getOrderStatus(): boolean {
-    // console.log('orderStatus: ', this.orderStatus);
-    this.emitOrderStatusEvent(true);
-    return this.orderStatus;
-  }
-
-  emitOrderStatusEvent(status: boolean) {
-    this.orderStatusEvent.next(status);
-  }
-  getOrderStatusEmitter(): any {
-    return this.orderStatusEvent.asObservable();
-  }
-
-  getOrder(): any {
-    return Observable.create((observer: any) => {
-      this.socket.on('orderStatus', (message: any) => {
-        observer.next(message);
-      });
-    });
   }
 }

@@ -32,9 +32,16 @@ export class HomepageComponent implements OnInit {
   subscription: Subscription = new Subscription();
 
   ngOnInit(): void {
+    this.breakTime = this.socketService.getClosingTime();
     this.http.get('http://localhost:8000/').subscribe((res: any) => {
       this.orderStatus = res.orderStatus;
-      if (this.orderStatus) {
+      const currentDate = new Date();
+      const currentTime = currentDate.toString().split(' ')[4].toString();
+      if (
+        currentTime < this.breakTime.openingTime ||
+        currentTime > this.breakTime.closingTime ||
+        this.orderStatus
+      ) {
         this.closingTimeError = true;
       } else {
         this.closingTimeError = false;
@@ -54,19 +61,14 @@ export class HomepageComponent implements OnInit {
   }
 
   onProceedToOrderPage(id: number): void {
-    // const currentDate = new Date();
-    // const currentTime = currentDate.toString().split(' ')[4].toString();
-    // if (
-    //   currentTime < this.breakTime.openingTime ||
-    //   currentTime > this.breakTime.closingTime ||
-    //   this.orderStatus
-    // ) {
-    //   this.closingTimeError = true;
-    //   return;
-    // }
-    if (this.orderStatus) {
+    const currentDate = new Date();
+    const currentTime = currentDate.toString().split(' ')[4].toString();
+    if (
+      currentTime < this.breakTime.openingTime ||
+      currentTime > this.breakTime.closingTime ||
+      this.orderStatus
+    ) {
       this.closingTimeError = true;
-      return;
     } else {
       this.closingTimeError = false;
       this.router.navigate(['/orders', id]);
