@@ -21,7 +21,7 @@ export class SocketService {
   // closingTime: string = '16:00:00';
   closingTime = '14:39:16';
   // openingTime = '07:00:00';
-  openingTime = '9:10:00';
+  openingTime = '10:00:00';
   orderStatus: boolean = false;
   foodArray: Food[] = [
     {
