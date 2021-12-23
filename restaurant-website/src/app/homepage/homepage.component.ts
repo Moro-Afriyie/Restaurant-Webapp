@@ -33,29 +33,42 @@ export class HomepageComponent implements OnInit {
 
   ngOnInit(): void {
     // console.log('intial orderStatus: ', this.orderStatus);
-    this.socket.on('time', (res: { data: string }) => {
-      this.breakTime = this.socketService.getClosingTime();
-      this.currentTime = res.data;
-      if (
-        this.currentTime < this.breakTime.openingTime ||
-        this.currentTime > this.breakTime.closingTime
-      ) {
+    // this.socket.on('time', (res: { time: string }) => {
+    //   this.breakTime = this.socketService.getClosingTime();
+    //   this.currentTime = res.time;
+    //   console.log('order status ', this.orderStatus);
+    //   if (
+    //     this.currentTime < this.breakTime.openingTime ||
+    //     this.currentTime > this.breakTime.closingTime
+    //   ) {
+    //     this.closingTimeError = true;
+    //   } else {
+    //     this.closingTimeError = false;
+    //   }
+    // });
+
+    this.http.get('http://localhost:8000/').subscribe((res: any) => {
+      this.orderStatus = res.orderStatus;
+      console.log('order status: ', this.orderStatus);
+      if (this.orderStatus) {
         this.closingTimeError = true;
       } else {
         this.closingTimeError = false;
       }
     });
 
-    // this.socket.on('orderStatus', (res: { orderStatus: boolean }) => {
-    //   this.orderStatus = res.orderStatus;
-    //   this.changeOrderStatus(res.orderStatus);
-    //   console.log(this.orderStatus);
-    //   if (res.orderStatus) {
-    //     this.closingTimeError = true;
-    //   }
-    // });
+    this.socket.on('orderStatus', (res: { orderStatus: boolean }) => {
+      this.orderStatus = res.orderStatus;
+      // this.changeOrderStatus(res.orderStatus);
+      console.log('order status from socket: ', this.orderStatus);
+      if (res.orderStatus) {
+        this.closingTimeError = true;
+      } else {
+        this.closingTimeError = false;
+      }
+    });
 
-    // this.socketService.emitOrderStatusEvent(true);
+    this.socketService.emitOrderStatusEvent(true);
 
     this.subscription = this.socketService
       .getOrderStatusEmitter()
@@ -67,20 +80,21 @@ export class HomepageComponent implements OnInit {
         }
       });
 
-    this.http.get('http://localhost:8000/').subscribe((res: any) => {
-      this.orderStatus = res.orderStatus;
-      if (this.orderStatus) {
-        this.closingTimeError = true;
-      }
-    });
+    // this.http.get('http://localhost:8000/').subscribe((res: any) => {
+    //   this.orderStatus = res.orderStatus;
+    //   console.log('order status: ', this.orderStatus);
+    //   if (this.orderStatus) {
+    //     this.closingTimeError = true;
+    //   }
+    // });
 
-    console.log(this.orderStatus);
     this.foodArray = this.socketService.getAllFoods();
   }
 
   onProceedToOrderPage(id: number): void {
     const currentDate = new Date();
     const currentTime = currentDate.toString().split(' ')[4].toString();
+    console.log(this.orderStatus);
     if (
       this.currentTime < this.breakTime.openingTime ||
       this.currentTime > this.breakTime.closingTime
