@@ -42,7 +42,7 @@ export class OrderPageComponent implements OnInit {
     location: new FormControl('', Validators.required),
     amount: new FormControl(0, Validators.required),
     numberOfPacks: new FormControl('1', Validators.required),
-    note: new FormControl('', Validators.required),
+    note: new FormControl(''),
     foodOrdered: new FormControl('', Validators.required),
   });
 
@@ -67,7 +67,8 @@ export class OrderPageComponent implements OnInit {
       const data: Food = this.socketService.getFoodByID(id);
       this.price = data.price;
       this.orderForm.patchValue({
-        amount: data.price,
+        // amount: data.price,
+        amount: '0.01',
         foodOrdered: data.body,
       });
     });

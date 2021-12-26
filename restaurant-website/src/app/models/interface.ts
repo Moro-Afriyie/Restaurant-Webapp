@@ -35,6 +35,7 @@ export interface OrderDetails {
   phoneNumber: string;
   location: string;
   amount: string;
+  note?: string;
   completed: boolean;
 }
 
@@ -46,6 +47,7 @@ export interface OrderDetailsAdmin {
   phoneNumber: string;
   location: string;
   amount: string;
+  note?: string;
   completed: boolean;
   Id: string;
 }
