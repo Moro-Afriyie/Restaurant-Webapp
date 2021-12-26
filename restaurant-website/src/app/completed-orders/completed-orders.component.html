@@ -68,6 +68,10 @@
             <p>Location:</p>
             {{ item.location }}
           </li>
+          <li *ngIf="item.note || item.note !== ''">
+            <p>Note:</p>
+            {{ item.note }}
+          </li>
           <li>
             <p>Price:</p>
             GHS {{ item.amount }}
