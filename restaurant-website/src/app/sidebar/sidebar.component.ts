@@ -33,7 +33,11 @@ export class SidebarComponent implements OnInit {
       }),
     };
     this.http
-      .post('http://localhost:8000/api/openOrders', {}, httpOptions)
+      .post(
+        'https://restaurant-payment-backend.herokuapp.com/api/openOrders',
+        {},
+        httpOptions
+      )
       .subscribe();
   }
 
@@ -44,7 +48,11 @@ export class SidebarComponent implements OnInit {
       }),
     };
     this.http
-      .post('http://localhost:8000/api/closeOrders', {}, httpOptions)
+      .post(
+        'https://restaurant-payment-backend.herokuapp.com/api/closeOrders',
+        {},
+        httpOptions
+      )
       .subscribe();
   }
 }
