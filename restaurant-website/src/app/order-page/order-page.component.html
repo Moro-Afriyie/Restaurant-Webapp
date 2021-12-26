@@ -97,17 +97,6 @@
             </div>
           </div>
         </div>
-
-        <!-- <div class="form__control">
-        <label for="comment">Extra comments</label>
-        <textarea
-          type="text"
-          placeholder="Add any additional comments"
-          name="comment"
-          id="comment"
-          formControlName="comments"
-        ></textarea>
-      </div> -->
         <div class="form__control">
           <label for="numberOfPacks">Number of packs</label>
           <input
@@ -119,20 +108,16 @@
             (change)="calculateAmount($event)"
           />
         </div>
-        <!-- <div class="form__control">
-          <label for="network">Mobile Network</label>
-
-          <select
-            name="paymentoption"
-            id="paymentoption"
-            formControlName="paymentoption"
-          >
-            <option value="MTN">MTN</option>
-            <option value="AIRTELTIGO">AIRTELTIGO</option>
-            <option value="VODAFONE">VODAFONE</option>
-          </select>
-        </div> -->
-
+        <div class="form__control">
+        <label for="note">Notes </label>
+        <textarea
+          type="text"
+          placeholder="Add any additional comments or any allergies..."
+          name="note"
+          id="note"
+          formControlName="note"
+        ></textarea>
+      </div>
         <div class="form__control">
           <label for="comment">Amount</label>
           <input
