@@ -41,8 +41,8 @@ export class OrderPageComponent implements OnInit {
     ]),
     location: new FormControl('', Validators.required),
     amount: new FormControl(0, Validators.required),
-    // paymentoption: new FormControl('MTN', Validators.required),
     numberOfPacks: new FormControl('1', Validators.required),
+    note: new FormControl('', Validators.required),
     foodOrdered: new FormControl('', Validators.required),
   });
 
@@ -126,6 +126,7 @@ export class OrderPageComponent implements OnInit {
       foodOrdered: this.orderForm.value.foodOrdered,
       phoneNumber: this.orderForm.value.phoneNumber,
       amount: this.orderForm.value.amount,
+      note: this.orderForm.value.note,
       completed: false,
       location: this.orderForm.value.location,
     };
