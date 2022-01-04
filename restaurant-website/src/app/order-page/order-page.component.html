@@ -1,3 +1,20 @@
+<!--POPUP MODAL-->
+<div class="modal" *ngIf="modalOpen">
+  <div class="popup center active">
+    <div class="icon">
+      <i class="fa fa-check"></i>
+    </div>
+    <div class="title">Success!!</div>
+    <div class="description">
+      Thank you for your order. Please wait while the delivery guy attends to
+      you😊
+    </div>
+    <div class="dismiss-btn">
+      <button id="dismiss-popup-btn" (click)="onCloseModal()">Dismiss</button>
+    </div>
+  </div>
+</div>
+<!--END POPUP MODAL-->
 <div class="form-container">
   <nav class="navbar">
     <div class="navbar__logo">
@@ -9,6 +26,7 @@
       </ul>
     </div>
   </nav>
+
   <div class="container">
     <div class="payment__error" *ngIf="paymentError">
       <div class="info">
@@ -109,15 +127,15 @@
           />
         </div>
         <div class="form__control">
-        <label for="note">Notes </label>
-        <textarea
-          type="text"
-          placeholder="Add any additional comments or any allergies..."
-          name="note"
-          id="note"
-          formControlName="note"
-        ></textarea>
-      </div>
+          <label for="note">Notes </label>
+          <textarea
+            type="text"
+            placeholder="Add any additional comments or any allergies..."
+            name="note"
+            id="note"
+            formControlName="note"
+          ></textarea>
+        </div>
         <div class="form__control">
           <label for="comment">Amount</label>
           <input
