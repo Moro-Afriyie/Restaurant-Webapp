@@ -50,7 +50,7 @@ export class OrderPageComponent implements OnInit {
 
   private socket: any;
   public data: any;
-  modalOpen = true;
+  modalOpen = false;
 
   url = 'https://restaurant-payment-backend.herokuapp.com/api/payment';
   paymentError = false;
@@ -93,9 +93,8 @@ export class OrderPageComponent implements OnInit {
         this.postDetailsToFireBase(this.orderDetails);
         setTimeout(() => {
           this.paymentSuccess = false;
-          // this.router.navigate(['']);
           this.modalOpen = true;
-        }, 1000);
+        }, 500);
       }
     });
   }
