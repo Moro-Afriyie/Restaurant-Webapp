@@ -68,8 +68,8 @@ export class OrderPageComponent implements OnInit {
       const data: Food = this.socketService.getFoodByID(id);
       this.price = data.price;
       this.orderForm.patchValue({
-        // amount: data.price,
-        amount: '0.01',
+        amount: data.price,
+        // amount: '0.01',
         foodOrdered: data.body,
       });
     });
