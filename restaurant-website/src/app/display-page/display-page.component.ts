@@ -29,7 +29,9 @@ export class DisplayPageComponent implements OnInit {
 
   exampleGetCollection(): Observable<any> {
     return this.firestore
-      .collection('orders', (orders) => orders.where('completed', '==', false))
+      .collection('orders', (orders) =>
+        orders.where('completed', '==', false).orderBy('date', 'desc')
+      )
       .valueChanges({ idField: 'Id' });
   }
 
