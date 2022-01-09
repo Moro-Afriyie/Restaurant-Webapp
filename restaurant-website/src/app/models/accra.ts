@@ -18,4 +18,5 @@ export const cities = [
   { name: ' Alajo', price: '' },
   { name: 'Anyaa', price: '' },
   { name: 'Apenkwa', price: '' },
+  { name: 'Ashaiman Municipal' },
 ];
