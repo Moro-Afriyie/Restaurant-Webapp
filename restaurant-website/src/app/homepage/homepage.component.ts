@@ -63,17 +63,18 @@ export class HomepageComponent implements OnInit {
   }
 
   onProceedToOrderPage(id: number): void {
-    const currentDate = new Date();
-    const currentTime = currentDate.toString().split(' ')[4].toString();
-    if (
-      currentTime < this.breakTime.openingTime ||
-      currentTime > this.breakTime.closingTime ||
-      this.orderStatus
-    ) {
-      this.closingTimeError = true;
-    } else {
-      this.closingTimeError = false;
-      this.router.navigate(['/orders', id]);
-    }
+    // const currentDate = new Date();
+    // const currentTime = currentDate.toString().split(' ')[4].toString();
+    // if (
+    //   currentTime < this.breakTime.openingTime ||
+    //   currentTime > this.breakTime.closingTime ||
+    //   this.orderStatus
+    // ) {
+    //   this.closingTimeError = true;
+    // } else {
+    //   this.closingTimeError = false;
+    //   this.router.navigate(['/orders', id]);
+    // }
+    this.router.navigate(['/orders', id]);
   }
 }

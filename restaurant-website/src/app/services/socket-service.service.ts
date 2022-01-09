@@ -8,7 +8,7 @@ import { Observable, Subject } from 'rxjs';
 export class SocketService {
   orderStatusEvent: Subject<boolean> = new Subject<boolean>();
   constructor() {}
-  closingTime: string = '06:00:00';
+  closingTime: string = '19:00:00';
   openingTime = '07:00:00';
   foodArray: Food[] = [
     {
