@@ -41,8 +41,8 @@ export class OrderPageComponent implements OnInit {
       Validators.maxLength(10),
     ]),
     location: new FormControl('', Validators.required),
-    deliveryFee: new FormControl(''),
-    amount: new FormControl(0, Validators.required),
+    // deliveryFee: new FormControl(''),
+    // amount: new FormControl(0, Validators.required),
     numberOfPacks: new FormControl('1', Validators.required),
     note: new FormControl(''),
     foodOrdered: new FormControl('', Validators.required),
@@ -65,17 +65,22 @@ export class OrderPageComponent implements OnInit {
   price = '';
   locations: { name: string; price: number }[] = cities;
   invalidLocation = false;
+  priceOfFood = '';
+  deliveryFee = 0;
+  totalPrice = 0;
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const id: any = params.get('id');
       const data: Food = this.socketService.getFoodByID(id);
       this.price = data.price;
+      this.priceOfFood = data.price;
       this.orderForm.patchValue({
         // amount: data.price,
         amount: '0.01',
         foodOrdered: data.body,
       });
+      this.totalPrice = this.deliveryFee + parseInt(this.priceOfFood);
     });
 
     this.socket.on('notification', (res: any) => {
@@ -120,9 +125,9 @@ export class OrderPageComponent implements OnInit {
     this.submitted = true;
     const uuid = uuidv4().split('-').slice(0, 2).join('');
     console.log(this.orderForm.value);
-    return;
+    // return;
 
-    if (this.orderForm.invalid) {
+    if (this.orderForm.invalid || this.invalidLocation) {
       return;
     }
 
@@ -146,7 +151,7 @@ export class OrderPageComponent implements OnInit {
     };
 
     const body = {
-      amount: this.orderForm.value.amount,
+      amount: this.totalPrice,
       paymentoption: this.getPhoneNetWork(this.orderForm.value.phoneNumber),
       walletnumber: `233${this.orderForm.value.phoneNumber.substring(
         1,
@@ -207,9 +212,11 @@ export class OrderPageComponent implements OnInit {
 
   calculateAmount(event: any) {
     let quantity = event.target.value;
-    this.orderForm.patchValue({
-      amount: (parseFloat(this.price) * parseInt(quantity)).toFixed(2),
-    });
+    this.priceOfFood = (parseFloat(this.price) * parseInt(quantity)).toFixed(2);
+    this.totalPrice = this.deliveryFee + parseInt(this.priceOfFood);
+    // this.orderForm.patchValue({
+    //   amount: (parseFloat(this.price) * parseInt(quantity)).toFixed(2),
+    // });
   }
 
   onCalculateFee(event: any): void {
@@ -218,14 +225,18 @@ export class OrderPageComponent implements OnInit {
       this.locations.find((item) => item.name === selectedLocation);
     if (!city) {
       this.invalidLocation = true;
-      this.orderForm.patchValue({
-        deliveryFee: '',
-      });
+      // this.orderForm.patchValue({
+      //   deliveryFee: '',
+      // });
+      this.deliveryFee = 0;
+      this.totalPrice = this.deliveryFee + parseInt(this.priceOfFood);
     } else {
       this.invalidLocation = false;
-      this.orderForm.patchValue({
-        deliveryFee: city.price.toFixed(2),
-      });
+      // this.orderForm.patchValue({
+      //   deliveryFee: city.price.toFixed(2),
+      // });
+      this.deliveryFee = city.price;
+      this.totalPrice = this.deliveryFee + parseInt(this.priceOfFood);
     }
   }
 

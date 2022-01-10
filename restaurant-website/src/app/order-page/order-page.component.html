@@ -140,7 +140,7 @@
             (change)="calculateAmount($event)"
           />
         </div>
-        <div class="form__control">
+        <!-- <div class="form__control">
           <label for="note">Notes </label>
           <textarea
             type="text"
@@ -175,6 +175,13 @@
           <div *ngIf="submitted && f['amount'].errors" class="invalid-feedback">
             <div *ngIf="f['amount'].errors['required']">amount is required</div>
           </div>
+        </div> -->
+
+        <div class="payment-info">
+          <p>Delivery Fee : {{ deliveryFee.toFixed(2) }}</p>
+          <p>Price of Food : {{ priceOfFood }}</p>
+          <hr />
+          <p>Total Price : {{ totalPrice.toFixed(2) }}</p>
         </div>
 
         <button type="submit">Place Order</button>
