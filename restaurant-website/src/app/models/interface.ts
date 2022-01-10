@@ -37,6 +37,8 @@ export interface OrderDetails {
   amount: string;
   note?: string;
   completed: boolean;
+  deliveryFee: number;
+  priceOfFood: string;
 }
 
 export interface OrderDetailsAdmin {
@@ -50,4 +52,6 @@ export interface OrderDetailsAdmin {
   note?: string;
   completed: boolean;
   Id: string;
+  deliveryFee: number;
+  priceOfFood: string;
 }

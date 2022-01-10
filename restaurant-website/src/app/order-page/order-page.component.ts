@@ -80,7 +80,7 @@ export class OrderPageComponent implements OnInit {
         amount: '0.01',
         foodOrdered: data.body,
       });
-      this.totalPrice = this.deliveryFee + parseInt(this.priceOfFood);
+      this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
     });
 
     this.socket.on('notification', (res: any) => {
@@ -138,10 +138,12 @@ export class OrderPageComponent implements OnInit {
       name: this.orderForm.value.name,
       foodOrdered: this.orderForm.value.foodOrdered,
       phoneNumber: this.orderForm.value.phoneNumber,
-      amount: this.orderForm.value.amount,
+      amount: this.totalPrice,
       note: this.orderForm.value.note,
       completed: false,
       location: this.orderForm.value.location,
+      deliveryFee: this.deliveryFee,
+      priceOfFood: this.priceOfFood,
     };
 
     const httpOptions = {
@@ -213,7 +215,7 @@ export class OrderPageComponent implements OnInit {
   calculateAmount(event: any) {
     let quantity = event.target.value;
     this.priceOfFood = (parseFloat(this.price) * parseInt(quantity)).toFixed(2);
-    this.totalPrice = this.deliveryFee + parseInt(this.priceOfFood);
+    this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
     // this.orderForm.patchValue({
     //   amount: (parseFloat(this.price) * parseInt(quantity)).toFixed(2),
     // });
@@ -229,17 +231,21 @@ export class OrderPageComponent implements OnInit {
       //   deliveryFee: '',
       // });
       this.deliveryFee = 0;
-      this.totalPrice = this.deliveryFee + parseInt(this.priceOfFood);
+      this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
     } else {
       this.invalidLocation = false;
       // this.orderForm.patchValue({
       //   deliveryFee: city.price.toFixed(2),
       // });
       this.deliveryFee = city.price;
-      this.totalPrice = this.deliveryFee + parseInt(this.priceOfFood);
+      this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
     }
   }
 
+  getTotalPrice(deliveryFee: number, priceOfFood: string): number {
+    // return deliveryFee + parseInt(priceOfFood);
+    return 0.01;
+  }
   onCloseModal(): void {
     this.modalOpen = false;
     this.router.navigate(['/']);
