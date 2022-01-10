@@ -16,7 +16,7 @@ export class SocketService {
       body: 'Beans with plantain and egg',
       image: '../../assets/beans and egg.jpg',
       alt: 'Beans with plantain and egg',
-      price: '18.00',
+      price: '20.00',
     },
     {
       id: '3646754e10574da3a16a90e2ecff5e06',

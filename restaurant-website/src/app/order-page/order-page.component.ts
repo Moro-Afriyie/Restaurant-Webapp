@@ -32,6 +32,7 @@ export class OrderPageComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.socket = io('https://restaurant-payment-backend.herokuapp.com');
+    // this.socket = io('http://localhost:8000/');
   }
 
   orderForm = new FormGroup({
@@ -55,6 +56,8 @@ export class OrderPageComponent implements OnInit {
   modalOpen = false;
 
   url = 'https://restaurant-payment-backend.herokuapp.com/api/payment';
+  // url = 'http://localhost:8000/api/payment';
+
   paymentError = false;
   paymentSuccess = false;
   submitted = false;
@@ -68,6 +71,7 @@ export class OrderPageComponent implements OnInit {
   priceOfFood = '';
   deliveryFee = 0;
   totalPrice = 0;
+  clientTransactionId = '';
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -84,26 +88,28 @@ export class OrderPageComponent implements OnInit {
     });
 
     this.socket.on('notification', (res: any) => {
+      // console.log(res.data);
       this.data = res.data;
+      if (this.clientTransactionId === this.data.clienttransid) {
+        this.paymentReason = 'Processing payment...';
 
-      this.paymentReason = 'Processing payment...';
-
-      if (this.data.status === 'FAILED') {
-        this.paymentError = true;
-        this.paymentSuccess = false;
-        this.paymentLoading = false;
-        setTimeout(() => {
-          this.paymentError = false;
-        }, 4000);
-      } else if (this.data.status === 'PAID') {
-        this.paymentError = false;
-        this.paymentSuccess = true;
-        this.paymentLoading = false;
-        this.postDetailsToFireBase(this.orderDetails);
-        setTimeout(() => {
+        if (this.data.status === 'FAILED') {
+          this.paymentError = true;
           this.paymentSuccess = false;
-          this.modalOpen = true;
-        }, 500);
+          this.paymentLoading = false;
+          setTimeout(() => {
+            this.paymentError = false;
+          }, 4000);
+        } else if (this.data.status === 'PAID') {
+          this.paymentError = false;
+          this.paymentSuccess = true;
+          this.paymentLoading = false;
+          this.postDetailsToFireBase(this.orderDetails);
+          setTimeout(() => {
+            this.paymentSuccess = false;
+            this.modalOpen = true;
+          }, 500);
+        }
       }
     });
   }
@@ -124,6 +130,9 @@ export class OrderPageComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
     const uuid = uuidv4().split('-').slice(0, 2).join('');
+    this.clientTransactionId = uuid;
+
+    this.socket.emit('user-online', uuid);
 
     if (this.orderForm.invalid || this.invalidLocation) {
       return;
@@ -157,6 +166,7 @@ export class OrderPageComponent implements OnInit {
         1,
         this.orderForm.value.phoneNumbernumber
       )}`,
+      clientId: this.clientTransactionId,
     };
 
     this.http
