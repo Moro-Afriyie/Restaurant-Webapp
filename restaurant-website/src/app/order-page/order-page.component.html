@@ -99,13 +99,31 @@
         <div class="form__control">
           <label for="location">Location</label>
           <input
-            type="text"
-            placeholder="Enter Your Location"
+            list="location_lists"
+            placeholder="Enter or choose the closest location"
             name="location"
             id="location"
             formControlName="location"
             [ngClass]="{ 'is-invalid': submitted && f['location'].errors }"
           />
+          <datalist id="location_lists">
+            <option value="Anchor_tag">Anchor_tag</option>
+            <option value="Aside _tag"></option>
+            <option value="dragdrop"></option>
+            <option value="Dropdownlist"></option>
+            <option value="Font_tag"></option>
+            <option value="Block_elements"></option>
+            <option value="Blockquote"></option>
+            <option value="Colsapn"></option>
+            <option value="inline_style"></option>
+            <option value="Kbd"></option>
+            <option value="Meta_tags"></option>
+            <option value="Quotation"></option>
+            <option value="Table_background"></option>
+            <option value="Table_border"></option>
+            <option value="Caption"></option>
+            <option value="Select tag"></option>
+          </datalist>
           <div
             *ngIf="submitted && f['location'].errors"
             class="invalid-feedback"
@@ -115,6 +133,7 @@
             </div>
           </div>
         </div>
+
         <div class="form__control">
           <label for="numberOfPacks">Number of packs</label>
           <input

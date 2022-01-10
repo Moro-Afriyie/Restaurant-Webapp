@@ -33,22 +33,22 @@ export class HomepageComponent implements OnInit {
 
   ngOnInit(): void {
     this.breakTime = this.socketService.getClosingTime();
-    this.http
-      .get('https://restaurant-payment-backend.herokuapp.com/')
-      .subscribe((res: any) => {
-        this.orderStatus = res.orderStatus;
-        const currentDate = new Date();
-        const currentTime = currentDate.toString().split(' ')[4].toString();
-        if (
-          currentTime < this.breakTime.openingTime ||
-          currentTime > this.breakTime.closingTime ||
-          this.orderStatus
-        ) {
-          this.closingTimeError = true;
-        } else {
-          this.closingTimeError = false;
-        }
-      });
+    // this.http
+    //   .get('https://restaurant-payment-backend.herokuapp.com/')
+    //   .subscribe((res: any) => {
+    //     this.orderStatus = res.orderStatus;
+    //     const currentDate = new Date();
+    //     const currentTime = currentDate.toString().split(' ')[4].toString();
+    //     if (
+    //       currentTime < this.breakTime.openingTime ||
+    //       currentTime > this.breakTime.closingTime ||
+    //       this.orderStatus
+    //     ) {
+    //       this.closingTimeError = true;
+    //     } else {
+    //       this.closingTimeError = false;
+    //     }
+    //   });
 
     this.socket.on('orderStatus', (res: { orderStatus: boolean }) => {
       this.orderStatus = res.orderStatus;
