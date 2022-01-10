@@ -104,7 +104,10 @@
             name="location"
             id="location"
             formControlName="location"
-            [ngClass]="{ 'is-invalid': submitted && f['location'].errors }"
+            [ngClass]="{
+              'is-invalid':
+                (submitted && f['location'].errors) || invalidLocation
+            }"
             (change)="onCalculateFee($event)"
           />
           <datalist id="location_lists">
@@ -177,11 +180,21 @@
           </div>
         </div> -->
 
-        <div class="payment-info">
-          <p>Delivery Fee : {{ deliveryFee.toFixed(2) }}</p>
-          <p>Price of Food : {{ priceOfFood }}</p>
+        <div class="price-info">
+          <div class="info-item">
+            <p>Delivery Fee :</p>
+            {{ deliveryFee.toFixed(2) }}
+          </div>
+          <div class="info-item">
+            <p>Price of Food :</p>
+            {{ priceOfFood }}
+          </div>
+
           <hr />
-          <p>Total Price : {{ totalPrice.toFixed(2) }}</p>
+          <div class="info-item">
+            <p>Total Price :</p>
+            {{ totalPrice.toFixed(2) }}
+          </div>
         </div>
 
         <button type="submit">Place Order</button>

@@ -124,8 +124,6 @@ export class OrderPageComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
     const uuid = uuidv4().split('-').slice(0, 2).join('');
-    console.log(this.orderForm.value);
-    // return;
 
     if (this.orderForm.invalid || this.invalidLocation) {
       return;
