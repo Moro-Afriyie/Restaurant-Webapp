@@ -248,8 +248,8 @@ export class OrderPageComponent implements OnInit {
   }
 
   getTotalPrice(deliveryFee: number, priceOfFood: string): number {
-    // return deliveryFee + parseInt(priceOfFood);
-    return 0.01;
+    return deliveryFee + parseInt(priceOfFood);
+    // return 0.01;
   }
   onCloseModal(): void {
     this.modalOpen = false;
