@@ -64,6 +64,7 @@ export class OrderPageComponent implements OnInit {
   paymentReason = 'Processing payment...';
   price = '';
   locations: { name: string; price: number }[] = cities;
+  invalidLocation = false;
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -212,8 +213,20 @@ export class OrderPageComponent implements OnInit {
   }
 
   onCalculateFee(event: any): void {
-    console.log(event.target.value);
-    console.log(this.locations);
+    const selectedLocation = event.target.value;
+    const city: { name: string; price: number } | undefined =
+      this.locations.find((item) => item.name === selectedLocation);
+    if (!city) {
+      this.invalidLocation = true;
+      this.orderForm.patchValue({
+        deliveryFee: '',
+      });
+    } else {
+      this.invalidLocation = false;
+      this.orderForm.patchValue({
+        deliveryFee: city.price.toFixed(2),
+      });
+    }
   }
 
   onCloseModal(): void {
