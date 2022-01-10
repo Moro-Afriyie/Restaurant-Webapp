@@ -15,6 +15,34 @@
   </div>
 </div>
 <!--END POPUP MODAL-->
+<!---PAYMENT RESPONSE MODAL-->
+<div class="modal payment__loading2" *ngIf="paymentLoading">
+  <div class="popup center">
+    <div class="description">
+      {{ paymentReason }}
+    </div>
+    <div class="icon">
+      <div class="loader"></div>
+    </div>
+  </div>
+</div>
+<!---END PAYMENT RESPONSE MODAL-->
+<!--PAYMENT FAILED MODAL-->
+<div class="modal payment__error2" *ngIf="paymentError">
+  <div class="popup center">
+    <div class="icon">
+      <span class="material-icons"> info </span>
+    </div>
+    <div class="title">Error!!</div>
+    <div class="description">
+      <p>{{ error }}</p>
+    </div>
+    <div class="dismiss-btn">
+      <button id="dismiss-popup-btn" (click)="onClose()">Close</button>
+    </div>
+  </div>
+</div>
+<!--END PAYMENT FAILED MODAL-->
 <div class="form-container">
   <nav class="navbar">
     <div class="navbar__logo">
@@ -28,24 +56,24 @@
   </nav>
 
   <div class="container">
-    <div class="payment__error" *ngIf="paymentError">
+    <!-- <div class="payment__error" *ngIf="paymentError">
       <div class="info">
         <span class="material-icons"> info </span>
         <p>{{ error }}</p>
       </div>
       <span class="material-icons close" (click)="onClose()"> close </span>
-    </div>
-    <div class="payment__success" *ngIf="paymentSuccess">
+    </div> -->
+    <!-- <div class="payment__success" *ngIf="paymentSuccess">
       <div class="info">
         <span class="material-icons"> check_circle </span>
         <p>{{ success }}</p>
       </div>
       <span class="material-icons close" (click)="onClose()"> close </span>
-    </div>
-    <div class="payment__loading" *ngIf="paymentLoading">
+    </div> -->
+    <!-- <div class="payment__loading" *ngIf="paymentLoading">
       <div class="loader"></div>
       <p>{{ paymentReason }}</p>
-    </div>
+    </div> -->
     <form class="form" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
       <h1 class="form__title">Place order</h1>
       <div class="form__container">

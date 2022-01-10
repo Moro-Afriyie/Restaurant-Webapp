@@ -121,10 +121,10 @@
 }
 
 .payment__loading {
-  @include snackBar();
-  justify-content: flex-start;
-  gap: 1rem;
-  background-color: #37a1db;
+  // @include snackBar();
+  // justify-content: flex-start;
+  // gap: 1rem;
+  // background-color: #37a1db;
   .loader,
   .loader:after {
     border-radius: 50%;
@@ -344,3 +344,57 @@
     }
   }
 }
+
+/****LOADER****/
+.payment__loading2 {
+  .icon {
+    border: none;
+  }
+}
+.payment__error2 {
+  color: rgb(215, 69, 69);
+  .icon {
+    border: 2px solid rgb(215, 69, 69);
+    span {
+      color: rgb(215, 69, 69);
+    }
+  }
+  .description {
+    color: rgb(215, 69, 69);
+  }
+}
+.loader,
+.loader:after {
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+.loader {
+  border-top: 0.5rem solid #111;
+  border-right: 0.5rem solid #111;
+  border-bottom: 0.5rem solid #111;
+  border-left: 0.5rem solid #cecbcb;
+  transform: translateZ(0);
+  animation: load8 1.1s infinite linear;
+}
+@-webkit-keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+/****ENDLOADER***/

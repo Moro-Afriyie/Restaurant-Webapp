@@ -88,7 +88,6 @@ export class OrderPageComponent implements OnInit {
     });
 
     this.socket.on('notification', (res: any) => {
-      // console.log(res.data);
       this.data = res.data;
       if (this.clientTransactionId === this.data.clienttransid) {
         this.paymentReason = 'Processing payment...';
@@ -131,8 +130,6 @@ export class OrderPageComponent implements OnInit {
     this.submitted = true;
     const uuid = uuidv4().split('-').slice(0, 2).join('');
     this.clientTransactionId = uuid;
-
-    this.socket.emit('user-online', uuid);
 
     if (this.orderForm.invalid || this.invalidLocation) {
       return;
