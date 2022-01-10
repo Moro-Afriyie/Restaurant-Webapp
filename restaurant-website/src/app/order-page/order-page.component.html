@@ -121,7 +121,10 @@
               location is required
             </div>
           </div>
-          <div *ngIf="invalidLocation" class="invalid-feedback">
+          <div
+            *ngIf="!(submitted && f['location'].errors) && invalidLocation"
+            class="invalid-feedback"
+          >
             <div>Select a valid location</div>
           </div>
         </div>
