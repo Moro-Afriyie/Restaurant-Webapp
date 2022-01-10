@@ -17,8 +17,8 @@ export class HomepageComponent implements OnInit {
     private socketService: SocketService,
     private http: HttpClient
   ) {
-    // this.socket = io('https://restaurant-payment-backend.herokuapp.com/');
-    this.socket = io('http://localhost:8000/');
+    this.socket = io('https://restaurant-payment-backend.herokuapp.com/');
+    // this.socket = io('http://localhost:8000/');
   }
 
   foodArray: any;
