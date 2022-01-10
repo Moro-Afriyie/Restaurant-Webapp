@@ -16,6 +16,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { io } from 'socket.io-client';
 import { PaymentResponse, Order, Food } from '../models/interface';
 import { v4 as uuidv4 } from 'uuid';
+import { cities } from '../models/accra';
 
 @Component({
   selector: 'app-order-page',
@@ -40,6 +41,7 @@ export class OrderPageComponent implements OnInit {
       Validators.maxLength(10),
     ]),
     location: new FormControl('', Validators.required),
+    deliveryFee: new FormControl(''),
     amount: new FormControl(0, Validators.required),
     numberOfPacks: new FormControl('1', Validators.required),
     note: new FormControl(''),
@@ -61,6 +63,7 @@ export class OrderPageComponent implements OnInit {
   paymentLoading = false;
   paymentReason = 'Processing payment...';
   price = '';
+  locations: { name: string; price: number }[] = cities;
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -206,6 +209,11 @@ export class OrderPageComponent implements OnInit {
     this.orderForm.patchValue({
       amount: (parseFloat(this.price) * parseInt(quantity)).toFixed(2),
     });
+  }
+
+  onCalculateFee(event: any): void {
+    console.log(event.target.value);
+    console.log(this.locations);
   }
 
   onCloseModal(): void {
