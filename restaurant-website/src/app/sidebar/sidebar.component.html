@@ -55,11 +55,11 @@
   </ul>
 </div>
 <div class="sidebar__controls">
-  <div class="open-orders" (click)="onOpenOrders()">
+  <div class="open-orders" (click)="onOpenOrders()" *ngIf="closeOrder">
     <span class="material-icons"> lock_open </span>
     <p>open orders</p>
   </div>
-  <div class="close-orders" (click)="onCloseOrders()">
+  <div class="close-orders" (click)="onCloseOrders()" *ngIf="!closeOrder">
     <span class="material-icons"> lock_clock </span>
     <p>close orders</p>
   </div>

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthenticationService } from './../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
+import { io } from 'socket.io-client';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,13 +10,36 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
+  orderStatus = false;
+  closeOrder = false;
+  private socket: any;
   constructor(
     private authService: AuthenticationService,
     private router: Router,
     private http: HttpClient
-  ) {}
+  ) {
+    this.socket = io('https://restaurant-payment-backend.herokuapp.com/');
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.http
+      .get('https://restaurant-payment-backend.herokuapp.com/')
+      .subscribe((res: any) => {
+        this.orderStatus = res.orderStatus;
+        if (this.orderStatus) {
+          this.closeOrder = true;
+        }
+      });
+
+    this.socket.on('orderStatus', (res: { orderStatus: boolean }) => {
+      this.orderStatus = res.orderStatus;
+      if (res.orderStatus) {
+        this.closeOrder = true;
+      } else {
+        this.closeOrder = false;
+      }
+    });
+  }
 
   logOut(): void {
     this.authService
