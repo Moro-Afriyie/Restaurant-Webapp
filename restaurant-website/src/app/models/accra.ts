@@ -92,6 +92,7 @@ export const cities = [
   { name: 'Tesano', price: 20 },
   { name: 'Teshie', price: 25 },
   { name: 'Tudu', price: 20 },
+  { name: 'University Of Ghana', price: 20 },
   { name: 'UPSA', price: 20 },
   { name: 'Weija', price: 20 },
   { name: 'West Legon', price: 20 },
