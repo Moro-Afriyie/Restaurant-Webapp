@@ -29,7 +29,7 @@ export interface Food {
 
 export interface OrderDetails {
   date: string;
-  orderId: number;
+  orderId: string;
   name: string;
   foodOrdered: string;
   phoneNumber: string;
@@ -39,11 +39,12 @@ export interface OrderDetails {
   completed: boolean;
   deliveryFee: number;
   priceOfFood: string;
+  orderPaid: boolean;
 }
 
 export interface OrderDetailsAdmin {
   date: string;
-  orderId: number;
+  orderId: string;
   name: string;
   foodOrdered: string;
   phoneNumber: string;
@@ -54,4 +55,5 @@ export interface OrderDetailsAdmin {
   Id: string;
   deliveryFee: number;
   priceOfFood: string;
+  orderPaid: boolean;
 }

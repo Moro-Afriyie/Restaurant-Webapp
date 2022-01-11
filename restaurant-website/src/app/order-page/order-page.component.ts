@@ -148,8 +148,10 @@ export class OrderPageComponent implements OnInit {
       location: this.orderForm.value.location,
       deliveryFee: this.deliveryFee,
       priceOfFood: this.priceOfFood,
+      orderPaid: false,
     };
 
+    console.log(this.orderDetails);
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -248,8 +250,8 @@ export class OrderPageComponent implements OnInit {
   }
 
   getTotalPrice(deliveryFee: number, priceOfFood: string): number {
-    return deliveryFee + parseInt(priceOfFood);
-    // return 0.01;
+    // return deliveryFee + parseInt(priceOfFood);
+    return 0.01;
   }
   onCloseModal(): void {
     this.modalOpen = false;
