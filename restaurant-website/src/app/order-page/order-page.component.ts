@@ -154,7 +154,7 @@ export class OrderPageComponent implements OnInit {
       orderPaid: false,
     };
 
-    console.log(this.orderDetails);
+    // console.log(this.orderDetails);
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
