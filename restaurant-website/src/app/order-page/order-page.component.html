@@ -103,7 +103,7 @@
           </div>
         </div>
         <div class="form__control">
-          <label for="phoneNumber">Phone Number</label>
+          <label for="phoneNumber">Phone Number(mobile money)</label>
           <input
             type="text"
             placeholder="Enter Your Phone number"
@@ -119,8 +119,8 @@
             <div *ngIf="f['phoneNumber'].errors['required']">
               phone number is required
             </div>
-            <div *ngIf="f['phoneNumber'].errors['maxlength']">
-              phone number should have 10 characters
+            <div *ngIf="f['phoneNumber'].errors['pattern']">
+              enter a valid phone number
             </div>
           </div>
         </div>

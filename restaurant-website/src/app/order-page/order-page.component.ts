@@ -39,7 +39,7 @@ export class OrderPageComponent implements OnInit {
     name: new FormControl('', Validators.required),
     phoneNumber: new FormControl('', [
       Validators.required,
-      Validators.maxLength(10),
+      Validators.pattern(/^\+233\d{9}|^233\d{9}|^\d{10}$/),
     ]),
     location: new FormControl('', Validators.required),
     // deliveryFee: new FormControl(''),
