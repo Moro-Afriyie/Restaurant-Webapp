@@ -103,7 +103,7 @@ export class OrderPageComponent implements OnInit {
           this.paymentError = false;
           // this.paymentSuccess = true;
           this.paymentLoading = false;
-          this.postDetailsToFireBase(this.orderDetails);
+          // this.postDetailsToFireBase(this.orderDetails);
           setTimeout(() => {
             // this.paymentSuccess = false;
             this.modalOpen = true;
@@ -138,7 +138,7 @@ export class OrderPageComponent implements OnInit {
     // set the orderDetails
     this.orderDetails = {
       date: Date.now().toString(),
-      orderId: uuid,
+      orderId: this.clientTransactionId,
       name: this.orderForm.value.name,
       foodOrdered: this.orderForm.value.foodOrdered,
       phoneNumber: this.orderForm.value.phoneNumber,
@@ -166,6 +166,7 @@ export class OrderPageComponent implements OnInit {
         this.orderForm.value.phoneNumbernumber
       )}`,
       clientId: this.clientTransactionId,
+      orderDetails: this.orderDetails,
     };
 
     this.http
@@ -213,6 +214,19 @@ export class OrderPageComponent implements OnInit {
 
     return null;
   }
+  FormatGhanaianPhoneNumber = (phoneNumber: string) => {
+    if (phoneNumber.startsWith('0') && phoneNumber.length == 10) {
+      return '233' + phoneNumber.substring(1);
+    } else if (!phoneNumber.startsWith('0') && phoneNumber.length == 9) {
+      return '233' + phoneNumber;
+    } else if (phoneNumber.startsWith('233') && phoneNumber.length == 12) {
+      return phoneNumber;
+    } else if (phoneNumber.startsWith('+233') && phoneNumber.length == 13) {
+      return phoneNumber.substring(1);
+    }
+
+    return phoneNumber;
+  };
 
   onClose(): void {
     this.paymentError = false;
