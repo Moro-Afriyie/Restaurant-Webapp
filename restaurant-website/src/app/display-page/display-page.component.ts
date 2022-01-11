@@ -30,22 +30,29 @@ export class DisplayPageComponent implements OnInit {
   exampleGetCollection(): Observable<any> {
     return this.firestore
       .collection('orders', (orders) =>
-        orders.where('completed', '==', false).orderBy('date', 'desc')
+        orders
+          .where('completed', '==', false)
+          .where('orderPaid', '==', true)
+          .orderBy('date', 'desc')
       )
       .valueChanges({ idField: 'Id' });
   }
 
-  onOrderDelivered(id: string): void {
-    this.updateOrder(id, { completed: true })
-      // .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-    this.success = true;
+  onOrderDelivered(id: string, orderId: string): void {
+    if (window.confirm(`Are you sure you want to comfirm oder: ${orderId}?`)) {
+      this.updateOrder(id, { completed: true })
+        // .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+      this.success = true;
+    }
   }
 
-  onCancelOrder(id: string) {
-    this.deleteOrder(id)
-      // .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+  onCancelOrder(id: string, orderId: string) {
+    if (window.confirm(`Do you really want to delete oder: ${orderId}?`)) {
+      this.deleteOrder(id)
+        // .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+    }
   }
 
   updateOrder(id: string, data: { completed: boolean }): Promise<void> {

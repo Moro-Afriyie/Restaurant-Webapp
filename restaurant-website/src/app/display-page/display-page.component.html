@@ -49,12 +49,15 @@
         </ul>
       </div>
       <div class="card-btn">
-        <div class="cancel" (click)="onCancelOrder(item.Id)">
+        <div class="cancel" (click)="onCancelOrder(item.Id, item.orderId)">
           <button>
             <span class="material-icons"> close </span>
           </button>
         </div>
-        <div class="completed" (click)="onOrderDelivered(item.Id)">
+        <div
+          class="completed"
+          (click)="onOrderDelivered(item.Id, item.orderId)"
+        >
           <button>
             <span class="material-icons"> done </span>
           </button>
