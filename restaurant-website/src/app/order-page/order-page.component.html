@@ -169,7 +169,14 @@
             id="numberOfPacks"
             formControlName="numberOfPacks"
             (change)="calculateAmount($event)"
+            [ngClass]="{ 'is-invalid': submitted && f['numberOfPacks'].errors }"
           />
+          <div
+            *ngIf="submitted && f['numberOfPacks'].errors"
+            class="invalid-feedback"
+          >
+            <div>Enter a valid number</div>
+          </div>
         </div>
         <!-- <div class="form__control">
           <label for="note">Notes </label>
