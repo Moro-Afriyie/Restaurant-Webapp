@@ -33,7 +33,7 @@ export class HomepageComponent implements OnInit {
   subscription: Subscription = new Subscription();
 
   ngOnInit(): void {
-    this.breakTime = this.socketService.getClosingTime();
+    // this.breakTime = this.socketService.getClosingTime();
     // this.http
     //   .get('https://restaurant-payment-backend.herokuapp.com/')
     //   .subscribe((res: any) => {
@@ -50,6 +50,17 @@ export class HomepageComponent implements OnInit {
     //       this.closingTimeError = false;
     //     }
     //   });
+
+    this.http
+      .get('https://restaurant-payment-backend.herokuapp.com/')
+      .subscribe((res: any) => {
+        this.orderStatus = res.orderStatus;
+        if (this.orderStatus) {
+          this.closingTimeError = true;
+        } else {
+          this.closingTimeError = false;
+        }
+      });
 
     this.socket.on('orderStatus', (res: { orderStatus: boolean }) => {
       this.orderStatus = res.orderStatus;
@@ -76,6 +87,11 @@ export class HomepageComponent implements OnInit {
     //   this.closingTimeError = false;
     //   this.router.navigate(['/orders', id]);
     // }
-    this.router.navigate(['/orders', id]);
+    if (this.orderStatus) {
+      this.closingTimeError = true;
+    } else {
+      this.closingTimeError = false;
+      this.router.navigate(['/orders', id]);
+    }
   }
 }
