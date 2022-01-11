@@ -161,10 +161,9 @@ export class OrderPageComponent implements OnInit {
     const body = {
       amount: this.totalPrice,
       paymentoption: this.getPhoneNetWork(this.orderForm.value.phoneNumber),
-      walletnumber: `233${this.orderForm.value.phoneNumber.substring(
-        1,
-        this.orderForm.value.phoneNumbernumber
-      )}`,
+      walletnumber: this.FormatGhanaianPhoneNumber(
+        this.orderForm.value.phoneNumber
+      ),
       clientId: this.clientTransactionId,
       orderDetails: this.orderDetails,
     };
