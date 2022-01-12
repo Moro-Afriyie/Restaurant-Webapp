@@ -89,6 +89,8 @@ export const cities = [
   { name: 'Sukura', price: 20 },
   { name: 'Taifa-Burkina', price: 25 },
   { name: 'Tantra Hills', price: 30 },
+  { name: 'Tema', price: 30 },
+  { name: 'Kasoa', price: 30 },
   { name: 'Tesano', price: 20 },
   { name: 'Teshie', price: 25 },
   { name: 'Tudu', price: 20 },
