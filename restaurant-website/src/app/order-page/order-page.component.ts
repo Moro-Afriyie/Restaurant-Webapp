@@ -152,6 +152,7 @@ export class OrderPageComponent implements OnInit {
       deliveryFee: this.deliveryFee,
       priceOfFood: this.priceOfFood,
       orderPaid: false,
+      numberOfPacks: this.orderForm.value.numberOfPacks,
     };
 
     // console.log(this.orderDetails);
