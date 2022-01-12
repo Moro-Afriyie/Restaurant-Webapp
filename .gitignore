@@ -1,3 +1,5 @@
-node_modules
+node_modules/
 .env
 environments
+dist
+dist.zip

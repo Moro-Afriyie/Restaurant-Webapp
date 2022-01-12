@@ -1,0 +1,45 @@
+[debug] [2022-01-11T15:18:20.755Z] ----------------------------------------------------------------------
+[debug] [2022-01-11T15:18:20.758Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\CHEALE\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js login
+[debug] [2022-01-11T15:18:20.759Z] CLI Version:   10.0.1
+[debug] [2022-01-11T15:18:20.759Z] Platform:      win32
+[debug] [2022-01-11T15:18:20.760Z] Node Version:  v16.13.0
+[debug] [2022-01-11T15:18:20.761Z] Time:          Tue Jan 11 2022 14:18:20 GMT-0100 (Azores Standard Time)
+[debug] [2022-01-11T15:18:20.762Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-01-11T15:18:20.766Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[info] i  Firebase optionally collects CLI usage and error reporting information to help improve our products. Data is collected in accordance with Google's privacy policy (https://policies.google.com/privacy) and is not used to identify you.
+ 
+[debug] [2022-01-11T15:18:21.612Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2022-01-11T15:18:21.612Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://accounts.google.com/o/oauth2/auth?client_id=563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com&scope=email%20openid%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloudplatformprojects.readonly%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Ffirebase%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloud-platform&response_type=code&state=619795797&redirect_uri=http%3A%2F%2Flocalhost%3A9005
+[info] 
+[info] Waiting for authentication...
+[debug] [2022-01-11T15:18:35.519Z] Error: spawn cmd ENOENT
+    at Process.ChildProcess._handle.onexit (node:internal/child_process:282:19)
+    at onErrorNT (node:internal/child_process:477:16)
+    at processTicksAndRejections (node:internal/process/task_queues:83:21)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2022-01-11T15:19:25.334Z] ----------------------------------------------------------------------
+[debug] [2022-01-11T15:19:25.336Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\CHEALE\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js login
+[debug] [2022-01-11T15:19:25.337Z] CLI Version:   10.0.1
+[debug] [2022-01-11T15:19:25.337Z] Platform:      win32
+[debug] [2022-01-11T15:19:25.338Z] Node Version:  v16.13.0
+[debug] [2022-01-11T15:19:25.339Z] Time:          Tue Jan 11 2022 14:19:25 GMT-0100 (Azores Standard Time)
+[debug] [2022-01-11T15:19:25.339Z] ----------------------------------------------------------------------
+[debug] 
+[info] i  Firebase optionally collects CLI usage and error reporting information to help improve our products. Data is collected in accordance with Google's privacy policy (https://policies.google.com/privacy) and is not used to identify you.
+ 
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://accounts.google.com/o/oauth2/auth?client_id=563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com&scope=email%20openid%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloudplatformprojects.readonly%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Ffirebase%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloud-platform&response_type=code&state=927990964&redirect_uri=http%3A%2F%2Flocalhost%3A9005
+[info] 
+[info] Waiting for authentication...
+[debug] [2022-01-11T15:19:28.232Z] Error: spawn cmd ENOENT
+    at Process.ChildProcess._handle.onexit (node:internal/child_process:282:19)
+    at onErrorNT (node:internal/child_process:477:16)
+    at processTicksAndRejections (node:internal/process/task_queues:83:21)
+[error] 
+[error] Error: An unexpected error has occurred.
