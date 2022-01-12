@@ -44,7 +44,7 @@ export class SocketService {
       body: 'Beans and rice with plantain and egg',
       image: '../../assets/RiceWithPlantainAndEgg.jpg',
       alt: 'Beans and rice with plantain and egg',
-      price: '20.00',
+      price: '25.00',
     },
     {
       id: 'c4d3ddc886c540149323387915598847',
