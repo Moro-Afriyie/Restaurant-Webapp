@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthenticationService } from './../services/authentication.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { io } from 'socket.io-client';
 
 @Component({
@@ -13,6 +13,7 @@ export class SidebarComponent implements OnInit {
   orderStatus = false;
   closeOrder = false;
   private socket: any;
+  @Output('toggleSideBar') toggleSidebarEvent = new EventEmitter();
   constructor(
     private authService: AuthenticationService,
     private router: Router,
@@ -78,5 +79,10 @@ export class SidebarComponent implements OnInit {
         httpOptions
       )
       .subscribe();
+  }
+
+  onToggleSidebar(link: string) {
+    this.router.navigate([link]);
+    this.toggleSidebarEvent.emit(false);
   }
 }

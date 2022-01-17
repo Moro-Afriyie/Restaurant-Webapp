@@ -25,7 +25,7 @@
       'sidebar-active': toggleSidebar
     }"
   >
-    <app-sidebar> close </app-sidebar>
+    <app-sidebar (toggleSideBar)="onShowSideBar()"> close </app-sidebar>
   </div>
   <div class="display-page">
     <!-- <app-display-page></app-display-page> -->

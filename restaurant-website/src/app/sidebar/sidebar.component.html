@@ -51,8 +51,8 @@
     </li>
     <li
       class="sidebar__menu__list__item"
-      routerLink="/admin/failed"
       routerLinkActive="active"
+      (click)="onToggleSidebar('/admin/failed')"
     >
       <a class="sidebar__menu__list__link">Failed</a>
     </li>
