@@ -55,12 +55,14 @@
   width: 100%;
   .menu-icon {
     z-index: 10;
-    border: 1px solid;
     position: absolute;
     margin: 1rem;
     max-width: 11rem;
     width: 100%;
-    display: flex;
+    display: none;
+    @media screen and (max-width: 800px) {
+      display: block;
+    }
     .menu-icon-bars {
       cursor: pointer;
     }

@@ -3,6 +3,9 @@
   gap: 0.5rem;
   align-items: center;
   padding: 2rem 1rem;
+  @media screen and (max-width: 800px) {
+    margin-top: 4rem;
+  }
   .avatar {
     width: 61px;
     height: 61px;
