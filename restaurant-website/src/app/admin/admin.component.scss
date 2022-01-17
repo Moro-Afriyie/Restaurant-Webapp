@@ -53,6 +53,12 @@
   min-height: 100%;
   position: relative;
   width: 100%;
+  .menu-icon {
+    z-index: 10;
+    border: 1px solid;
+    position: absolute;
+    margin: 1rem;
+  }
   .sidebar {
     display: flex;
     flex-direction: column;
