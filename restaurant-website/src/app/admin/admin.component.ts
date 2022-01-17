@@ -12,6 +12,7 @@ export class AdminComponent implements OnInit {
   orderStatus = false;
   closeOrder = false;
   private socket: any;
+  toggleSidebar = false;
   constructor(private router: Router, private http: HttpClient) {
     this.socket = io('https://restaurant-payment-backend.herokuapp.com/');
   }
@@ -35,5 +36,14 @@ export class AdminComponent implements OnInit {
         this.closeOrder = false;
       }
     });
+  }
+
+  onShowSideBar() {
+    if (window.innerWidth <= 800) {
+      this.toggleSidebar = !this.toggleSidebar;
+      console.log(window.innerWidth);
+    } else {
+      this.toggleSidebar = false;
+    }
   }
 }

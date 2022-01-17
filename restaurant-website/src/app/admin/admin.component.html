@@ -6,15 +6,26 @@
     </div>
     <!-- <span class="material-icons close" (click)="onClose()"> close </span> -->
   </div>
-  <div class="menu-icon menu-active">
-    <div class="menu-icon-bars change">
+  <div class="menu-icon">
+    <div
+      class="menu-icon-bars"
+      [ngClass]="{
+        change: toggleSidebar
+      }"
+      (click)="onShowSideBar()"
+    >
       <span class="bar1"></span>
       <span class="bar2"></span>
       <span class="bar3"></span>
     </div>
   </div>
-  <div class="sidebar sidebar-active">
-    <app-sidebar></app-sidebar>
+  <div
+    class="sidebar"
+    [ngClass]="{
+      'sidebar-active': toggleSidebar
+    }"
+  >
+    <app-sidebar> close </app-sidebar>
   </div>
   <div class="display-page">
     <!-- <app-display-page></app-display-page> -->
