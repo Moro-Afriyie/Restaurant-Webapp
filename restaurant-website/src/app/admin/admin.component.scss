@@ -62,6 +62,10 @@
     min-width: 13rem;
     background-color: #ffffff;
     height: 100vh;
+    @media screen and (max-width: 800px) {
+      left: -210px;
+      position: absolute;
+    }
   }
   .display-page {
     grid-area: main;
