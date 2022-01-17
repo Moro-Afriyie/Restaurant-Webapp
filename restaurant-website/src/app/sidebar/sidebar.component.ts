@@ -64,6 +64,7 @@ export class SidebarComponent implements OnInit {
         httpOptions
       )
       .subscribe();
+    this.onToggleSidebar();
   }
 
   onCloseOrders() {
@@ -79,10 +80,10 @@ export class SidebarComponent implements OnInit {
         httpOptions
       )
       .subscribe();
+    this.onToggleSidebar();
   }
 
-  onToggleSidebar(link: string) {
-    this.router.navigate([link]);
+  onToggleSidebar() {
     this.toggleSidebarEvent.emit(false);
   }
 }

@@ -39,6 +39,7 @@
       class="sidebar__menu__list__item"
       routerLink="/admin/orders"
       routerLinkActive="active"
+      (click)="onToggleSidebar()"
     >
       <a class="sidebar__menu__list__link">Orders</a>
     </li>
@@ -46,13 +47,15 @@
       class="sidebar__menu__list__item"
       routerLink="/admin/delivered"
       routerLinkActive="active"
+      (click)="onToggleSidebar()"
     >
       <a class="sidebar__menu__list__link">Delivered</a>
     </li>
     <li
       class="sidebar__menu__list__item"
+      routerLink="/admin/failed"
       routerLinkActive="active"
-      (click)="onToggleSidebar('/admin/failed')"
+      (click)="onToggleSidebar()"
     >
       <a class="sidebar__menu__list__link">Failed</a>
     </li>
