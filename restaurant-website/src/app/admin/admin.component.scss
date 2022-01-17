@@ -58,6 +58,36 @@
     border: 1px solid;
     position: absolute;
     margin: 1rem;
+    max-width: 11rem;
+    width: 100%;
+  }
+  .bar1,
+  .bar2,
+  .bar3 {
+    /* display: block;*/
+    display: block;
+    height: 5px;
+    background-color: black;
+    width: 35px;
+    margin: 6px 0px;
+    transition: 0.4s;
+  }
+  /*Rotate first bar*/
+
+  .change .bar1 {
+    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+    transform: rotate(-45deg) translate(-9px, 6px);
+  }
+  /*Fade out the second bar*/
+
+  .change .bar2 {
+    opacity: 0;
+  }
+  /*Rotate last bar*/
+
+  .change .bar3 {
+    -webkit-transform: rotate(45deg) translate(-8px, -8px);
+    transform: rotate(45deg) translate(-8px, -8px);
   }
   .sidebar {
     display: flex;
@@ -71,7 +101,11 @@
     @media screen and (max-width: 800px) {
       left: -210px;
       position: absolute;
+      transition: all 400ms linear;
     }
+  }
+  .sidebar-active {
+    left: 0;
   }
   .display-page {
     grid-area: main;
