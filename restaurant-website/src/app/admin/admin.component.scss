@@ -60,6 +60,18 @@
     margin: 1rem;
     max-width: 11rem;
     width: 100%;
+    display: flex;
+    .menu-icon-bars {
+      cursor: pointer;
+    }
+    .change {
+      justify-content: flex-end;
+    }
+  }
+  .menu-active {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
   }
   .bar1,
   .bar2,
