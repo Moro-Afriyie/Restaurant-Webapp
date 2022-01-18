@@ -15,6 +15,33 @@
   </div>
 </div>
 <!--END POPUP MODAL-->
+
+<!--POPUP MODAL-->
+<div class="modal" *ngIf="addAnotherItemModal">
+  <div style="max-height: calc(100vh - 4rem)" class="popup center">
+    <div class="header">
+      <div class="left">Add Another Food</div>
+      <div (click)="closeAddAnotherItemModal()" class="right pill">close</div>
+    </div>
+    <div
+      style="overflow: auto; max-height: calc(100vh - 10rem)"
+      class="menu__container"
+    >
+      <div class="menu__meal__card" *ngFor="let item of foodArray">
+        <div class="card__image">
+          <img src="{{ item.image }}" alt="{{ item.alt }}" />
+        </div>
+        <div class="card__body">{{ item.body }}</div>
+        <div class="card__price">
+          <h4>{{ "GHS " + item.price }}</h4>
+          <button (click)="addFood(item.id)">Add Food</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--END POPUP MODAL-->
+
 <!---PAYMENT RESPONSE MODAL-->
 <div class="modal payment__loading2" *ngIf="paymentLoading">
   <div class="popup center">
@@ -36,6 +63,10 @@
     <div class="title">Error!!</div>
     <div class="description">
       <p>{{ error }}</p>
+      <p class="description-info">
+        If you are using MTN, please dial *170#, select my approvals and approve
+        the payment. Your order will be successfull👌
+      </p>
     </div>
     <div class="dismiss-btn">
       <button id="dismiss-popup-btn" (click)="onClose()">Close</button>
@@ -78,15 +109,24 @@
       <h1 class="form__title">Place order</h1>
       <div class="form__container">
         <div class="form__control">
-          <label for="foodOrdered">Food Name</label>
-          <input
-            type="text"
-            placeholder="Enter food"
-            name="foodOrdered"
-            id="foodOrdered"
-            formControlName="foodOrdered"
-            readonly
-          />
+          <label for="foodOrdered">Item(s)</label>
+          <div class="food-name-container" *ngFor="let item of foodsOrdered">
+            <input
+              type="text"
+              placeholder="Enter food"
+              name="foodOrdered"
+              class="food-name-input"
+              value="{{ item.foodName }}"
+              readonly
+            />
+            <div (click)="removeFood(item.id)" class="remove-food pill">
+              <i class="fa fa-trash-o"></i>
+            </div>
+          </div>
+
+          <div (click)="addAnotherItem()" class="add-another">
+            <span>+</span><span>Add Another Item</span>
+          </div>
         </div>
         <div class="form__control">
           <label for="name">Name</label>
@@ -162,15 +202,24 @@
 
         <div class="form__control">
           <label for="numberOfPacks">Number of packs</label>
-          <input
-            type="number"
-            min="1"
-            name="numberOfPacks"
-            id="numberOfPacks"
-            formControlName="numberOfPacks"
-            (change)="calculateAmount($event)"
-            [ngClass]="{ 'is-invalid': submitted && f['numberOfPacks'].errors }"
-          />
+          <div
+            class="number-of-packs-container"
+            *ngFor="let item of foodsOrdered"
+          >
+            <div class="food-name">{{ item.foodName }}</div>
+            <input
+              type="number"
+              min="1"
+              name="numberOfPacks"
+              [(ngModel)]="item.quantity"
+              id="numberOfPacks"
+              formControlName="numberOfPacks"
+              (change)="calculateAmount($event)"
+              (keyup)="calculateAmount($event)"
+              [ngClass]="{ 'is-invalid': !item.quantity }"
+            />
+          </div>
+
           <div
             *ngIf="submitted && f['numberOfPacks'].errors"
             class="invalid-feedback"

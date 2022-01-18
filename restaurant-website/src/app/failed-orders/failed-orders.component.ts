@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Firestore, collectionData, collection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { OrderDetailsAdmin } from '../models/interface';
+import { OrderType } from '../single-order/single-order.component';
 
 @Component({
   selector: 'app-failed-orders',
@@ -11,6 +12,7 @@ import { OrderDetailsAdmin } from '../models/interface';
 })
 export class FailedOrdersComponent implements OnInit {
   item$: Observable<OrderDetailsAdmin[]>;
+  OrderType = OrderType;
   constructor(private firestore: AngularFirestore) {
     this.item$ = this.exampleGetCollection();
   }

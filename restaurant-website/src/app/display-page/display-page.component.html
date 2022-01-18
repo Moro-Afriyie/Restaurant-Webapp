@@ -1,73 +1,7 @@
 <main class="display__container">
   <h1 class="title">Orders</h1>
   <div class="display__container__items">
-    <div
-      class="display__container__items__card"
-      *ngFor="let item of item$ | async"
-    >
-      <div class="card__title">
-        <ul>
-          <li class="order__num">Order #{{ item.orderId }}</li>
-          <li class="date">{{ item.date | date: "medium" }}</li>
-        </ul>
-      </div>
-      <div class="card__body">
-        <ul>
-          <li>
-            <p>Name:</p>
-            {{ item.name }}
-          </li>
-          <li>
-            <p>Food:</p>
-            {{ item.foodOrdered }}
-          </li>
-          <li>
-            <p>Phone number:</p>
-            {{ item.phoneNumber }}
-          </li>
-          <li>
-            <p>Location:</p>
-            {{ item.location }}
-          </li>
-          <li *ngIf="item.note || item.note !== ''">
-            <p>Note:</p>
-            {{ item.note }}
-          </li>
-          <li>
-            <p>Number of Packs:</p>
-            {{ item.numberOfPacks }}
-          </li>
-          <li>
-            <p>Delivery Fee:</p>
-            GHS {{ item.deliveryFee }}
-          </li>
-          <li>
-            <p>Price Of food:</p>
-            GHS {{ item.priceOfFood }}
-          </li>
-          <li>
-            <p>Total Price:</p>
-            GHS {{ item.amount }}
-          </li>
-          <!-- <li>Extra comments if any</li> -->
-        </ul>
-      </div>
-      <div class="card-btn">
-        <div class="cancel" (click)="onCancelOrder(item.Id, item.orderId)">
-          <button>
-            <span class="material-icons"> close </span>
-          </button>
-        </div>
-        <div
-          class="completed"
-          (click)="onOrderDelivered(item.Id, item.orderId)"
-        >
-          <button>
-            <span class="material-icons"> done </span>
-          </button>
-        </div>
-      </div>
-    </div>
+    <app-single-order *ngFor="let item of item$ | async" [item]="item" [orderType]="OrderType.pendingOrder"></app-single-order>
   </div>
   <!-- <div
       class="display__container__items__card"

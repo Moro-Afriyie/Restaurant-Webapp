@@ -55,6 +55,7 @@
       class="sidebar__menu__list__item"
       routerLink="/admin/failed"
       routerLinkActive="active"
+      *ngIf="showFailed"
       (click)="onToggleSidebar()"
     >
       <a class="sidebar__menu__list__link">Failed</a>

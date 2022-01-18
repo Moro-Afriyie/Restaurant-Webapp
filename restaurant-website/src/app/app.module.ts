@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -34,14 +34,30 @@ import { DisplayPageComponent } from './display-page/display-page.component';
 import { CompletedOrdersComponent } from './completed-orders/completed-orders.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FailedOrdersComponent } from './failed-orders/failed-orders.component';
-
+import { IsArrayPipe } from 'src/pipes/is-array.pipe';
+import { KeysPipe } from 'src/pipes/keys.pipe';
+import { SingleOrderComponent } from './single-order/single-order.component';
 
 @NgModule({
-  declarations: [AppComponent, HomepageComponent, OrderPageComponent, AdminComponent, LoginComponent, DisplayPageComponent, CompletedOrdersComponent, SidebarComponent, FailedOrdersComponent],
+  declarations: [
+    AppComponent,
+    HomepageComponent,
+    OrderPageComponent,
+    AdminComponent,
+    LoginComponent,
+    DisplayPageComponent,
+    CompletedOrdersComponent,
+    SidebarComponent,
+    FailedOrdersComponent,
+    SingleOrderComponent,
+    IsArrayPipe,
+    KeysPipe,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
     // provideFirebaseApp(() => initializeApp(environment.firebase)),
     // provideAuth(() => getAuth()),
     // provideDatabase(() => getDatabase()),

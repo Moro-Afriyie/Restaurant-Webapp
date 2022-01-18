@@ -41,7 +41,6 @@ export class AdminComponent implements OnInit {
   onShowSideBar() {
     if (window.innerWidth <= 800) {
       this.toggleSidebar = !this.toggleSidebar;
-      console.log(window.innerWidth);
     } else {
       this.toggleSidebar = false;
     }

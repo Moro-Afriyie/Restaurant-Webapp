@@ -31,7 +31,7 @@ export interface OrderDetails {
   date: string;
   orderId: string;
   name: string;
-  foodOrdered: string;
+  foodOrdered: string[];
   phoneNumber: string;
   location: string;
   amount: string;
@@ -40,21 +40,21 @@ export interface OrderDetails {
   deliveryFee: number;
   priceOfFood: string;
   orderPaid: boolean;
-  numberOfPacks: number;
+  numberOfPacks: {[key: string]: number};
 }
 
 export interface OrderDetailsAdmin {
   date: string;
   orderId: string;
   name: string;
-  foodOrdered: string;
+  foodOrdered: string[];
   phoneNumber: string;
   location: string;
   amount: string;
   note?: string;
   completed: boolean;
   Id: string;
-  numberOfPacks: number;
+  numberOfPacks: {[key: string]: number}[];
   deliveryFee: number;
   priceOfFood: string;
   orderPaid: boolean;

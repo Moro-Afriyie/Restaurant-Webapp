@@ -98,7 +98,7 @@ export const cities = [
   { name: 'Tudu', price: 20 },
   { name: 'University Of Ghana', price: 20 },
   { name: 'UPSA', price: 20 },
-  { name: 'Weija', price: 20 },
+  { name: 'Weija', price: 30 },
   { name: 'West Legon', price: 20 },
   { name: 'Zoti Area', price: 20 },
 ];

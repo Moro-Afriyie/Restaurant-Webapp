@@ -24,6 +24,14 @@ import { cities } from '../models/accra';
   styleUrls: ['./order-page.component.scss'],
 })
 export class OrderPageComponent implements OnInit {
+  addAnotherItemModal: boolean = false;
+  foodsOrdered: {
+    id: string;
+    foodName: string;
+    quantity: number;
+    price: number;
+  }[] = [];
+  foodArray: any[] = [];
   constructor(
     private router: Router,
     private firestore: AngularFirestore,
@@ -33,10 +41,11 @@ export class OrderPageComponent implements OnInit {
   ) {
     this.socket = io('https://restaurant-payment-backend.herokuapp.com');
     // this.socket = io('http://localhost:8000/');
+    this.foodArray = this.socketService.getAllFoods();
   }
 
   orderForm = new FormGroup({
-    name: new FormControl('', Validators.required),
+    name: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [
       Validators.required,
       Validators.pattern(/^\+233\d{9}|^233\d{9}|^\d{10}$/),
@@ -44,10 +53,7 @@ export class OrderPageComponent implements OnInit {
     location: new FormControl('', Validators.required),
     // deliveryFee: new FormControl(''),
     // amount: new FormControl(0, Validators.required),
-    numberOfPacks: new FormControl('1', [
-      Validators.required,
-      Validators.pattern(/^\d+$/),
-    ]),
+    numberOfPacks: new FormControl(''),
     note: new FormControl(''),
     foodOrdered: new FormControl('', Validators.required),
   });
@@ -87,6 +93,12 @@ export class OrderPageComponent implements OnInit {
         amount: '0.01',
         foodOrdered: data.body,
       });
+      this.foodsOrdered.push({
+        id,
+        foodName: data.body,
+        quantity: 1,
+        price: +data.price,
+      });
       this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
     });
 
@@ -101,7 +113,7 @@ export class OrderPageComponent implements OnInit {
           this.paymentLoading = false;
           setTimeout(() => {
             this.paymentError = false;
-          }, 4000);
+          }, 30000);
         } else if (this.data.status === 'PAID') {
           this.paymentError = false;
           // this.paymentSuccess = true;
@@ -143,7 +155,7 @@ export class OrderPageComponent implements OnInit {
       date: Date.now().toString(),
       orderId: this.clientTransactionId,
       name: this.orderForm.value.name,
-      foodOrdered: this.orderForm.value.foodOrdered,
+      foodOrdered: this.foodsOrdered.map((food) => food.foodName),
       phoneNumber: this.orderForm.value.phoneNumber,
       amount: this.totalPrice,
       note: this.orderForm.value.note,
@@ -152,10 +164,16 @@ export class OrderPageComponent implements OnInit {
       deliveryFee: this.deliveryFee,
       priceOfFood: this.priceOfFood,
       orderPaid: false,
-      numberOfPacks: this.orderForm.value.numberOfPacks,
+      numberOfPacks: this.foodsOrdered.map((food) => ({
+        [food.foodName]: food.quantity,
+      })),
     };
 
-    // console.log(this.orderDetails);
+    let valError = this.validateOrder(this.orderDetails);
+    if (valError) {
+      return;
+    }
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -189,6 +207,19 @@ export class OrderPageComponent implements OnInit {
       });
   }
 
+  validateOrder(orderDetails: OrderDetails) {
+    if (orderDetails.foodOrdered.length == 0) {
+      return 'Please select at least one food item';
+    }
+    let invalidNumberOfPacks = Object.keys(orderDetails.numberOfPacks).filter(
+      (i) => !orderDetails.numberOfPacks[i]
+    );
+    if (invalidNumberOfPacks.length > 0) {
+      return 'Please select the number of packs for each food item';
+    }
+    return false;
+  }
+
   createOrder(data: OrderDetails) {
     return new Promise<any>((resolve, reject) => {
       this.firestore
@@ -217,6 +248,7 @@ export class OrderPageComponent implements OnInit {
 
     return null;
   }
+
   FormatGhanaianPhoneNumber = (phoneNumber: string) => {
     if (phoneNumber.startsWith('0') && phoneNumber.length == 10) {
       return '233' + phoneNumber.substring(1);
@@ -237,9 +269,21 @@ export class OrderPageComponent implements OnInit {
   }
 
   calculateAmount(event: any) {
+    let foodsPrice = 0;
+    this.foodsOrdered.forEach((food) => {
+      foodsPrice += Number(food.price * +food.quantity);
+    });
+    this.priceOfFood = foodsPrice.toFixed(2);
+    if (this.deliveryFee)
+      this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
+
+    // console.log('foodsOrdered', this.foodsOrdered, foodsPrice);
+    return;
+
     let quantity = event.target.value;
     this.priceOfFood = (parseFloat(this.price) * parseInt(quantity)).toFixed(2);
     this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
+
     // this.orderForm.patchValue({
     //   amount: (parseFloat(this.price) * parseInt(quantity)).toFixed(2),
     // });
@@ -273,5 +317,50 @@ export class OrderPageComponent implements OnInit {
   onCloseModal(): void {
     this.modalOpen = false;
     this.router.navigate(['/']);
+  }
+
+  addAnotherItem() {
+    let foodOrderedIds = this.foodsOrdered.map((i) => i.id);
+    this.foodArray = this.socketService
+      .getAllFoods()
+      .filter((i) => !foodOrderedIds.includes(i.id));
+    this.addAnotherItemModal = true;
+  }
+
+  closeAddAnotherItemModal() {
+    this.addAnotherItemModal = false;
+  }
+
+  addFood(id: string): void {
+    const data: Food = this.socketService.getFoodByID(id);
+    this.foodsOrdered.push({
+      id,
+      foodName: data.body,
+      quantity: 1,
+      price: +data.price,
+    });
+
+    this.priceOfFood = this.foodsOrdered
+      .reduce(function (sum, food) {
+        const updatedSum = sum + food.price;
+        return updatedSum;
+      }, 0)
+      .toFixed(2);
+
+    this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
+
+    this.closeAddAnotherItemModal();
+  }
+
+  removeFood(id: string): void {
+    this.foodsOrdered = this.foodsOrdered.filter((item) => item.id !== id);
+    this.priceOfFood = this.foodsOrdered
+      .reduce(function (sum, food) {
+        const updatedSum = sum + food.price * food.quantity;
+        return updatedSum;
+      }, 0)
+      .toFixed(2);
+
+    this.totalPrice = this.getTotalPrice(this.deliveryFee, this.priceOfFood);
   }
 }

@@ -46,6 +46,15 @@
   }
 }
 
+.pill {
+  border-radius: 1rem;
+  background-color: rgb(56, 105, 197);
+  padding: 0.2rem 0.5rem;
+  color: white;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
 .navbar {
   background: #febe19;
   display: flex;
@@ -252,6 +261,24 @@
   transform: translate(-50%, -50%);
 }
 .popup {
+  position: relative;
+  overflow: hidden;
+  .header {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    position: absolute;
+    width: calc(100% - 2rem);
+    top: 0;
+    background-color: white;
+    z-index: 200;
+    left: 0;
+    .left {
+      flex-grow: 1;
+    }
+    .right {
+    }
+  }
   max-width: 35rem;
   width: 100%;
   padding: 30px 20px;
@@ -361,6 +388,9 @@
   }
   .description {
     color: rgb(215, 69, 69);
+    .description-info {
+      color: #111;
+    }
   }
 }
 .loader,
@@ -398,3 +428,29 @@
   }
 }
 /****ENDLOADER***/
+
+.add-another {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5rem;
+  cursor: pointer;
+  span {
+    display: inline-block;
+  }
+  color: #558ed5;
+  &:hover {
+    color: #1f70d3;
+  }
+}
+
+.food-name-container {
+  display: flex;
+  align-items: center;
+  .food-name-input {
+    flex-grow: 1;
+  }
+  .remove-food {
+    margin-left: 0.5rem;
+  }
+}

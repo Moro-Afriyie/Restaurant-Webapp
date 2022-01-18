@@ -1,0 +1,98 @@
+<div class="display__container__items__card" *ngIf="item">
+  <div class="card__title">
+    <ul *ngIf="orderType !== 0; else completed">
+      <li class="order__num">Order #{{ item.orderId }}</li>
+      <li class="date">{{ item.date | date: "medium" }}</li>
+    </ul>
+  </div>
+  <ng-template #completed>
+    <ul>
+      <div class="card__header">
+        <li class="order__num">Order #{{ item.orderId }}</li>
+        <p>delivered</p>
+      </div>
+
+      <li class="date">{{ item.date | date: "medium" }}</li>
+    </ul>
+  </ng-template>
+  <div class="card__body">
+    <ul>
+      <li>
+        <p>Name:</p>
+        {{ item.name }}
+      </li>
+      <li>
+        <p>Food:</p>
+        <span *ngIf="!(item.foodOrdered | isarray)">{{
+          item.foodOrdered
+        }}</span>
+
+        <div class="food-item" *ngIf="item.foodOrdered | isarray">
+          <ul>
+            <li *ngFor="let food of item.foodOrdered">
+              {{ food }}
+            </li>
+          </ul>
+          <!--<p *ngFor="let food of item.foodOrdered;">{{food}}</p>-->
+        </div>
+      </li>
+      <li>
+        <p>Phone number:</p>
+        {{ item.phoneNumber }}
+      </li>
+      <li>
+        <p>Location:</p>
+        {{ item.location }}
+      </li>
+      <li *ngIf="item.note || item.note !== ''">
+        <p>Note:</p>
+        {{ item.note }}
+      </li>
+      <li>
+        <p>Number of Packs:</p>
+
+        <span *ngIf="!(item.numberOfPacks | isarray)">{{
+          item.numberOfPacks
+        }}</span>
+
+        <div *ngIf="item.numberOfPacks | isarray">
+          <div *ngFor="let food of item.numberOfPacks">
+            <p style="color: rgb(58, 98, 184)" class="food">
+              food: {{ (food | keys)[0] }}
+            </p>
+            <p class="quantity">Packs: {{ food[(food | keys)[0]] }}</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <p>Delivery Fee:</p>
+        GHS {{ item.deliveryFee }}
+      </li>
+      <li>
+        <p>Price Of food:</p>
+        GHS {{ item.priceOfFood }}
+      </li>
+      <li>
+        <p>Total Price:</p>
+        GHS {{ item.amount }}
+      </li>
+      <!-- <li>Extra comments if any</li> -->
+    </ul>
+  </div>
+  <div class="card-btn" *ngIf="orderType !== 0">
+    <div class="cancel" (click)="onCancelOrder(item.Id, item.orderId)">
+      <button>
+        <span class="material-icons"> close </span>
+      </button>
+    </div>
+    <div
+      class="completed"
+      (click)="onOrderDelivered(item.Id, item.orderId)"
+      *ngIf="orderType === 2"
+    >
+      <button>
+        <span class="material-icons"> done </span>
+      </button>
+    </div>
+  </div>
+</div>

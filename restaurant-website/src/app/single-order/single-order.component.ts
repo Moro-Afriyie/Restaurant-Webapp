@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Firestore, collectionData, collection } from '@angular/fire/firestore';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { OrderDetailsAdmin } from '../models/interface';
-import { OrderType } from '../single-order/single-order.component';
 
 interface Order {
   // foodName: string;
@@ -14,37 +14,27 @@ interface Order {
 }
 
 @Component({
-  selector: 'app-display-page',
-  templateUrl: './display-page.component.html',
-  styleUrls: ['./display-page.component.scss'],
+  selector: 'app-single-order',
+  templateUrl: './single-order.component.html',
+  styleUrls: ['./single-order.component.scss'],
 })
-export class DisplayPageComponent implements OnInit {
-  item$: Observable<OrderDetailsAdmin[]>;
+export class SingleOrderComponent implements OnInit {
   OrderType = OrderType;
-  constructor(private firestore: AngularFirestore) {
-    this.item$ = this.exampleGetCollection();
-  }
 
-  success: boolean = false;
+  @Input('item') item: OrderDetailsAdmin = {} as OrderDetailsAdmin;
+  @Input('orderType') orderType: OrderType = OrderType.failed;
+
+  constructor(private firestore: AngularFirestore) {}
 
   ngOnInit(): void {}
 
-  exampleGetCollection(): Observable<any> {
-    return this.firestore
-      .collection('orders', (orders) =>
-        orders
-          .where('completed', '==', false)
-          .where('orderPaid', '==', true)
-          .orderBy('date', 'desc')
-      )
-      .valueChanges({ idField: 'Id' });
-  }
+  success: boolean = false;
 
   onOrderDelivered(id: string, orderId: string): void {
     if (window.confirm(`Are you sure you want to comfirm oder: ${orderId}?`)) {
       this.updateOrder(id, { completed: true })
-        // .then((res) => console.log(res))
-        .catch((err) => console.log(err));
+        // .then((res) => (res))
+        .catch((err) => {});
       this.success = true;
     }
   }
@@ -52,8 +42,8 @@ export class DisplayPageComponent implements OnInit {
   onCancelOrder(id: string, orderId: string) {
     if (window.confirm(`Do you really want to delete oder: ${orderId}?`)) {
       this.deleteOrder(id)
-        // .then((res) => console.log(res))
-        .catch((err) => console.log(err));
+        // .then((res) => (res))
+        .catch((err) => err);
     }
   }
 
@@ -64,4 +54,10 @@ export class DisplayPageComponent implements OnInit {
   deleteOrder(id: string): Promise<void> {
     return this.firestore.collection('orders').doc(id).delete();
   }
+}
+
+export enum OrderType {
+  completed = 0,
+  failed = 1,
+  pendingOrder = 2,
 }
